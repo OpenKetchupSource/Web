@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Login from "../components/login/Login";
 
-
 const LoginPage = () => {
+
   return (
     <Wrapper>
     <Logo src="/images/icon.png" alt="logo" />
