@@ -11,7 +11,7 @@ const KakaoCallback = () => {
     console.log('인가 코드:', code);
 
     if (code) {
-      axios.post('http://localhost:8080/api/auth/kakao', {
+      axios.post('http://localhost:5713/api/auth/kakao', {
         code: code
       })
       .then(response => {
