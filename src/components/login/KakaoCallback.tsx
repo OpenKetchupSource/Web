@@ -11,13 +11,9 @@ const KakaoCallback = () => {
     console.log('인가 코드:', code);
 
     if (code) {
-      axios.post('/api/auth/kakao', 
-        { code },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        }
+      axios.post('http://localhost:5173/api/oauth/login',
+        JSON.stringify({ code }),
+        { headers: { 'Content-Type': 'application/json' } }
       )
       .then(response => {
         console.log('로그인 성공', response.data);
