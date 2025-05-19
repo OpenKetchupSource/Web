@@ -17,9 +17,9 @@ const KakaoCallback = () => {
         { headers: { 'Content-Type': 'application/json' } }
       )
       .then(response => {
-        console.log('로그인 성공', response.data);
-        localStorage.setItem('token', response.data.token);
-        window.location.href = '/';
+        // console.log('로그인 성공', response.data);
+        // console.log('access_token:', response.data.result.tokens.accessToken);
+        localStorage.setItem('token', response.data.result.tokens.accessToken);
       })
       .catch(error => {
         console.error('로그인 실패', error);
