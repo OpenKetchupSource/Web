@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const KakaoCallback = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -19,7 +20,9 @@ const KakaoCallback = () => {
       .then(response => {
         // console.log('로그인 성공', response.data);
         // console.log('access_token:', response.data.result.tokens.accessToken);
-        localStorage.setItem('token', response.data.result.tokens.accessToken);
+        localStorage.setItem('accessToken', response.data.result.tokens.accessToken);
+        localStorage.setItem('refreshToken', response.data.result.tokens.refreshToken);
+        navigate('/'); // 로그인 성공 후 홈으로 리다이렉트
       })
       .catch(error => {
         console.error('로그인 실패', error);
