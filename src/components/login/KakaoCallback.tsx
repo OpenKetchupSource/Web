@@ -6,18 +6,20 @@ const KakaoCallback = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const code = queryParams.get('code');
+    const searchParams = new URLSearchParams(location.search);
+    const code = searchParams.get("code");
     console.log('인가 코드:', code);
 
     if (code) {
-      axios.post('http://localhost:5713/api/auth/kakao', {
-        code: code
-      })
+      axios.post('https://soulmate.o-r.kr/api/oauth/login',{ 
+        "code": code 
+      },
+        { headers: { 'Content-Type': 'application/json' } }
+      )
       .then(response => {
-        console.log('로그인 성공', response.data);
-        localStorage.setItem('token', response.data.token);
-        window.location.href = '/';
+        // console.log('로그인 성공', response.data);
+        // console.log('access_token:', response.data.result.tokens.accessToken);
+        localStorage.setItem('token', response.data.result.tokens.accessToken);
       })
       .catch(error => {
         console.error('로그인 실패', error);
