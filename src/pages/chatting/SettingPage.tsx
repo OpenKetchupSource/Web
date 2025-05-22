@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import { useSettingStore } from "../../services/zustand/setting";
 
 const characters = [
@@ -21,8 +22,7 @@ const characters = [
 ];
 
 const SettingPage: React.FC = () => {
-  const { selectedDate, setDate, selectedCharacter, setCharacter } =
-    useSettingStore();
+  const { selectedDate, setDate, selectedCharacter, setCharacter } = useSettingStore();
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = new Date(e.target.value);
@@ -30,44 +30,88 @@ const SettingPage: React.FC = () => {
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto">
-      <h1 className="text-xl font-bold mb-4">언제의 기록을 담고 싶나요?</h1>
-      <input
+    <Container>
+      <Title>언제의 기록을 담고 싶나요?</Title>
+      <DateInput
         type="date"
         value={selectedDate.toISOString().split("T")[0]}
         onChange={handleDateChange}
-        className="mb-6 p-2 border rounded"
       />
 
-      <h2 className="text-xl font-bold mb-4">누구와 대화하고 싶나요?</h2>
-      <div className="flex gap-4 mb-4">
+      <Subtitle>누구와 대화하고 싶나요?</Subtitle>
+      <CharacterList>
         {characters.map((char) => (
-          <div
+          <CharacterCard
             key={char.id}
             onClick={() => setCharacter(char.id)}
-            className={`cursor-pointer p-2 border rounded ${
-              selectedCharacter === char.id
-                ? "border-blue-500"
-                : "border-gray-300"
-            }`}
+            selected={selectedCharacter === char.id}
           >
-            <div className="text-center">{char.name}</div>
-          </div>
+            {char.name}
+          </CharacterCard>
         ))}
-      </div>
+      </CharacterList>
 
       {selectedCharacter && (
-        <div className="p-4 bg-gray-100 rounded shadow">
-          <h3 className="font-bold">
+        <CharacterDetail>
+          <CharacterName>
             {characters.find((c) => c.id === selectedCharacter)?.name}
-          </h3>
-          <p>
-            {characters.find((c) => c.id === selectedCharacter)?.description}
-          </p>
-        </div>
+          </CharacterName>
+          <p>{characters.find((c) => c.id === selectedCharacter)?.description}</p>
+        </CharacterDetail>
       )}
-    </div>
+    </Container>
   );
 };
 
 export default SettingPage;
+
+const Container = styled.div`
+  padding: 1.5rem;
+  max-width: 28rem;
+  margin: 0 auto;
+`;
+
+const Title = styled.h1`
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+`;
+
+const DateInput = styled.input`
+  margin-bottom: 1.5rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  width: 100%;
+`;
+
+const Subtitle = styled.h2`
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+`;
+
+const CharacterList = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+`;
+
+const CharacterCard = styled.div<{ selected: boolean }>`
+  cursor: pointer;
+  padding: 0.5rem;
+  border: 2px solid ${({ selected }) => (selected ? "#3b82f6" : "#d1d5db")};
+  border-radius: 0.375rem;
+  text-align: center;
+`;
+
+const CharacterDetail = styled.div`
+  padding: 1rem;
+  background-color: #f3f4f6;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+`;
+
+const CharacterName = styled.h3`
+  font-weight: bold;
+`;
