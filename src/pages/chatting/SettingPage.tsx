@@ -23,7 +23,8 @@ const characters = [
 ];
 
 const SettingPage: React.FC = () => {
-  const { selectedDate, setDate, selectedCharacter, setCharacter } = useSettingStore();
+  const { selectedDate, setDate, selectedCharacter, setCharacter } =
+    useSettingStore();
   const navigate = useNavigate();
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,14 +59,19 @@ const SettingPage: React.FC = () => {
           <CharacterName>
             {characters.find((c) => c.id === selectedCharacter)?.name}
           </CharacterName>
-          <p>{characters.find((c) => c.id === selectedCharacter)?.description}</p>
+          <p>
+            {characters.find((c) => c.id === selectedCharacter)?.description}
+          </p>
         </CharacterDetail>
       )}
 
       <button
         onClick={() => {
           navigate("/chat");
-        }} >제출</button>
+        }}
+      >
+        제출
+      </button>
     </Container>
   );
 };
