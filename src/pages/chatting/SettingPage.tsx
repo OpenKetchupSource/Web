@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useSettingStore } from "../../services/zustand/setting";
+import { useNavigate } from "react-router-dom";
 
 const characters = [
   {
@@ -23,6 +24,7 @@ const characters = [
 
 const SettingPage: React.FC = () => {
   const { selectedDate, setDate, selectedCharacter, setCharacter } = useSettingStore();
+  const navigate = useNavigate();
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = new Date(e.target.value);
@@ -59,6 +61,11 @@ const SettingPage: React.FC = () => {
           <p>{characters.find((c) => c.id === selectedCharacter)?.description}</p>
         </CharacterDetail>
       )}
+
+      <button
+        onClick={() => {
+          navigate("/chat");
+        }} >제출</button>
     </Container>
   );
 };

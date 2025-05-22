@@ -7,6 +7,7 @@ import DiaryDetail from "./pages/DiaryDetail";
 import Comments from "./pages/collection/Comments";
 import Hashtags from "./pages/collection/Hashtags";
 import SettingPage from "./pages/chatting/SettingPage";
+import ChatPage from "./pages/chatting/ChatPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/oauth/kakao/callback" element={<KakaoCallback />} />
         <Route path="/diarydetail/:id" element={<DiaryDetail />} />
         <Route path="/setChatting" element={<SettingPage />} />
+        <Route path="/chat" element={<ChatPage />} />
 
         <Route path="/comments" element={<Comments />} />
         <Route path="/hashtags" element={<Hashtags />} />
