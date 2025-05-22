@@ -5,5 +5,5 @@ const WritingPage = () => {
       <p>This is the writing page.</p>
     </div>
   );
-}
+};
 export default WritingPage;
