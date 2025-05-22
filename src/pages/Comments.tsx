@@ -2,7 +2,7 @@ const Comments = () => {
     return (
         <div>
         <h1>Comments</h1>
-        <p>This is the comments page.</p>
+        <p>일단 없는 걸로</p>
         </div>
     );
     }   
