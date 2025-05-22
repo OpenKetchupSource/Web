@@ -10,7 +10,7 @@ const Login = () => {
   };
 
   return (
-    <Button type='button' onClick={loginHandler}>
+    <Button type="button" onClick={loginHandler}>
       카카오 로그인
     </Button>
   );
@@ -32,4 +32,4 @@ const Button = styled.button`
   &:hover {
     background-color: #ffd700;
   }
-`
+`;

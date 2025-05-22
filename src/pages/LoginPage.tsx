@@ -2,14 +2,13 @@ import styled from "styled-components";
 import Login from "../components/login/Login";
 
 const LoginPage = () => {
-
   return (
     <Wrapper>
-    <Logo src="/images/icon.png" alt="logo" />
-    <Login />
+      <Logo src="/images/icon.png" alt="logo" />
+      <Login />
     </Wrapper>
   );
-}
+};
 export default LoginPage;
 
 const Wrapper = styled.div`
