@@ -4,8 +4,8 @@ import Home from './pages/Home'
 import LoginPage from './pages/LoginPage'
 import KakaoCallback from './components/login/KakaoCallback'
 import DiaryDetail from './pages/DiaryDetail'
-import Comments from './pages/Comments'
-import Hashtags from './pages/Hashtags'
+import Comments from './pages/collection/Comments'
+import Hashtags from './pages/collection/Hashtags'
 
 function App() {
 
