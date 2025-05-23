@@ -17,7 +17,6 @@ export async function postSetting(memberId: string, characterId: string) {
   }
 }
 
-
 export async function postCharacter(characterName: string) {
   try {
     const response = await axiosInstanceWithToken.post(
@@ -27,7 +26,7 @@ export async function postCharacter(characterName: string) {
         params: {
           character: characterName,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {

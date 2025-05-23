@@ -18,7 +18,7 @@ function App() {
         <Route path="/oauth/kakao/callback" element={<KakaoCallback />} />
         <Route path="/diarydetail/:id" element={<DiaryDetail />} />
         <Route path="/setChatting" element={<SettingPage />} />
-        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/chat/:id" element={<ChatPage />} />
 
         <Route path="/comments" element={<Comments />} />
         <Route path="/hashtags" element={<Hashtags />} />
