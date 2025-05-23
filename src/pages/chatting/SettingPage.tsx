@@ -55,7 +55,7 @@ const SettingPage: React.FC = () => {
       const chatIdFromApi = response.chatId;
       if (chatIdFromApi) {
         setChatId(chatIdFromApi);
-        navigate(`/chat/${chatIdFromApi}`);
+        navigate(`/chat/${chatIdFromApi}/${selectedChar.name}`);
       } else {
         console.error("chatId가 응답에 없습니다.");
       }
