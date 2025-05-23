@@ -39,7 +39,7 @@ const SettingPage: React.FC = () => {
       return;
     }
     navigate("/chat");
-    postSetting
+    postSetting;
   };
 
   return (
@@ -75,11 +75,7 @@ const SettingPage: React.FC = () => {
         </CharacterDetail>
       )}
 
-      <button
-        onClick={startChatting}
-      >
-        제출
-      </button>
+      <button onClick={startChatting}>제출</button>
     </Container>
   );
 };
