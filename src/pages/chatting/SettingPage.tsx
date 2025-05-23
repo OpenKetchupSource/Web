@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useSettingStore } from "../../services/zustand/setting";
 import { useNavigate } from "react-router-dom";
-import { postCharacter, postSetting } from "../../services/apis/chatting/chat";
+import { postCharacter } from "../../services/apis/chatting/chat";
 
 const characters = [
   {

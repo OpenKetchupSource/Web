@@ -2,6 +2,7 @@ import { CreateAxiosInstanceWithToken } from "../axiosInstanceWithToken";
 
 const axiosInstanceWithToken = CreateAxiosInstanceWithToken();
 
+// 이건 안 쓸 듯
 export async function postSetting(memberId: string, characterId: string) {
   try {
     const response = await axiosInstanceWithToken.post(
