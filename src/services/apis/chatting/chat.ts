@@ -17,13 +17,20 @@ export async function postSetting(memberId: string, characterId: string) {
   }
 }
 
-export async function postCharacter(character: string) {
+
+export async function postCharacter(characterName: string) {
   try {
-    const response = await axiosInstanceWithToken.post("/api/chat/start", {
-      character,
-    });
+    const response = await axiosInstanceWithToken.post(
+      `/api/chat/start`,
+      {},
+      {
+        params: {
+          character: characterName,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
-    if (error) throw error;
+    throw error;
   }
 }
