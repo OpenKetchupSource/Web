@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useSettingStore } from "../../services/zustand/setting";
 import { useNavigate } from "react-router-dom";
+import { postSetting } from "../../services/apis/chatting/chat";
 
 const characters = [
   {
@@ -30,6 +31,15 @@ const SettingPage: React.FC = () => {
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = new Date(e.target.value);
     setDate(newDate);
+  };
+
+  const startChatting = () => {
+    if (!selectedCharacter) {
+      alert("캐릭터를 선택해주세요.");
+      return;
+    }
+    navigate("/chat");
+    postSetting
   };
 
   return (
@@ -66,9 +76,7 @@ const SettingPage: React.FC = () => {
       )}
 
       <button
-        onClick={() => {
-          navigate("/chat");
-        }}
+        onClick={startChatting}
       >
         제출
       </button>
