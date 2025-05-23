@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { postComment } from '../../services/apis/chatting/chat';
+import { postComment, postDiary } from '../../services/apis/chatting/chat';
 
 const Container = styled.div`
   max-width: 600px;
@@ -95,6 +95,10 @@ const ChatPage = () => {
     }
   };
 
+  const endChatting = () => {
+    // postDiary(chatId, character, date)
+  };
+
   return (
     <Container>
       <Title>Chat with {character}</Title>
@@ -117,6 +121,7 @@ const ChatPage = () => {
           보내기
         </SendButton>
       </InputArea>
+      <button onClick={endChatting}>대화 종료하기</button>
     </Container>
   );
 };
