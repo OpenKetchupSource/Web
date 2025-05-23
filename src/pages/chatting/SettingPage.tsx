@@ -40,20 +40,18 @@ const SettingPage: React.FC = () => {
       return;
     }
 
-    const selectedChar = characters.find(
-      (char) => char.id === selectedCharacter,
-    );
+    const selectedChar = characters.find((char) => char.id === selectedCharacter);
     if (!selectedChar) {
       alert("유효하지 않은 캐릭터입니다.");
       return;
     }
 
     try {
-      const response = await postCharacter(selectedChar.name);
+      const response = await postCharacter( selectedChar.name);
 
       console.log("Character set successfully:", response);
 
-      const chatIdFromApi = response.data.chatId;
+      const chatIdFromApi = response.chatId;
       if (chatIdFromApi) {
         setChatId(chatIdFromApi);
         navigate(`/chat/${chatIdFromApi}`);
