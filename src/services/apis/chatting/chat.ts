@@ -34,20 +34,23 @@ export async function postCharacter(characterName: string) {
   }
 }
 
-export async function postComment(chatId: string, content: string) {
-    try {
-        const response = await axiosInstanceWithToken.post(
-            `/api/chat/${chatId}/reply`,
-            {},
-            {
-                params: {
-                    role: "user",
-                    content: content,
-                },
-            }
-        );
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+export async function postComment(
+  chatId: string,
+  character: string,
+  content: string,
+) {
+  try {
+    const response = await axiosInstanceWithToken.post(
+      `/api/chat/${chatId}/reply`,
+      { role: "user", content: content },
+      {
+        params: {
+          character: character,
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 }
