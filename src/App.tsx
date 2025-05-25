@@ -13,13 +13,14 @@ import styled from "styled-components";
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/oauth/kakao/callback" element={<KakaoCallback />} />
-        <Route path="/diarydetail/:id" element={<DiaryDetail />} />
-        <Route path="/setChatting" element={<SettingPage />} />
-        <Route path="/chat/:chatId/:character" element={<ChatPage />} />
+      <Wrapper>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/oauth/kakao/callback" element={<KakaoCallback />} />
+          <Route path="/diarydetail/:id" element={<DiaryDetail />} />
+          <Route path="/setChatting" element={<SettingPage />} />
+          <Route path="/chat/:chatId/:character" element={<ChatPage />} />
 
           <Route path="/comments" element={<Comments />} />
           <Route path="/hashtags" element={<Hashtags />} />

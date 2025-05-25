@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import { postComment, postDiary } from '../../services/apis/chatting/chat';
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import { postComment, postDiary } from "../../services/apis/chatting/chat";
 
 const Container = styled.div`
   max-width: 600px;
@@ -26,13 +26,13 @@ const ChatBox = styled.div`
 `;
 
 const Message = styled.div<{ role: string }>`
-  text-align: ${({ role }) => (role === 'user' ? 'right' : 'left')};
+  text-align: ${({ role }) => (role === "user" ? "right" : "left")};
   margin-bottom: 0.5rem;
 `;
 
 const Bubble = styled.span<{ role: string }>`
   display: inline-block;
-  background-color: ${({ role }) => (role === 'user' ? '#d0e8ff' : '#d6f5d6')};
+  background-color: ${({ role }) => (role === "user" ? "#d0e8ff" : "#d6f5d6")};
   padding: 0.5rem 0.75rem;
   border-radius: 16px;
   max-width: 70%;
@@ -65,31 +65,36 @@ const SendButton = styled.button`
 `;
 
 const ChatPage = () => {
-  const { chatId, character } = useParams<{ chatId: string; character: string }>();
-  const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
-  const [input, setInput] = useState('');
+  const { chatId, character } = useParams<{
+    chatId: string;
+    character: string;
+  }>();
+  const [messages, setMessages] = useState<{ role: string; content: string }[]>(
+    [],
+  );
+  const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSend = async () => {
     if (!input.trim() || loading || !chatId || !character) return;
 
-    const userMessage = { role: 'user', content: input };
+    const userMessage = { role: "user", content: input };
     setMessages((prev) => [...prev, userMessage]);
-    setInput('');
+    setInput("");
     setLoading(true);
 
     try {
       const reply = await postComment(chatId, character, userMessage.content);
-      setMessages((prev) => [...prev, { role: 'bot', content: reply.content }]);
+      setMessages((prev) => [...prev, { role: "bot", content: reply.content }]);
     } catch (error) {
-      console.error('Failed to send message:', error);
+      console.error("Failed to send message:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
       handleSend();
     }
