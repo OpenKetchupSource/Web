@@ -32,6 +32,11 @@ const SettingPage: React.FC = () => {
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = new Date(e.target.value);
     setDate(newDate);
+    console.log(
+      selectedDate instanceof Date
+        ? selectedDate.toISOString().split("T")[0]
+        : selectedDate,
+    );
   };
 
   const startChatting = async () => {

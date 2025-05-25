@@ -8,23 +8,37 @@ import Comments from "./pages/collection/Comments";
 import Hashtags from "./pages/collection/Hashtags";
 import SettingPage from "./pages/chatting/SettingPage";
 import ChatPage from "./pages/chatting/ChatPage";
+import styled from "styled-components";
+import DiaryPage from "./pages/DiaryPage";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/oauth/kakao/callback" element={<KakaoCallback />} />
-        <Route path="/diarydetail/:id" element={<DiaryDetail />} />
-        <Route path="/setChatting" element={<SettingPage />} />
-        <Route path="/chat/:chatId/:character" element={<ChatPage />} />
+      <Wrapper>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/oauth/kakao/callback" element={<KakaoCallback />} />
+          <Route path="/diarydetail/:id" element={<DiaryDetail />} />
+          <Route path="/setChatting" element={<SettingPage />} />
+          <Route path="/chat/:chatId/:character" element={<ChatPage />} />
+          <Route path="/diary/:chatId" element={<DiaryPage />} />
 
-        <Route path="/comments" element={<Comments />} />
-        <Route path="/hashtags" element={<Hashtags />} />
-      </Routes>
+          <Route path="/comments" element={<Comments />} />
+          <Route path="/hashtags" element={<Hashtags />} />
+        </Routes>
+      </Wrapper>
     </BrowserRouter>
   );
 }
 
 export default App;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #fce8e7 0%, #e3ecf5 100%);
+`;

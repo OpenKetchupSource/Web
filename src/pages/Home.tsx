@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import DiaryList from "../components/home/DiaryList";
+import { TheFooter } from "../components/common/TheFooter";
 
 const Home = () => {
   return (
     <Wrapper>
       <Header>SoulMate</Header>
       <DiaryList />
+      <TheFooter />
     </Wrapper>
   );
 };
