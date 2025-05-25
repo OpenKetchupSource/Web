@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { postComment, postDiary } from "../../services/apis/chatting/chat";
+import { useSettingStore } from "../../services/zustand/setting";
 
+// ✅ Styled Components
 const Container = styled.div`
   max-width: 600px;
   margin: 2rem auto;
@@ -64,16 +66,28 @@ const SendButton = styled.button`
   }
 `;
 
+const EndChatButton = styled.button`
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #c0392b;
+  }
+`;
+
+// ✅ ChatPage Component
 const ChatPage = () => {
-  const { chatId, character } = useParams<{
-    chatId: string;
-    character: string;
-  }>();
-  const [messages, setMessages] = useState<{ role: string; content: string }[]>(
-    [],
-  );
+  const { chatId = "", character = "" } = useParams();
+  const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { selectedDate } = useSettingStore();
 
   const handleSend = async () => {
     if (!input.trim() || loading || !chatId || !character) return;
@@ -85,9 +99,21 @@ const ChatPage = () => {
 
     try {
       const reply = await postComment(chatId, character, userMessage.content);
-      setMessages((prev) => [...prev, { role: "bot", content: reply.content }]);
+
+      if (reply && reply.content) {
+        setMessages((prev) => [...prev, { role: "bot", content: reply.content }]);
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          { role: "bot", content: "응답을 받지 못했습니다. 다시 시도해 주세요." },
+        ]);
+      }
     } catch (error) {
       console.error("Failed to send message:", error);
+      setMessages((prev) => [
+        ...prev,
+        { role: "bot", content: "에러가 발생했습니다. 나중에 다시 시도해 주세요." },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -101,12 +127,24 @@ const ChatPage = () => {
   };
 
   const endChatting = () => {
-    // postDiary(chatId, character, date)
+    if (!chatId || !character || !selectedDate) {
+      alert("채팅 ID, 캐릭터 또는 날짜 정보가 부족합니다.");
+      return;
+    }
+
+    try {
+      postDiary(chatId, character, selectedDate instanceof Date ? selectedDate.toISOString().split("T")[0] : selectedDate);
+      alert("대화가 저장되었습니다.");
+    } catch (err) {
+      console.error("대화 저장 실패:", err);
+      alert("대화 저장 중 문제가 발생했습니다.");
+    }
   };
 
   return (
     <Container>
       <Title>Chat with {character}</Title>
+
       <ChatBox>
         {messages.map((msg, index) => (
           <Message key={index} role={msg.role}>
@@ -115,6 +153,7 @@ const ChatPage = () => {
         ))}
         {loading && <div>응답 중...</div>}
       </ChatBox>
+
       <InputArea>
         <TextInput
           value={input}
@@ -126,7 +165,8 @@ const ChatPage = () => {
           보내기
         </SendButton>
       </InputArea>
-      <button onClick={endChatting}>대화 종료하기</button>
+
+      <EndChatButton onClick={endChatting}>대화 종료하기</EndChatButton>
     </Container>
   );
 };
