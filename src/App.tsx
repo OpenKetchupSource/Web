@@ -39,10 +39,4 @@ const Wrapper = styled.div`
   justify-content: space-between;
   min-height: 100vh;
   background: linear-gradient(to bottom, #fce8e7 0%, #e3ecf5 100%);
-  @media (max-width: 600px) {
-    padding-bottom: 50px; /* Adjusted for smaller screens */
-  }
-  @media (max-width: 400px) {
-    padding-bottom: 40px; /* Further adjustment for very small screens */
-  }
 `;
