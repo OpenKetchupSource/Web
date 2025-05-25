@@ -11,12 +11,12 @@ export const TheFooter = () => {
           <div>홈</div>
         </Button>
         <Button onClick={() => navigate('/setChatting')}>
-          <div>채팅 하기</div>
+          <div>채팅</div>
         </Button>
         <Button>
           <div>일기 쓰기 (아직 x)</div>
         </Button>
-        <Button>
+        <Button onClick={() => navigate('/comments')}>
           <div>보관함</div>
         </Button>
       </Buttons>
