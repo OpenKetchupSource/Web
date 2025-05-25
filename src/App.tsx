@@ -35,7 +35,7 @@ export default App;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  // align-items: center;
   justify-content: space-between;
   min-height: 100vh;
   background: linear-gradient(to bottom, #fce8e7 0%, #e3ecf5 100%);
