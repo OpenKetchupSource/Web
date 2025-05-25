@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useSettingStore } from "../../services/zustand/setting";
 import { useNavigate } from "react-router-dom";
+import { postCharacter } from "../../services/apis/chatting/chat";
 
 const characters = [
   {
-    id: "angry",
+    id: "1",
     name: "앙글이",
     description:
       "화가 나지만, 상황에서 속이 뻥 뚫리게 같이 화를 내줄 수 있어요!",
   },
   {
-    id: "happy",
+    id: "2",
     name: "웅이",
     description: "항상 즐겁고 기분을 북돋아주는 친구예요.",
   },
   {
-    id: "calm",
+    id: "3",
     name: "티바노",
     description: "차분하게 상황을 바라볼 수 있도록 도와줘요.",
   },
@@ -25,11 +26,42 @@ const characters = [
 const SettingPage: React.FC = () => {
   const { selectedDate, setDate, selectedCharacter, setCharacter } =
     useSettingStore();
+  const [chatId, setChatId] = useState();
   const navigate = useNavigate();
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = new Date(e.target.value);
     setDate(newDate);
+  };
+
+  const startChatting = async () => {
+    if (!selectedCharacter) {
+      alert("캐릭터를 선택해주세요.");
+      return;
+    }
+
+    const selectedChar = characters.find(
+      (char) => char.id === selectedCharacter,
+    );
+    if (!selectedChar) {
+      alert("유효하지 않은 캐릭터입니다.");
+      return;
+    }
+
+    try {
+      const response = await postCharacter(selectedChar.name);
+      // console.log("Character set successfully:", response);
+
+      const chatIdFromApi = response.chatId;
+      if (chatIdFromApi) {
+        setChatId(chatIdFromApi);
+        navigate(`/chat/${chatIdFromApi}/${selectedChar.name}`);
+      } else {
+        console.error("chatId가 응답에 없습니다.");
+      }
+    } catch (error) {
+      console.error("Error setting character:", error);
+    }
   };
 
   return (
@@ -65,13 +97,7 @@ const SettingPage: React.FC = () => {
         </CharacterDetail>
       )}
 
-      <button
-        onClick={() => {
-          navigate("/chat");
-        }}
-      >
-        제출
-      </button>
+      <button onClick={startChatting}>제출</button>
     </Container>
   );
 };
