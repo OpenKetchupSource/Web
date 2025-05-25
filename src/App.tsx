@@ -8,26 +8,24 @@ import Comments from "./pages/collection/Comments";
 import Hashtags from "./pages/collection/Hashtags";
 import SettingPage from "./pages/chatting/SettingPage";
 import ChatPage from "./pages/chatting/ChatPage";
-import { TheFooter } from "./components/common/TheFooter";
 import styled from "styled-components";
 
 function App() {
   return (
     <BrowserRouter>
-    <Wrapper>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/oauth/kakao/callback" element={<KakaoCallback />} />
-        <Route path="/diarydetail/:id" element={<DiaryDetail />} />
-        <Route path="/setChatting" element={<SettingPage />} />
-        <Route path="/chat" element={<ChatPage />} />
+      <Wrapper>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/oauth/kakao/callback" element={<KakaoCallback />} />
+          <Route path="/diarydetail/:id" element={<DiaryDetail />} />
+          <Route path="/setChatting" element={<SettingPage />} />
+          <Route path="/chat" element={<ChatPage />} />
 
-        <Route path="/comments" element={<Comments />} />
-        <Route path="/hashtags" element={<Hashtags />} />
-      </Routes>
-      <TheFooter />
-    </Wrapper>
+          <Route path="/comments" element={<Comments />} />
+          <Route path="/hashtags" element={<Hashtags />} />
+        </Routes>
+      </Wrapper>
     </BrowserRouter>
   );
 }

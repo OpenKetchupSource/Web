@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 export const TheFooter = () => {
   const navigate = useNavigate();
@@ -7,16 +7,16 @@ export const TheFooter = () => {
   return (
     <Wrapper>
       <Buttons>
-        <Button onClick={() => navigate('/')}>
+        <Button onClick={() => navigate("/")}>
           <div>홈</div>
         </Button>
-        <Button onClick={() => navigate('/setChatting')}>
+        <Button onClick={() => navigate("/setChatting")}>
           <div>채팅</div>
         </Button>
         <Button>
           <div>일기 쓰기 (아직 x)</div>
         </Button>
-        <Button onClick={() => navigate('/comments')}>
+        <Button onClick={() => navigate("/comments")}>
           <div>보관함</div>
         </Button>
       </Buttons>
