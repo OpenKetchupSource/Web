@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { postComment, postDiary } from "../../services/apis/chatting/chat";
 import { useSettingStore } from "../../services/zustand/setting";
@@ -80,14 +80,13 @@ const EndChatButton = styled.button`
   }
 `;
 
-// ✅ ChatPage Component
 const ChatPage = () => {
   const { chatId = "", character = "" } = useParams();
   const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-
   const { selectedDate } = useSettingStore();
+  const navigate = useNavigate();
 
   const handleSend = async () => {
     if (!input.trim() || loading || !chatId || !character) return;
@@ -135,6 +134,7 @@ const ChatPage = () => {
     try {
       postDiary(chatId, character, selectedDate instanceof Date ? selectedDate.toISOString().split("T")[0] : selectedDate);
       alert("대화가 저장되었습니다.");
+      navigate(`/viewdiary/${chatId}`);
     } catch (err) {
       console.error("대화 저장 실패:", err);
       alert("대화 저장 중 문제가 발생했습니다.");
