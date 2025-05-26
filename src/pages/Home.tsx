@@ -6,6 +6,7 @@ const Home = () => {
   return (
     <Wrapper>
       <Header>SoulMate</Header>
+      <Title>최근 일기 목록</Title>
       <DiaryList />
       <TheFooter />
     </Wrapper>
@@ -23,4 +24,11 @@ const Header = styled.h1`
   width: 100%;
   text-align: center;
   font-size: 2rem;
+`;
+
+const Title = styled.h2`
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 16px;
 `;

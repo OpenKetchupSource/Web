@@ -19,12 +19,24 @@ const diaries = [
     tags: ['#취미', '#휴식'],
     content: '재밌었다!'.repeat(30),
   },
+  {
+    date: '2025.05.01.',
+    title: '오늘은 영화 보러 간 날',
+    tags: ['#취미', '#휴식'],
+    content: '재밌었다!'.repeat(30),
+  },
+  {
+    date: '2025.05.01.',
+    title: '오늘은 영화 보러 간 날',
+    tags: ['#취미', '#휴식'],
+    content: '재밌었다!'.repeat(30),
+  },
 ];
 
 const DiaryList = () => {
   return (
-    <>
-      <Title>최근 일기 목록</Title>
+    <Wrapper>
+      
       <CardList>
         {diaries.map((diary, index) => (
           <Card key={index}>
@@ -39,20 +51,22 @@ const DiaryList = () => {
           </Card>
         ))}
       </CardList>
-    </>
+    </Wrapper>
   );
 };
 
 export default DiaryList;
 
-export const Title = styled.h2`
-  font-size: 18px;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 16px;
+export const Wrapper = styled.div`
+  padding: 0 24px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 `;
 
 export const CardList = styled.div`
+  flex: 1; /* 남는 공간 모두 사용 */
   display: flex;
   flex-direction: column;
   gap: 16px;
