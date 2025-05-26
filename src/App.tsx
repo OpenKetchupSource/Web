@@ -9,7 +9,7 @@ import Hashtags from "./pages/collection/Hashtags";
 import SettingPage from "./pages/chatting/SettingPage";
 import ChatPage from "./pages/chatting/ChatPage";
 import styled from "styled-components";
-import DiaryPage from "./pages/DiaryPage";
+import WritingPage from "./pages/writing/WritingPage";
 
 function App() {
   return (
@@ -19,10 +19,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/oauth/kakao/callback" element={<KakaoCallback />} />
-          <Route path="/diarydetail/:id" element={<DiaryDetail />} />
+          <Route path="/diary/:id" element={<DiaryDetail />} />
           <Route path="/setChatting" element={<SettingPage />} />
           <Route path="/chat/:chatId/:character" element={<ChatPage />} />
-          <Route path="/diary/:chatId" element={<DiaryPage />} />
+          <Route path="/writing" element={<WritingPage />} />
 
           <Route path="/comments" element={<Comments />} />
           <Route path="/hashtags" element={<Hashtags />} />
@@ -35,7 +35,7 @@ function App() {
 export default App;
 
 export const Wrapper = styled.div`
-  position: fixed;
+  position: relative;
   width: 100%;
   min-height: 100vh;
   max-width: 600px;
