@@ -11,7 +11,7 @@ const DiaryDetail = () => {
       <Header>
         <HomeIcon onClick={() => navigate('/')} />
         <DateText>2025.05.01.</DateText>
-        <EditIcon onClick={() => navigate('/WritingPage')} />
+        <EditIcon />
       </Header>
 
       <Body>
