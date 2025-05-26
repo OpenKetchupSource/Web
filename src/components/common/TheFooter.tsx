@@ -1,5 +1,5 @@
-import { HiOutlineChat, HiOutlineHashtag, HiOutlinePencil, HiOutlineStar } from "react-icons/hi";
-import { HiOutlineChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
+import { BsChat, BsPencil, BsStar } from "react-icons/bs";
+import { GoHash } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -10,16 +10,16 @@ export const TheFooter = () => {
     <Wrapper>
       <Buttons>
         <Button onClick={() => navigate("/hashtags")}>
-          <HiOutlineHashtag size={24}/>
+          <GoHash size={24}/>
         </Button>
         <Button onClick={() => navigate("/setChatting")}>
-          <HiOutlineChat size={24}/>
+          <BsChat size={24}/>
         </Button>
         <Button>
-          <HiOutlinePencil size={24}/>
+          <BsPencil size={24}/>
         </Button>
         <Button onClick={() => navigate("/comments")}>
-          <HiOutlineStar size={24}/>
+          <BsStar size={24}/>
         </Button>
       </Buttons>
     </Wrapper>
