@@ -42,8 +42,6 @@ const WritingPage = () => {
 
 export default WritingPage;
 
-// styled-components
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
