@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { FaArrowRight } from 'react-icons/fa';
+import { BsArrowRight } from 'react-icons/bs';
 
 const WritingPage = () => {
   const [title, setTitle] = useState('');
@@ -46,23 +46,27 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position: relative;
   background: #fef2f2;
-  padding: 0 16px;
-  border-top-left-radius: 24px;
-  border-top-right-radius: 24px;
+  padding: 12px 24px;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  text-align: center;
 `;
 
 const DateText = styled.h1`
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   color: #1e2a52;
+  margin: 0;
 `;
 
-const ArrowIcon = styled(FaArrowRight)`
-  font-size: 20px;
+const ArrowIcon = styled(BsArrowRight)`
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  font-size: 24px;
   color: #1e2a52;
 `;
 
