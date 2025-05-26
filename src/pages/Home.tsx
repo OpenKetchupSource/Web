@@ -17,7 +17,7 @@ export default Home;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
+  padding: 0 16px;
 `;
 
 const Header = styled.h1`

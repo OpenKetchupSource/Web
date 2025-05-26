@@ -36,7 +36,6 @@ const diaries = [
 const DiaryList = () => {
   return (
     <Wrapper>
-      
       <CardList>
         {diaries.map((diary, index) => (
           <Card key={index}>
@@ -58,7 +57,7 @@ const DiaryList = () => {
 export default DiaryList;
 
 export const Wrapper = styled.div`
-  padding: 0 24px;
+  padding: 0 12px;
   height: 80vh;
   display: flex;
   flex-direction: column;
