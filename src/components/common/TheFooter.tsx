@@ -1,3 +1,5 @@
+import { BsChat, BsPencil, BsStar } from "react-icons/bs";
+import { GoHash } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -7,17 +9,17 @@ export const TheFooter = () => {
   return (
     <Wrapper>
       <Buttons>
-        <Button onClick={() => navigate("/")}>
-          <div>홈</div>
+        <Button onClick={() => navigate("/hashtags")}>
+          <GoHash size={24}/>
         </Button>
         <Button onClick={() => navigate("/setChatting")}>
-          <div>채팅</div>
+          <BsChat size={24}/>
         </Button>
         <Button>
-          <div>일기 쓰기 (아직 x)</div>
+          <BsPencil size={24}/>
         </Button>
         <Button onClick={() => navigate("/comments")}>
-          <div>보관함</div>
+          <BsStar size={24}/>
         </Button>
       </Buttons>
     </Wrapper>
@@ -33,6 +35,8 @@ export const Wrapper = styled.div`
   right: 0;
   bottom: 0;
   z-index: 3;
+  border-radius: 20px 20px 0px 0px;
+  background: #FFF8F8;
 `;
 
 const Buttons = styled.div`
@@ -51,9 +55,4 @@ const Button = styled.button`
   // padding: 2%;
   cursor: pointer;
   gap: 5%;
-`;
-
-const Logo = styled.img`
-  width: 30px;
-  height: 30px;
 `;

@@ -34,11 +34,13 @@ function App() {
 
 export default App;
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  // align-items: center;
-  justify-content: space-between;
+export const Wrapper = styled.div`
+  position: fixed;
+  width: 100%;
   min-height: 100vh;
+  max-width: 600px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
   background: linear-gradient(to bottom, #fce8e7 0%, #e3ecf5 100%);
 `;
