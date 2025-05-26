@@ -1,9 +1,107 @@
+import { useState } from 'react';
+import styled from 'styled-components';
+import { FaArrowRight } from 'react-icons/fa';
+
 const WritingPage = () => {
+  const [title, setTitle] = useState('');
+  const [tags, setTags] = useState('');
+  const [content, setContent] = useState('');
+
   return (
-    <div>
-      <h1>Writing Page</h1>
-      <p>This is the writing page.</p>
-    </div>
+    <Container>
+      <Header>
+        <DateText>2025.05.01.</DateText>
+        <ArrowIcon />
+      </Header>
+      <Body>
+        <TextInput
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="제목을 입력하세요."
+        />
+        <TagInput
+          type="text"
+          value={tags}
+          onChange={(e) => setTags(e.target.value)}
+          placeholder="해시태그를 입력해주세요."
+        />
+        <ContentArea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="일기 내용을 작성해주세요."
+        />
+      </Body>
+    </Container>
   );
 };
+
 export default WritingPage;
+
+// styled-components
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fef2f2;
+  padding: 0 16px;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+`;
+
+const DateText = styled.h1`
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e2a52;
+`;
+
+const ArrowIcon = styled(FaArrowRight)`
+  font-size: 20px;
+  color: #1e2a52;
+`;
+
+const Body = styled.div`
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const TextInput = styled.input`
+  border: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  font-size: 14px;
+  box-shadow: 0 0 0 1px #e5e7eb;
+  outline: none;
+
+  &::placeholder {
+    color: #cbd5e1;
+  }
+`;
+
+const TagInput = styled(TextInput)``;
+
+const ContentArea = styled.textarea`
+  min-height: 160px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  font-size: 14px;
+  color: #374151;
+  resize: vertical;
+  border: none;
+  box-shadow: 0 0 0 1px #e5e7eb;
+  outline: none;
+
+  &::placeholder {
+    color: #cbd5e1;
+  }
+`;

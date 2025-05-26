@@ -1,35 +1,35 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const diaries = [
   {
-    date: '2025.05.01.',
-    title: '오늘은 영화 보러 간 날',
-    tags: ['#취미', '#휴식'],
-    content: '재밌었다!'.repeat(30),
+    date: "2025.05.01.",
+    title: "오늘은 영화 보러 간 날",
+    tags: ["#취미", "#휴식"],
+    content: "재밌었다!".repeat(30),
   },
   {
-    date: '2025.05.01.',
-    title: '오늘은 영화 보러 간 날',
-    tags: ['#취미', '#휴식'],
-    content: '재밌었다!'.repeat(30),
+    date: "2025.05.01.",
+    title: "오늘은 영화 보러 간 날",
+    tags: ["#취미", "#휴식"],
+    content: "재밌었다!".repeat(30),
   },
   {
-    date: '2025.05.01.',
-    title: '오늘은 영화 보러 간 날',
-    tags: ['#취미', '#휴식'],
-    content: '재밌었다!'.repeat(30),
+    date: "2025.05.01.",
+    title: "오늘은 영화 보러 간 날",
+    tags: ["#취미", "#휴식"],
+    content: "재밌었다!".repeat(30),
   },
   {
-    date: '2025.05.01.',
-    title: '오늘은 영화 보러 간 날',
-    tags: ['#취미', '#휴식'],
-    content: '재밌었다!'.repeat(30),
+    date: "2025.05.01.",
+    title: "오늘은 영화 보러 간 날",
+    tags: ["#취미", "#휴식"],
+    content: "재밌었다!".repeat(30),
   },
   {
-    date: '2025.05.01.',
-    title: '오늘은 영화 보러 간 날',
-    tags: ['#취미', '#휴식'],
-    content: '재밌었다!'.repeat(30),
+    date: "2025.05.01.",
+    title: "오늘은 영화 보러 간 날",
+    tags: ["#취미", "#휴식"],
+    content: "재밌었다!".repeat(30),
   },
 ];
 
