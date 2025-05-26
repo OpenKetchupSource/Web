@@ -9,7 +9,8 @@ const characters = [
   {
     id: "1",
     name: "앙글이",
-    description: "화가 나지만, 상황에서 속이 뻥 뚫리게 같이 화를 내줄 수 있어요!",
+    description:
+      "화가 나지만, 상황에서 속이 뻥 뚫리게 같이 화를 내줄 수 있어요!",
   },
   {
     id: "2",
@@ -71,7 +72,10 @@ const SettingPage: React.FC = () => {
         <>
           <Title>언제의 기록을 담고 싶나요?</Title>
           <DatePickerRow>
-            <Select value={year} onChange={(e) => setYear(Number(e.target.value))}>
+            <Select
+              value={year}
+              onChange={(e) => setYear(Number(e.target.value))}
+            >
               {[2024, 2025, 2026].map((y) => (
                 <option key={y} value={y}>
                   {y} 년
@@ -79,7 +83,10 @@ const SettingPage: React.FC = () => {
               ))}
             </Select>
 
-            <Select value={month} onChange={(e) => setMonth(Number(e.target.value))}>
+            <Select
+              value={month}
+              onChange={(e) => setMonth(Number(e.target.value))}
+            >
               {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
                 <option key={m} value={m}>
                   {m} 월
@@ -87,7 +94,10 @@ const SettingPage: React.FC = () => {
               ))}
             </Select>
 
-            <Select value={day} onChange={(e) => setDay(Number(e.target.value))}>
+            <Select
+              value={day}
+              onChange={(e) => setDay(Number(e.target.value))}
+            >
               {Array.from({ length: 31 }, (_, i) => i + 1).map((d) => (
                 <option key={d} value={d}>
                   {d} 일
@@ -96,15 +106,17 @@ const SettingPage: React.FC = () => {
             </Select>
           </DatePickerRow>
 
-          <ArrowButton onClick={() => {
-            const selected = new Date(year, month - 1, day);
-            setDate(selected);
-            setIsDateView(false);
-          }}>
+          <ArrowButton
+            onClick={() => {
+              const selected = new Date(year, month - 1, day);
+              setDate(selected);
+              setIsDateView(false);
+            }}
+          >
             →
           </ArrowButton>
         </>
-        ) : (
+      ) : (
         <>
           <Title>누구와 대화하고 싶나요?</Title>
           <CharacterList>
@@ -121,8 +133,15 @@ const SettingPage: React.FC = () => {
 
           {selectedCharacter && (
             <CharacterDetail>
-              <strong>{characters.find((c) => c.id === selectedCharacter)?.name}</strong>
-              <p>{characters.find((c) => c.id === selectedCharacter)?.description}</p>
+              <strong>
+                {characters.find((c) => c.id === selectedCharacter)?.name}
+              </strong>
+              <p>
+                {
+                  characters.find((c) => c.id === selectedCharacter)
+                    ?.description
+                }
+              </p>
             </CharacterDetail>
           )}
 
@@ -178,7 +197,7 @@ const ArrowButton = styled.button`
   border-radius: 9999px;
   font-size: 2rem;
   border: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 `;
 
