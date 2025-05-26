@@ -37,7 +37,7 @@ function App() {
 export default App;
 
 export const Wrapper = styled.div`
-  position: fixed;
+  position: relative;
   width: 100%;
   min-height: 100vh;
   max-width: 600px;
