@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { BsArrowRight } from 'react-icons/bs';
+import { IoHomeOutline } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 
 const WritingPage = () => {
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState('');
   const [content, setContent] = useState('');
+  const navigate = useNavigate();
 
   return (
     <Container>
       <Header>
+        <HomeIcon onClick={() => navigate("/")}/>
         <DateText>2025.05.01.</DateText>
         <ArrowIcon />
       </Header>
@@ -59,6 +63,15 @@ const DateText = styled.h1`
   font-weight: 700;
   color: #1e2a52;
   margin: 0;
+`;
+
+const HomeIcon = styled(IoHomeOutline)`
+  position: absolute;
+  top: 50%;
+  left: 24px;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #1e2a52;
 `;
 
 const ArrowIcon = styled(BsArrowRight)`
