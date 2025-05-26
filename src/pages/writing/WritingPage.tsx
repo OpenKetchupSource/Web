@@ -15,7 +15,7 @@ const WritingPage = () => {
       <Header>
         <HomeIcon onClick={() => navigate("/")}/>
         <DateText>2025.05.01.</DateText>
-        <ArrowIcon />
+        <ArrowIcon onClick={() => navigate("/DiaryDetail/1")}/>
       </Header>
       <Body>
         <TextInput
