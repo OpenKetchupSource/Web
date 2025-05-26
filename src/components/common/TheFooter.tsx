@@ -35,6 +35,8 @@ export const Wrapper = styled.div`
   right: 0;
   bottom: 0;
   z-index: 3;
+  border-radius: 20px 20px 0px 0px;
+  background: #FFF8F8;
 `;
 
 const Buttons = styled.div`
