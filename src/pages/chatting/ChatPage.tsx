@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { postComment, postDiary } from "../../services/apis/chatting/chat";
 import { useSettingStore } from "../../services/zustand/setting";
 
-// ✅ Styled Components
 const Container = styled.div`
   max-width: 600px;
   margin: 2rem auto;
@@ -151,32 +150,12 @@ const ChatPage = () => {
           : selectedDate,
       );
       alert("대화가 저장되었습니다.");
-      navigate(`/viewdiary/${chatId}`);
+      navigate(`/diary/${chatId}`);
     } catch (err) {
       console.error("대화 저장 실패:", err);
       alert("대화 저장 중 문제가 발생했습니다.");
     }
   };
-
-  useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      // 페이지 새로고침 또는 브라우저 닫기
-      endChatting();
-    };
-
-    const handlePopState = () => {
-      // 뒤로가기 눌렀을 때
-      endChatting();
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    window.addEventListener("popstate", handlePopState);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-      window.removeEventListener("popstate", handlePopState);
-    };
-  }, []);
 
   return (
     <Container>

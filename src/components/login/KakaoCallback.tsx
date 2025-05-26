@@ -9,7 +9,7 @@ const KakaoCallback = () => {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const code = searchParams.get("code");
-    console.log("인가 코드:", code);
+    // console.log("인가 코드:", code);
 
     if (code) {
       axios
