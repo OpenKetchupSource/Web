@@ -1,21 +1,21 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-import { BsArrowRight } from 'react-icons/bs';
-import { IoHomeOutline } from 'react-icons/io5';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import styled from "styled-components";
+import { BsArrowRight } from "react-icons/bs";
+import { IoHomeOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 const WritingPage = () => {
-  const [title, setTitle] = useState('');
-  const [tags, setTags] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [tags, setTags] = useState("");
+  const [content, setContent] = useState("");
   const navigate = useNavigate();
 
   return (
     <Container>
       <Header>
-        <HomeIcon onClick={() => navigate("/")}/>
+        <HomeIcon onClick={() => navigate("/")} />
         <DateText>2025.05.01.</DateText>
-        <ArrowIcon onClick={() => navigate("/DiaryDetail/1")}/>
+        <ArrowIcon onClick={() => navigate("/DiaryDetail/1")} />
       </Header>
       <Body>
         <TextInput
@@ -110,7 +110,7 @@ const ContentArea = styled.textarea`
   border-radius: 12px;
   background-color: transparent;
   font-size: 14px;
-  color: #6D7EA0;
+  color: #6d7ea0;
   resize: vertical;
   border: none;
   box-shadow: 0 0 0 1px #e5e7eb;
