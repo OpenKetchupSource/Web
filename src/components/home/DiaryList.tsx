@@ -66,10 +66,11 @@ export const Wrapper = styled.div`
 `;
 
 export const CardList = styled.div`
-  flex: 1; /* 남는 공간 모두 사용 */
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin-bottom: 60px;
 `;
 
 export const Card = styled.div`
