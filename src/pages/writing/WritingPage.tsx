@@ -89,34 +89,44 @@ const Body = styled.div`
 `;
 
 const TextInput = styled.input`
+  font-family: "Gowun Dodum", sans-serif;
   border: none;
   padding: 12px 16px;
   border-radius: 12px;
   background-color: transparent;
-  font-size: 14px;
-  box-shadow: 0 0 0 1px #e5e7eb;
+  font-size: 20px;
   outline: none;
 
   &::placeholder {
-    color: #cbd5e1;
+    color: #B0BCD2;
   }
 `;
 
-const TagInput = styled(TextInput)``;
+const TagInput = styled.input`
+  font-family: "Gowun Dodum", sans-serif;
+  border: none;
+  padding: 12px 16px;
+  background-color: white;
+  border-radius: 12px;
+  outline: none;
+  &::placeholder {
+    color: #B0BCD2;
+  }
+`;
 
 const ContentArea = styled.textarea`
+  font-family: "Gowun Dodum", sans-serif;
   min-height: 160px;
   padding: 12px 16px;
   border-radius: 12px;
   background-color: transparent;
   font-size: 14px;
-  color: #6d7ea0;
   resize: vertical;
   border: none;
   box-shadow: 0 0 0 1px #e5e7eb;
   outline: none;
 
   &::placeholder {
-    color: #cbd5e1;
+    color: #6D7EA0;
   }
 `;
