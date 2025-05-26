@@ -1,3 +1,5 @@
+import { HiOutlineChat, HiOutlineHashtag, HiOutlinePencil, HiOutlineStar } from "react-icons/hi";
+import { HiOutlineChatBubbleOvalLeftEllipsis } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -7,17 +9,17 @@ export const TheFooter = () => {
   return (
     <Wrapper>
       <Buttons>
-        <Button onClick={() => navigate("/")}>
-          <div>홈</div>
+        <Button onClick={() => navigate("/hashtags")}>
+          <HiOutlineHashtag size={24}/>
         </Button>
         <Button onClick={() => navigate("/setChatting")}>
-          <div>채팅</div>
+          <HiOutlineChat size={24}/>
         </Button>
         <Button>
-          <div>일기 쓰기 (아직 x)</div>
+          <HiOutlinePencil size={24}/>
         </Button>
         <Button onClick={() => navigate("/comments")}>
-          <div>보관함</div>
+          <HiOutlineStar size={24}/>
         </Button>
       </Buttons>
     </Wrapper>
@@ -51,9 +53,4 @@ const Button = styled.button`
   // padding: 2%;
   cursor: pointer;
   gap: 5%;
-`;
-
-const Logo = styled.img`
-  width: 30px;
-  height: 30px;
 `;
