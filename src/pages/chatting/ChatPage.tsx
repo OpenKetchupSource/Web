@@ -89,7 +89,6 @@ const ChatPage = () => {
   const [loading, setLoading] = useState(false);
   const { selectedDate } = useSettingStore();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleSend = async () => {
     if (!input.trim() || loading || !chatId || !character) return;
