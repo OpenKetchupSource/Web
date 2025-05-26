@@ -10,6 +10,7 @@ import SettingPage from "./pages/chatting/SettingPage";
 import ChatPage from "./pages/chatting/ChatPage";
 import styled from "styled-components";
 import DiaryPage from "./pages/DiaryPage";
+import WritingPage from "./pages/writing/WritingPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/setChatting" element={<SettingPage />} />
           <Route path="/chat/:chatId/:character" element={<ChatPage />} />
           <Route path="/diary/:chatId" element={<DiaryPage />} />
+          <Route path="/writing" element={<WritingPage />} />
 
           <Route path="/comments" element={<Comments />} />
           <Route path="/hashtags" element={<Hashtags />} />
