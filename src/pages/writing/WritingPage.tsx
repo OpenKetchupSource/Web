@@ -81,7 +81,7 @@ const TextInput = styled.input`
   border: none;
   padding: 12px 16px;
   border-radius: 12px;
-  background-color: #ffffff;
+  background-color: transparent;
   font-size: 14px;
   box-shadow: 0 0 0 1px #e5e7eb;
   outline: none;
@@ -97,9 +97,9 @@ const ContentArea = styled.textarea`
   min-height: 160px;
   padding: 12px 16px;
   border-radius: 12px;
-  background-color: #ffffff;
+  background-color: transparent;
   font-size: 14px;
-  color: #374151;
+  color: #6D7EA0;
   resize: vertical;
   border: none;
   box-shadow: 0 0 0 1px #e5e7eb;
