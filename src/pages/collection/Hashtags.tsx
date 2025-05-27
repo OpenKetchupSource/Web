@@ -1,9 +1,9 @@
 const Hashtags = () => {
   return (
-    <div>
-      <h1>Hashtags</h1>
+    <>
+      <>Hashtags</>
       <p>일단 없는 걸로</p>
-    </div>
+    </>
   );
 };
 export default Hashtags;
