@@ -4,6 +4,7 @@ import { BsPencil } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getDiary } from "../services/apis/diary/diary";
+import { generateAIComment } from "../services/gpt/openai";
 
 interface DiaryResponse {
   id: number;
@@ -22,6 +23,7 @@ const DiaryDetail = () => {
   const [diary, setDiary] = useState<DiaryResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [aiComment, setAiComment] = useState<string | null>(null);
 
   useEffect(() => {
     if (diaryId) {
@@ -37,6 +39,14 @@ const DiaryDetail = () => {
         });
     }
   }, [diaryId]);
+
+  useEffect(() => {
+    if (diary) {
+      generateAIComment(diary.content, diary.title)
+        .then((comment) => setAiComment(comment))
+        .catch(() => setAiComment("AI 코멘트를 생성하는 데 실패했습니다."));
+    }
+  }, [diary]);
 
   const formatDate = (rawDate: string) => {
     const date = new Date(rawDate);
@@ -69,14 +79,16 @@ const DiaryDetail = () => {
 
         <CommentTitle>AI 친구의 코멘트</CommentTitle>
         <CommentCard>
-            <CharacterRow>
+          <CharacterRow>
             <CharacterImg
               src={`/images/characters/${diary.character}.png`}
               alt={diary.character}
             />
             <CharacterName>{diary.character}</CharacterName>
-            </CharacterRow>
-          <CommentText>{diary.comment}</CommentText>
+          </CharacterRow>
+          <CommentText>
+            {aiComment || "AI 코멘트를 생성 중입니다..."}
+          </CommentText>
         </CommentCard>
       </Body>
     </Container>
