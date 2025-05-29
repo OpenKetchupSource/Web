@@ -10,6 +10,7 @@ import SettingPage from "./pages/chatting/SettingPage";
 import ChatPage from "./pages/chatting/ChatPage";
 import styled from "styled-components";
 import WritingPage from "./pages/writing/WritingPage";
+import Testpage from "./pages/Testpage";
 
 function App() {
   return (
@@ -19,13 +20,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/oauth/kakao/callback" element={<KakaoCallback />} />
-          <Route path="/diary/:id" element={<DiaryDetail />} />
+          <Route path="/diary/:diaryId" element={<DiaryDetail />} />
           <Route path="/setChatting" element={<SettingPage />} />
           <Route path="/chat/:chatId/:character" element={<ChatPage />} />
           <Route path="/writing" element={<WritingPage />} />
 
           <Route path="/comments" element={<Comments />} />
           <Route path="/hashtags" element={<Hashtags />} />
+          <Route path="/test" element={<Testpage />} />
         </Routes>
       </Wrapper>
     </BrowserRouter>

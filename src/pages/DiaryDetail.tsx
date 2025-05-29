@@ -1,52 +1,82 @@
 import styled from "styled-components";
 import { IoHomeOutline } from "react-icons/io5";
 import { BsPencil } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getDiary } from "../services/apis/diary/diary";
+
+interface DiaryResponse {
+  id: number;
+  date: string;
+  title: string;
+  content: string;
+  comment: string;
+  character: string;
+  hashTags: string[];
+}
 
 const DiaryDetail = () => {
   const navigate = useNavigate();
+  const { diaryId } = useParams();
+
+  const [diary, setDiary] = useState<DiaryResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (diaryId) {
+      getDiary(diaryId)
+        .then((data) => {
+          setDiary(data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error fetching diary:", err);
+          setError("일기를 불러오는 데 실패했습니다.");
+          setLoading(false);
+        });
+    }
+  }, [diaryId]);
+
+  const formatDate = (rawDate: string) => {
+    const date = new Date(rawDate);
+    return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}.`;
+  };
+
+  if (loading) return <div>로딩 중...</div>;
+  if (error) return <div>{error}</div>;
+  if (!diary) return <div>일기 데이터가 없습니다.</div>;
 
   return (
     <Container>
       <Header>
         <HomeIcon onClick={() => navigate("/")} />
-        <DateText>2025.05.01.</DateText>
-        <EditIcon />
+        <DateText>{formatDate(diary.date)}</DateText>
+        <EditIcon onClick={() => navigate(`/edit/${diary.id}`)} />
       </Header>
 
       <Body>
-        <Title>오늘은 영화 보러 간 날</Title>
+        <Title>{diary.title}</Title>
         <TagBox>
-          <Tag>#취미</Tag>
-          <Tag>#휴식</Tag>
+          {diary.hashTags && diary.hashTags.length > 0 ? (
+            diary.hashTags.map((tag, idx) => <Tag key={idx}>#{tag}</Tag>)
+          ) : (
+            <Tag>#태그없음</Tag>
+          )}
         </TagBox>
 
-        <Content>
-          오늘은 오랜만에 영화관에 가서 영화를 보고 왔다. 요즘 바빠서 제대로
-          쉬지도 못했는데, 이렇게 여유롭게 시간을 보내니 기분이 참 좋았다.
-          친구와 약속을 잡고 미리 예매까지 해두었는데, 다행히 좋은 자리에서
-          관람할 수 있었다. <br />
-          <br />
-          보고 싶었던 영화라 기대가 컸는데, 그 기대를 저버리지 않고 정말
-          재미있었다. 배우들의 연기도 훌륭했고, 스토리도 탄탄해서 중간에 지루할
-          틈이 없었다. 영화관 특유의 분위기, 어두운 조명과 커다란 스크린, 웅장한
-          사운드까지 모든 게 몰입감을 더해줬다. <br />
-          <br />
-          팝콘과 콜라도 빠질 수 없어서, 먹으면서 영화 보는 재미도 쏠쏠했다. 엔딩
-          크레딧이 올라갈 때는 아쉬운 마음도 들었지만, 오랜만에 힐링되는 시간을
-          보낸 것 같아 만족스럽다. 다음엔 다른 장르의 영화도 보러 가고 싶다.
-        </Content>
+        <Content>{diary.content}</Content>
 
         <CommentTitle>AI 친구의 코멘트</CommentTitle>
         <CommentCard>
-          <CharacterRow>
-            <CharacterImg src="/ai_character.png" alt="웅이" />
-            <CharacterName>웅이</CharacterName>
-          </CharacterRow>
-          <CommentText>
-            오랜만에 영화관에서 좋은 시간 보냈다니 내가 다 기쁘다! 너의 여유로운
-            하루가 참 따뜻하게 느껴져 :)
-          </CommentText>
+            <CharacterRow>
+            <CharacterImg
+              src={`/images/characters/${diary.character}.png`}
+              alt={diary.character}
+            />
+            <CharacterName>{diary.character}</CharacterName>
+            </CharacterRow>
+          <CommentText>{diary.comment}</CommentText>
         </CommentCard>
       </Body>
     </Container>

@@ -81,7 +81,9 @@ const EndChatButton = styled.button`
 
 const ChatPage = () => {
   const { chatId = "", character = "" } = useParams();
-  const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
+  const [messages, setMessages] = useState<{ role: string; content: string }[]>(
+    [],
+  );
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const { selectedDate } = useSettingStore();
@@ -99,13 +101,28 @@ const ChatPage = () => {
       const reply = await postComment(chatId, character, userMessage.content);
 
       if (reply?.content) {
-        setMessages((prev) => [...prev, { role: "bot", content: reply.content }]);
+        setMessages((prev) => [
+          ...prev,
+          { role: "bot", content: reply.content },
+        ]);
       } else {
-        setMessages((prev) => [...prev, { role: "bot", content: "응답을 받지 못했습니다. 다시 시도해 주세요." }]);
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "bot",
+            content: "응답을 받지 못했습니다. 다시 시도해 주세요.",
+          },
+        ]);
       }
     } catch (error) {
       console.error("Failed to send message:", error);
-      setMessages((prev) => [...prev, { role: "bot", content: "에러가 발생했습니다. 나중에 다시 시도해 주세요." }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "bot",
+          content: "에러가 발생했습니다. 나중에 다시 시도해 주세요.",
+        },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -125,9 +142,10 @@ const ChatPage = () => {
     }
 
     try {
-      const formattedDate = selectedDate instanceof Date
-        ? selectedDate.toISOString().split("T")[0]
-        : selectedDate;
+      const formattedDate =
+        selectedDate instanceof Date
+          ? selectedDate.toISOString().split("T")[0]
+          : selectedDate;
 
       const response = await postDiary(chatId, character, formattedDate);
       alert("대화가 저장되었습니다.");
