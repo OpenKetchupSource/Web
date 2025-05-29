@@ -19,13 +19,12 @@ jobs:
         id: checklist
         run: |
           BODY="${{ github.event.pull_request.body }}"
-          UNCHECKED=$(echo "$BODY" | grep -c '\[ \]')
+          UNCHECKED=$(echo "$BODY" | grep -c '\[ \]' || true)
           if [ "$UNCHECKED" -eq 0 ]; then
             echo "checklist-complete=true" >> $GITHUB_OUTPUT
           else
             echo "checklist-complete=false" >> $GITHUB_OUTPUT
           fi
-
       - name: Close linked issues if checklist is complete
         if: steps.checklist.outputs.checklist-complete == 'true'
         uses: peter-evans/close-issue@v3
