@@ -1,49 +1,48 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { getAllDiary } from "../../services/apis/diary/diary";
+import { useNavigate } from "react-router-dom";
 
-const diaries = [
-  {
-    date: "2025.05.01.",
-    title: "오늘은 영화 보러 간 날",
-    tags: ["#취미", "#휴식"],
-    content: "재밌었다!".repeat(30),
-  },
-  {
-    date: "2025.05.01.",
-    title: "오늘은 영화 보러 간 날",
-    tags: ["#취미", "#휴식"],
-    content: "재밌었다!".repeat(30),
-  },
-  {
-    date: "2025.05.01.",
-    title: "오늘은 영화 보러 간 날",
-    tags: ["#취미", "#휴식"],
-    content: "재밌었다!".repeat(30),
-  },
-  {
-    date: "2025.05.01.",
-    title: "오늘은 영화 보러 간 날",
-    tags: ["#취미", "#휴식"],
-    content: "재밌었다!".repeat(30),
-  },
-  {
-    date: "2025.05.01.",
-    title: "오늘은 영화 보러 간 날",
-    tags: ["#취미", "#휴식"],
-    content: "재밌었다!".repeat(30),
-  },
-];
+interface Diary {
+  id: number;
+  date: string;
+  title: string;
+  hashTags: string[];
+  content: string;
+}
 
 const DiaryList = () => {
+  const [diaries, setDiaries] = useState<Diary[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getAllDiary()
+      .then((data) => {
+        setDiaries(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("일기 불러오기 실패:", err);
+        setError("일기를 불러오지 못했습니다.");
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <div>로딩 중...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <Wrapper>
       <CardList>
-        {diaries.map((diary, index) => (
-          <Card key={index}>
+        {diaries.map((diary) => (
+          <Card key={diary.id} onClick={() => navigate(`/diary/${diary.id}`)}>
             <DateText>{diary.date}</DateText>
             <DiaryTitle>{diary.title}</DiaryTitle>
             <TagWrapper>
-              {diary.tags.map((tag, i) => (
-                <Tag key={i}>{tag}</Tag>
+              {diary.hashTags.map((tag, i) => (
+                <Tag key={i}>#{tag}</Tag>
               ))}
             </TagWrapper>
             <Content>{diary.content}</Content>

@@ -98,7 +98,7 @@ const TextInput = styled.input`
   outline: none;
 
   &::placeholder {
-    color: #B0BCD2;
+    color: #b0bcd2;
   }
 `;
 
@@ -110,7 +110,7 @@ const TagInput = styled.input`
   border-radius: 12px;
   outline: none;
   &::placeholder {
-    color: #B0BCD2;
+    color: #b0bcd2;
   }
 `;
 
@@ -127,6 +127,6 @@ const ContentArea = styled.textarea`
   outline: none;
 
   &::placeholder {
-    color: #6D7EA0;
+    color: #6d7ea0;
   }
 `;

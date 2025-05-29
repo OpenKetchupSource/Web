@@ -62,14 +62,11 @@ export async function postDiary(
   date: string,
 ) {
   try {
-    const response = await axiosInstanceWithToken.post(
-      `https://soulmate.o-r.kr/api/diary/generate`,
-      {
-        chatId: chatId,
-        character: character,
-        date: date,
-      },
-    );
+    const response = await axiosInstanceWithToken.post(`/api/diary/generate`, {
+      chatId: chatId,
+      character: character,
+      date: date,
+    });
     return response.data;
   } catch (error) {
     throw error;
