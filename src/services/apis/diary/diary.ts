@@ -4,19 +4,14 @@ const axiosInstanceWithToken = CreateAxiosInstanceWithToken();
 
 export async function getAllDiary() {
   try {
-    const response = await axiosInstanceWithToken.get(
-      `/api/diary/get`,
-    );
+    const response = await axiosInstanceWithToken.get(`/api/diary/get`);
     return response.data;
   } catch (error) {
     throw error;
   }
 }
 
-export async function getDiary(
-  diaryId: string,
-) {
-    console.log("Fetching diary with ID:", diaryId);
+export async function getDiary(diaryId: string) {
   try {
     const response = await axiosInstanceWithToken.get(
       `/api/diary/get/${diaryId}`,

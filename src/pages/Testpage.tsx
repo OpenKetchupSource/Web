@@ -1,10 +1,9 @@
-import { useState } from 'react';
-import { sendMessageToGPT } from '../services/gpt/openai';
-
+import { useState } from "react";
+import { sendMessageToGPT } from "../services/gpt/openai";
 
 const Testpage = () => {
-  const [input, setInput] = useState('');
-  const [response, setResponse] = useState('');
+  const [input, setInput] = useState("");
+  const [response, setResponse] = useState("");
 
   const handleSubmit = async () => {
     const result = await sendMessageToGPT(input);
@@ -26,6 +25,6 @@ const Testpage = () => {
       <p>{response}</p>
     </div>
   );
-}
+};
 
 export default Testpage;

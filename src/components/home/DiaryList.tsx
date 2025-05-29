@@ -55,7 +55,6 @@ const DiaryList = () => {
 
 export default DiaryList;
 
-
 export const Wrapper = styled.div`
   padding: 0 12px;
   height: 80vh;
