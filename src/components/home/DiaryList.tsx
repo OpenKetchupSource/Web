@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getAllDiary } from "../../services/apis/diary/diary";
+import { useNavigate } from "react-router-dom";
 
 interface Diary {
   id: number;
@@ -14,6 +15,7 @@ const DiaryList = () => {
   const [diaries, setDiaries] = useState<Diary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllDiary()
@@ -35,7 +37,7 @@ const DiaryList = () => {
     <Wrapper>
       <CardList>
         {diaries.map((diary) => (
-          <Card key={diary.id}>
+          <Card key={diary.id} onClick={() => navigate(`/diary/${diary.id}`)}>
             <DateText>{diary.date}</DateText>
             <DiaryTitle>{diary.title}</DiaryTitle>
             <TagWrapper>
