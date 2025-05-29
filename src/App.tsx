@@ -20,7 +20,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/oauth/kakao/callback" element={<KakaoCallback />} />
-          <Route path="/diary/:id" element={<DiaryDetail />} />
+          <Route path="/diary/:diaryId" element={<DiaryDetail />} />
           <Route path="/setChatting" element={<SettingPage />} />
           <Route path="/chat/:chatId/:character" element={<ChatPage />} />
           <Route path="/writing" element={<WritingPage />} />
