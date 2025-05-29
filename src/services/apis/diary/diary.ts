@@ -1,11 +1,24 @@
-import axiosInstance from "../axiosInstance";
+import { CreateAxiosInstanceWithToken } from "../axiosInstanceWithToken";
+
+const axiosInstanceWithToken = CreateAxiosInstanceWithToken();
+
+export async function getAllDiary() {
+  try {
+    const response = await axiosInstanceWithToken.get(
+      `/api/diary/get`,
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
 
 export async function getDiary(
   diaryId: string,
 ) {
     console.log("Fetching diary with ID:", diaryId);
   try {
-    const response = await axiosInstance.get(
+    const response = await axiosInstanceWithToken.get(
       `/api/diary/get/${diaryId}`,
     );
     return response.data;

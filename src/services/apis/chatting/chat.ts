@@ -63,7 +63,7 @@ export async function postDiary(
 ) {
   try {
     const response = await axiosInstanceWithToken.post(
-      `https://soulmate.o-r.kr/api/diary/generate`,
+      `/api/diary/generate`,
       {
         chatId: chatId,
         character: character,
