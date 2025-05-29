@@ -10,6 +10,7 @@ import SettingPage from "./pages/chatting/SettingPage";
 import ChatPage from "./pages/chatting/ChatPage";
 import styled from "styled-components";
 import WritingPage from "./pages/writing/WritingPage";
+import Testpage from "./pages/Testpage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
 
           <Route path="/comments" element={<Comments />} />
           <Route path="/hashtags" element={<Hashtags />} />
+          <Route path="/test" element={<Testpage />} />
         </Routes>
       </Wrapper>
     </BrowserRouter>
