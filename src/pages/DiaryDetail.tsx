@@ -69,10 +69,13 @@ const DiaryDetail = () => {
 
         <CommentTitle>AI 친구의 코멘트</CommentTitle>
         <CommentCard>
-          <CharacterRow>
-            <CharacterImg src="/ai_character.png" alt={diary.character} />
+            <CharacterRow>
+            <CharacterImg
+              src={`/images/characters/${diary.character}.png`}
+              alt={diary.character}
+            />
             <CharacterName>{diary.character}</CharacterName>
-          </CharacterRow>
+            </CharacterRow>
           <CommentText>{diary.comment}</CommentText>
         </CommentCard>
       </Body>
