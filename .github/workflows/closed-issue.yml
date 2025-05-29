@@ -1,0 +1,41 @@
+name: Close Mentioned Issues if Checklist Complete
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  issues: write
+  pull-requests: read
+  contents: read
+
+jobs:
+  close-mentioned-issues:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if checklist is fully complete
+        id: checklist
+        run: |
+          BODY="${{ github.event.pull_request.body }}"
+          UNCHECKED=$(echo "$BODY" | grep -c '\[ \]')
+          if [ "$UNCHECKED" -eq 0 ]; then
+            echo "checklist-complete=true" >> $GITHUB_OUTPUT
+          else
+            echo "checklist-complete=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Extract issue numbers
+        id: issues
+        run: |
+          BODY="${{ github.event.pull_request.body }}"
+          echo "ISSUES=$(echo "$BODY" | grep -oE '#[0-9]+' | tr -d '#' | tr '\n' ' ')" >> $GITHUB_OUTPUT
+
+      - name: Close mentioned issues
+        if: steps.checklist.outputs.checklist-complete == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for issue in ${{ steps.issues.outputs.ISSUES }}; do
+            gh issue close "$issue" --repo "${{ github.repository }}"
+          done
