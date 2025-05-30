@@ -11,7 +11,9 @@ const WritingPage = () => {
   const [content, setContent] = useState("");
   const navigate = useNavigate();
 
-    const handleSubmit = async () => {
+  const handleSubmit = async () => {
+    const confirmed = window.confirm("작성을 종료하시겠습니까?");
+    if (!confirmed) return;
     try {
       const response = await postWritingDiary({
         date: "2025-05-30",
