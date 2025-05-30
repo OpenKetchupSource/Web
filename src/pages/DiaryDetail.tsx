@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IoHomeOutline } from "react-icons/io5";
+import { IoHomeOutline, IoTrashBinOutline } from "react-icons/io5";
 import { BsPencil } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -62,7 +62,9 @@ const DiaryDetail = () => {
       <Header>
         <HomeIcon onClick={() => navigate("/")} />
         <DateText>{formatDate(diary.date)}</DateText>
-        <EditIcon onClick={() => navigate(`/edit/${diary.id}`)} />
+        <TrashIcon onClick={() => alert("삭제 기능은 준비 중입니다.")} />
+        <EditIcon onClick={() => alert("수정 기능은 준비 중입니다.")} />
+        {/* <EditIcon onClick={() => navigate(`/edit/${diary.id}`)} /> */}
       </Header>
 
       <Body>
@@ -125,6 +127,16 @@ const HomeIcon = styled(IoHomeOutline)`
   transform: translateY(-50%);
   font-size: 24px;
   color: #1e2a52;
+`;
+
+const TrashIcon = styled(IoTrashBinOutline)`
+  position: absolute;
+  top: 50%;
+  right: 56px;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #1e2a52;
+  size: 40px;
 `;
 
 const EditIcon = styled(BsPencil)`

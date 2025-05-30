@@ -11,6 +11,7 @@ import ChatPage from "./pages/chatting/ChatPage";
 import styled from "styled-components";
 import WritingPage from "./pages/writing/WritingPage";
 import Testpage from "./pages/Testpage";
+import EditPage from "./pages/writing/EditPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/setChatting" element={<SettingPage />} />
           <Route path="/chat/:chatId/:character" element={<ChatPage />} />
           <Route path="/writing" element={<WritingPage />} />
+          <Route path="/edit/:chatId" element={<EditPage />} />
 
           <Route path="/comments" element={<Comments />} />
           <Route path="/hashtags" element={<Hashtags />} />
