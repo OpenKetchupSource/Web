@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { BsArrowRight } from "react-icons/bs";
 import { IoHomeOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { postWritingDiary } from "../../services/apis/diary/writing";
 
 const WritingPage = () => {
   const [title, setTitle] = useState("");
@@ -10,12 +11,32 @@ const WritingPage = () => {
   const [content, setContent] = useState("");
   const navigate = useNavigate();
 
+  const handleSubmit = async () => {
+    const confirmed = window.confirm("작성을 종료하시겠습니까?");
+    if (!confirmed) return;
+    try {
+      const response = await postWritingDiary({
+        date: "2025-05-30",
+        title,
+        content,
+        hashtag: tags,
+        character: "앙글이",
+      });
+
+      // 예: 생성된 일기의 ID가 response.data.id에 있다고 가정
+      navigate(`/diary/${response.data.id}`);
+    } catch (error) {
+      console.error("일기 저장 실패:", error);
+      alert("일기 저장 중 오류가 발생했습니다.");
+    }
+  };
+
   return (
     <Container>
       <Header>
         <HomeIcon onClick={() => navigate("/")} />
         <DateText>2025.05.01.</DateText>
-        <ArrowIcon onClick={() => navigate("/diary/1")} />
+        <ArrowIcon onClick={handleSubmit} />
       </Header>
       <Body>
         <TextInput
