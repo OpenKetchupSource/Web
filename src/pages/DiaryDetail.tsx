@@ -169,13 +169,13 @@ const Title = styled.h2`
   border-radius: 8px;
 `;
 
-const TagBox = styled.div`
+export const TagBox = styled.div`
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
 `;
 
-const Tag = styled.span`
+export const Tag = styled.span`
   background: #ffffff;
   color: #2563eb;
   padding: 6px 12px;
