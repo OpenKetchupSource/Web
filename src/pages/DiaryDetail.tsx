@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { IoHomeOutline, IoTrashBinOutline } from "react-icons/io5";
-import { BsPencil } from "react-icons/bs";
+import { BsPencil, BsStar, BsStarFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getDiary } from "../services/apis/diary/diary";
@@ -48,6 +48,8 @@ const DiaryDetail = () => {
     }
   }, [diary]);
 
+  const [starred, setStarred] = useState(false);
+
   const formatDate = (rawDate: string) => {
     const date = new Date(rawDate);
     return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}.`;
@@ -87,6 +89,11 @@ const DiaryDetail = () => {
               alt={diary.character}
             />
             <CharacterName>{diary.character}</CharacterName>
+            {starred ? (
+              <StarIconFill onClick={() => setStarred(false)} />
+            ) : (
+              <StarIcon onClick={() => setStarred(true)} />
+            )}
           </CharacterRow>
           <CommentText>
             {aiComment || "AI 코멘트를 생성 중입니다..."}
@@ -148,7 +155,7 @@ const EditIcon = styled(BsPencil)`
   color: #1e2a52;
 `;
 
-const Body = styled.div`
+export const Body = styled.div`
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -191,34 +198,47 @@ const CommentTitle = styled.h3`
   color: #1e2a52;
 `;
 
-const CommentCard = styled.div`
+export const CommentCard = styled.div`
   background: #fff;
   border-radius: 16px;
   padding: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 `;
 
-const CharacterRow = styled.div`
+export const CharacterRow = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 8px;
 `;
 
-const CharacterImg = styled.img`
+export const CharacterImg = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;
 `;
 
-const CharacterName = styled.div`
+export const CharacterName = styled.div`
   font-size: 16px;
   font-weight: 600;
   color: #1e2a52;
 `;
 
-const CommentText = styled.p`
+export const CommentText = styled.p`
   font-size: 14px;
   color: #374151;
   line-height: 1.6;
+`;
+
+export const StarIcon = styled(BsStar)`
+  margin-left: auto;
+  font-size: 20px;
+  cursor: pointer;
+`;
+
+export const StarIconFill = styled(BsStarFill)`
+  margin-left: auto;
+  font-size: 20px;
+  color: #ffd600;
+  cursor: pointer;
 `;
