@@ -12,7 +12,11 @@ interface HeaderProps {
   setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Header = ({ characterList, currentIndex, setCurrentIndex }: HeaderProps) => {
+const Header = ({
+  characterList,
+  currentIndex,
+  setCurrentIndex,
+}: HeaderProps) => {
   const navigate = useNavigate();
 
   const goPrev = () => {
@@ -27,11 +31,7 @@ const Header = ({ characterList, currentIndex, setCurrentIndex }: HeaderProps) =
 
   return (
     <HeaderWrapper>
-      <IoHomeOutline
-        size={24}
-        color="#2d3552"
-        onClick={() => navigate("/")}
-      />
+      <IoHomeOutline size={24} color="#2d3552" onClick={() => navigate("/")} />
 
       <CenterContainer>
         <ClickableIcon onClick={goPrev}>
