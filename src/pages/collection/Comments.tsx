@@ -44,7 +44,7 @@ const Comments = () => {
     <Body>
       <HeaderWrapper>
         <IoHomeOutline
-          size={28}
+          size={24}
           color="#2d3552"
           onClick={() => navigate("/")}
         />
@@ -100,8 +100,7 @@ const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
-  position: relative;
+  margin-bottom: 20px;
 `;
 
 const CenterContainer = styled.div`
