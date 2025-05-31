@@ -21,7 +21,7 @@ const Comments = () => {
 
   return (
     <Body>
-      <div style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "1rem" }}>AI 코멘트 모아보기</div>
+      <div>즐겨찾기 한 코멘트 목록</div>
       {dummyComments.map((comment, index) => (
         <CommentCard key={index}>
           <CharacterRow>
