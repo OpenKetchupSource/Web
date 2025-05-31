@@ -93,13 +93,19 @@ export const DiaryTitle = styled.div`
 
 export const TagWrapper = styled.div`
   display: flex;
-  gap: 8px;
-  font-size: 14px;
-  color: #3b82f6;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   margin-bottom: 8px;
 `;
 
-export const Tag = styled.span``;
+export const Tag = styled.span`
+  font-size: 14px;
+  color: #3b82f6;
+  margin-right: 8px;
+  flex-shrink: 0;
+`;
 
 export const Content = styled.div`
   font-size: 14px;
