@@ -89,11 +89,11 @@ const DiaryDetail = () => {
               alt={diary.character}
             />
             <CharacterName>{diary.character}</CharacterName>
-                    {starred ? (
-          <StarIconFill onClick={() => setStarred(false)} />
-        ) : (
-          <StarIcon onClick={() => setStarred(true)} />
-        )}
+            {starred ? (
+              <StarIconFill onClick={() => setStarred(false)} />
+            ) : (
+              <StarIcon onClick={() => setStarred(true)} />
+            )}
           </CharacterRow>
           <CommentText>
             {aiComment || "AI 코멘트를 생성 중입니다..."}
@@ -239,6 +239,6 @@ export const StarIcon = styled(BsStar)`
 export const StarIconFill = styled(BsStarFill)`
   margin-left: auto;
   font-size: 20px;
-  color: #FFD600;
+  color: #ffd600;
   cursor: pointer;
 `;
