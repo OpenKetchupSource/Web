@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { IoHomeOutline, IoTrashBinOutline } from "react-icons/io5";
-import { BsPencil } from "react-icons/bs";
+import { BsPencil, BsStar, BsStarFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getDiary } from "../services/apis/diary/diary";
@@ -48,6 +48,8 @@ const DiaryDetail = () => {
     }
   }, [diary]);
 
+  const [starred, setStarred] = useState(false);
+
   const formatDate = (rawDate: string) => {
     const date = new Date(rawDate);
     return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}.`;
@@ -87,6 +89,11 @@ const DiaryDetail = () => {
               alt={diary.character}
             />
             <CharacterName>{diary.character}</CharacterName>
+                    {starred ? (
+          <StarIconFill onClick={() => setStarred(false)} />
+        ) : (
+          <StarIcon onClick={() => setStarred(true)} />
+        )}
           </CharacterRow>
           <CommentText>
             {aiComment || "AI 코멘트를 생성 중입니다..."}
@@ -221,4 +228,17 @@ const CommentText = styled.p`
   font-size: 14px;
   color: #374151;
   line-height: 1.6;
+`;
+
+const StarIcon = styled(BsStar)`
+  margin-left: auto;
+  font-size: 20px;
+  cursor: pointer;
+`;
+
+const StarIconFill = styled(BsStarFill)`
+  margin-left: auto;
+  font-size: 20px;
+  color: #FFD600;
+  cursor: pointer;
 `;
