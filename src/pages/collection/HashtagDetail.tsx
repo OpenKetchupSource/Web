@@ -2,7 +2,6 @@ import { useState } from "react";
 import Header from "../../components/diary/Header";
 import { Body } from "../DiaryDetail";
 import DiaryList from "../../components/home/DiaryList";
-import { TheFooter } from "../../components/common/TheFooter";
 
 const characterList = [
   "슬픔",
