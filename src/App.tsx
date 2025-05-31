@@ -12,6 +12,7 @@ import styled from "styled-components";
 import WritingPage from "./pages/writing/WritingPage";
 import Testpage from "./pages/Testpage";
 import EditPage from "./pages/writing/EditPage";
+import HashtagDetail from "./pages/collection/HashtagDetail";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
 
           <Route path="/comments" element={<Comments />} />
           <Route path="/hashtags" element={<Hashtags />} />
+          <Route path="/hashtags/:id" element={<HashtagDetail />} />
           <Route path="/test" element={<Testpage />} />
         </Routes>
       </Wrapper>
