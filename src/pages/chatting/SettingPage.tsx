@@ -3,13 +3,14 @@ import styled from "styled-components";
 import { useSettingStore } from "../../services/zustand/setting";
 import { useNavigate } from "react-router-dom";
 import { postCharacter } from "../../services/apis/chatting/chat";
+import CustomDatePicker from "../../components/CustomDatePicker";
 
 const characters = [
   {
     id: "1",
     name: "앙글이",
     description:
-      "화가 나지만, 상황에서 속이 뻥 뚫리게 같이 화를 내줄 수 있어요!",
+      "앙글이는 늘 화가 나있지만, 화가 나는 상황에서 속이 뻥 뚫리게 같이 화를 내줄 수 있습니다!",
     image: "/images/characters/앙글이.png",
   },
   {
@@ -27,20 +28,31 @@ const characters = [
 ];
 
 const SettingPage: React.FC = () => {
-  const { selectedDate, setDate, selectedCharacter, setCharacter } =
-    useSettingStore();
+  const { selectedDate, setDate, selectedCharacter, setCharacter } = useSettingStore();
   const [, setChatId] = useState();
   const navigate = useNavigate();
   const [step, setStep] = useState<'date' | 'character'>('date');
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newDate = new Date(e.target.value);
-    setDate(newDate);
-    console.log(
-      selectedDate instanceof Date
-        ? selectedDate.toISOString().split("T")[0]
-        : selectedDate,
-    );
+  // PickerValue allows year, month, day to be string | number
+  type PickerValue = { year: string | number; month: string | number; day: string | number };
+
+  const [localDate, setLocalDate] = useState<PickerValue>({
+    year: selectedDate?.getFullYear() || 2025,
+    month: (selectedDate?.getMonth() || 0) + 1,
+    day: selectedDate?.getDate() || 1,
+  });
+
+  const handleDateNext = () => {
+    const year = Number(localDate.year);
+    const month = Number(localDate.month);
+    const day = Number(localDate.day);
+    const fullDate = new Date(year, month - 1, day);
+    setDate(fullDate);
+    setStep("character");
+  };
+
+  const handleDateChange = (newDate: PickerValue) => {
+    setLocalDate(newDate);
   };
 
   const startChatting = async () => {
@@ -59,11 +71,12 @@ const SettingPage: React.FC = () => {
 
     try {
       const response = await postCharacter(selectedChar.name);
-      // console.log("Character set successfully:", response);
 
       const chatIdFromApi = response.chatId;
       if (chatIdFromApi) {
         setChatId(chatIdFromApi);
+        console.log("넘어가는 날짜:", selectedDate);
+        console.log("넘어가는 캐릭터:", selectedCharacter);
         navigate(`/chat/${chatIdFromApi}/${selectedChar.name}`);
       } else {
         console.error("chatId가 응답에 없습니다.");
@@ -77,17 +90,22 @@ const SettingPage: React.FC = () => {
     <Container>
       {step === "date" && (
         <>
-          <HomeIcon>
+          <HomeIcon onClick={() => navigate("/")}>
             <img src="/images/home.png" alt="home" width={50} />
           </HomeIcon>
           <Title>언제의 기록을 담고 싶나요?</Title>
-          <DateInput type="date" onChange={handleDateChange} />
-          <NextButton onClick={() => setStep("character")}><img src="/images/next.png" alt="다음" /></NextButton>
+          <CustomDatePicker value={localDate} onChange={handleDateChange} />
+          <NextButton onClick={handleDateNext}>
+            <img src="/images/next.png" alt="다음" />
+          </NextButton>
         </>
       )}
 
       {step === "character" && (
         <>
+          <HomeIcon onClick={() => navigate("/")}>
+            <img src="/images/home.png" alt="home" width={50} />
+          </HomeIcon>
           <Title>누구와 대화하고 싶나요?</Title>
           <CharacterList>
             {characters.map((char) => (
@@ -96,7 +114,11 @@ const SettingPage: React.FC = () => {
                 selected={selectedCharacter === char.id}
                 onClick={() => setCharacter(char.id)}
               >
-                {char.name}
+                <img
+                  src={char.image}
+                  alt={char.name}
+                  style={{ width: "130px", height: "130px", objectFit: "contain", marginBottom: "-0.5rem" }}
+                />
               </CharacterCard>
             ))}
           </CharacterList>
@@ -145,20 +167,14 @@ const HomeIcon = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2.0rem;
+  font-size: 2.5rem;
   font-weight: bold;
   color: #364B76;
   margin-bottom: 2rem;
-  width: 400px;
+  width: 500px;
   height: 100px;
-`;
-
-const DateInput = styled.input`
-  margin-bottom: 1.5rem;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 0.375rem;
-  width: 100%;
+  text-align: center;
+  margin-bottom: -1.5rem;
 `;
 
 const NextButton = styled.button`
@@ -186,18 +202,26 @@ const CharacterList = styled.div`
 const CharacterCard = styled.div<{ selected: boolean }>`
   cursor: pointer;
   padding: 0.5rem;
-  border: 2px solid ${({ selected }) => (selected ? "#3b82f6" : "#d1d5db")};
+  border: 2px solid ${({ selected }) => (selected ? "#9FACBA" : "unset")};
   border-radius: 0.375rem;
   text-align: center;
 `;
 
 const CharacterDetail = styled.div`
   padding: 1rem;
-  background-color: #f3f4f6;
-  border-radius: 0.375rem;
+  font-size: 1.5rem;
+  background-color: #FFF8F8;
+  border-radius: 1.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  height: 200px;
+  color: #364B76;
+  text-align: center;
+  margin-bottom: 2rem;
 `;
 
 const CharacterName = styled.h3`
   font-weight: bold;
+  font-size: 2.0rem;
+  color: #364B76;
 `;
