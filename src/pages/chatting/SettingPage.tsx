@@ -10,16 +10,19 @@ const characters = [
     name: "앙글이",
     description:
       "화가 나지만, 상황에서 속이 뻥 뚫리게 같이 화를 내줄 수 있어요!",
+    image: "/images/characters/앙글이.png",
   },
   {
     id: "2",
     name: "웅이",
     description: "항상 즐겁고 기분을 북돋아주는 친구예요.",
+    image: "/images/characters/웅이.png",
   },
   {
     id: "3",
     name: "티바노",
     description: "차분하게 상황을 바라볼 수 있도록 도와줘요.",
+    image: "/images/characters/티바노.png",
   },
 ];
 
@@ -28,6 +31,7 @@ const SettingPage: React.FC = () => {
     useSettingStore();
   const [, setChatId] = useState();
   const navigate = useNavigate();
+  const [step, setStep] = useState<'date' | 'character'>('date');
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = new Date(e.target.value);
@@ -71,38 +75,53 @@ const SettingPage: React.FC = () => {
 
   return (
     <Container>
-      <Title>언제의 기록을 담고 싶나요?</Title>
-      <DateInput
-        type="date"
-        value={selectedDate.toISOString().split("T")[0]}
-        onChange={handleDateChange}
-      />
-
-      <Subtitle>누구와 대화하고 싶나요?</Subtitle>
-      <CharacterList>
-        {characters.map((char) => (
-          <CharacterCard
-            key={char.id}
-            onClick={() => setCharacter(char.id)}
-            selected={selectedCharacter === char.id}
-          >
-            {char.name}
-          </CharacterCard>
-        ))}
-      </CharacterList>
-
-      {selectedCharacter && (
-        <CharacterDetail>
-          <CharacterName>
-            {characters.find((c) => c.id === selectedCharacter)?.name}
-          </CharacterName>
-          <p>
-            {characters.find((c) => c.id === selectedCharacter)?.description}
-          </p>
-        </CharacterDetail>
+      {step === "date" && (
+        <>
+          <HomeIcon>
+            <img src="/images/home.png" alt="home" width={50} />
+          </HomeIcon>
+          <Title>언제의 기록을 담고 싶나요?</Title>
+          <DateInput type="date" onChange={handleDateChange} />
+          <NextButton onClick={() => setStep("character")}><img src="/images/next.png" alt="다음" /></NextButton>
+        </>
       )}
 
-      <button onClick={startChatting}>제출</button>
+      {step === "character" && (
+        <>
+          <Title>누구와 대화하고 싶나요?</Title>
+          <CharacterList>
+            {characters.map((char) => (
+              <CharacterCard
+                key={char.id}
+                selected={selectedCharacter === char.id}
+                onClick={() => setCharacter(char.id)}
+              >
+                {char.name}
+              </CharacterCard>
+            ))}
+          </CharacterList>
+
+          {selectedCharacter && (
+            <CharacterDetail>
+              <CharacterName>
+                {
+                  characters.find((c) => c.id === selectedCharacter)?.name
+                }
+              </CharacterName>
+              <p>
+                {
+                  characters.find((c) => c.id === selectedCharacter)
+                    ?.description
+                }
+              </p>
+            </CharacterDetail>
+          )}
+
+          <NextButton onClick={startChatting}>
+            <img src="/images/next.png" alt="다음" />
+          </NextButton>
+        </>
+      )}
     </Container>
   );
 };
@@ -110,15 +129,28 @@ const SettingPage: React.FC = () => {
 export default SettingPage;
 
 const Container = styled.div`
-  padding: 1.5rem;
-  max-width: 28rem;
-  margin: 0 auto;
+  height: 100vh;
+  background: linear-gradient(to bottom, #fce4ec, #e0f7fa);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+`;
+
+const HomeIcon = styled.div`
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
 `;
 
 const Title = styled.h1`
-  font-size: 1.25rem;
+  font-size: 2.0rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  color: #364B76;
+  margin-bottom: 2rem;
+  width: 400px;
+  height: 100px;
 `;
 
 const DateInput = styled.input`
@@ -129,10 +161,20 @@ const DateInput = styled.input`
   width: 100%;
 `;
 
-const Subtitle = styled.h2`
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+const NextButton = styled.button`
+  all: unset;
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+  }
 `;
 
 const CharacterList = styled.div`
