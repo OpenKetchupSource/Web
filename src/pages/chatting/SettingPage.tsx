@@ -28,13 +28,18 @@ const characters = [
 ];
 
 const SettingPage: React.FC = () => {
-  const { selectedDate, setDate, selectedCharacter, setCharacter } = useSettingStore();
+  const { selectedDate, setDate, selectedCharacter, setCharacter } =
+    useSettingStore();
   const [, setChatId] = useState();
   const navigate = useNavigate();
-  const [step, setStep] = useState<'date' | 'character'>('date');
+  const [step, setStep] = useState<"date" | "character">("date");
 
   // PickerValue allows year, month, day to be string | number
-  type PickerValue = { year: string | number; month: string | number; day: string | number };
+  type PickerValue = {
+    year: string | number;
+    month: string | number;
+    day: string | number;
+  };
 
   const [localDate, setLocalDate] = useState<PickerValue>({
     year: selectedDate?.getFullYear() || 2025,
@@ -117,7 +122,12 @@ const SettingPage: React.FC = () => {
                 <img
                   src={char.image}
                   alt={char.name}
-                  style={{ width: "130px", height: "130px", objectFit: "contain", marginBottom: "-0.5rem" }}
+                  style={{
+                    width: "130px",
+                    height: "130px",
+                    objectFit: "contain",
+                    marginBottom: "-0.5rem",
+                  }}
                 />
               </CharacterCard>
             ))}
@@ -126,9 +136,7 @@ const SettingPage: React.FC = () => {
           {selectedCharacter && (
             <CharacterDetail>
               <CharacterName>
-                {
-                  characters.find((c) => c.id === selectedCharacter)?.name
-                }
+                {characters.find((c) => c.id === selectedCharacter)?.name}
               </CharacterName>
               <p>
                 {
@@ -169,7 +177,7 @@ const HomeIcon = styled.div`
 const Title = styled.h1`
   font-size: 2.5rem;
   font-weight: bold;
-  color: #364B76;
+  color: #364b76;
   margin-bottom: 2rem;
   width: 500px;
   height: 100px;
@@ -210,18 +218,18 @@ const CharacterCard = styled.div<{ selected: boolean }>`
 const CharacterDetail = styled.div`
   padding: 1rem;
   font-size: 1.5rem;
-  background-color: #FFF8F8;
+  background-color: #fff8f8;
   border-radius: 1.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   width: 500px;
   height: 200px;
-  color: #364B76;
+  color: #364b76;
   text-align: center;
   margin-bottom: 2rem;
 `;
 
 const CharacterName = styled.h3`
   font-weight: bold;
-  font-size: 2.0rem;
-  color: #364B76;
+  font-size: 2rem;
+  color: #364b76;
 `;
