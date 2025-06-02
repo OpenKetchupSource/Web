@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { postComment, postDiary } from "../../services/apis/chatting/chat";
@@ -251,13 +251,6 @@ const ChatPage = () => {
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSend();
-    }
-  };
-
   const endChatting = async () => {
     if (!chatId || !character || !selectedDate) {
       alert("채팅 ID, 캐릭터 또는 날짜 정보가 부족합니다.");
@@ -334,7 +327,6 @@ const ChatPage = () => {
         <TextInput
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          // onKeyDown={handleKeyDown}
           placeholder="메시지를 입력하세요"
         />
         <SendButton onClick={handleSend} disabled={loading}>
