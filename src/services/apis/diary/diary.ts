@@ -33,16 +33,19 @@ export async function delDiary(diaryId: string) {
   }
 }
 
-export async function putDiary(diaryId: string, data: {
-  date: string;
-  title: string;
-  content: string;
-  hashtag: string;
-}) {
+export async function putDiary(
+  diaryId: string,
+  data: {
+    date: string;
+    title: string;
+    content: string;
+    hashtag: string;
+  },
+) {
   try {
     const response = await axiosInstanceWithToken.put(
       `/api/diary/update/${diaryId}`,
-      data
+      data,
     );
     return response.data;
   } catch (error) {

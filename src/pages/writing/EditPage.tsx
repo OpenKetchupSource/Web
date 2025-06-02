@@ -11,6 +11,7 @@ const EditPage = () => {
 
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
+  const [date, setDate] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -22,6 +23,7 @@ const EditPage = () => {
           setTitle(data.title);
           setTags(data.hashTags.join(", "));
           setContent(data.content);
+          setDate(data.date); // 날짜 저장
           setLoading(false);
         })
         .catch((err) => {
@@ -35,15 +37,23 @@ const EditPage = () => {
   const handleUpdate = async () => {
     if (!diaryId) return;
 
-    const confirmDelete = window.confirm("정말로 이 일기를 삭제하시겠습니까?");
-    if (!confirmDelete) return;
+    const confirmUpdate = window.confirm("정말로 이 일기를 수정하시겠습니까?");
+    if (!confirmUpdate) return;
 
     try {
-      await putDiary(diaryId);
+      await putDiary(diaryId, {
+        date, // 원래 받은 날짜 사용
+        title,
+        content,
+        hashtag: tags
+          .split(",")
+          .map((tag) => tag.trim())
+          .join(" "),
+      });
       alert("일기가 수정되었습니다.");
       navigate(`/diary/${diaryId}`);
     } catch (err) {
-      console.error("삭제 실패:", err);
+      console.error("수정 실패:", err);
       alert("일기 수정 중 오류가 발생했습니다.");
     }
   };
