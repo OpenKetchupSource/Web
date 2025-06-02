@@ -26,7 +26,7 @@ function App() {
           <Route path="/setChatting" element={<SettingPage />} />
           <Route path="/chat/:chatId/:character" element={<ChatPage />} />
           <Route path="/writing" element={<WritingPage />} />
-          <Route path="/edit/:chatId" element={<EditPage />} />
+          <Route path="/edit/:diaryId" element={<EditPage />} />
 
           <Route path="/comments" element={<Comments />} />
           <Route path="/hashtags" element={<Hashtags />} />
