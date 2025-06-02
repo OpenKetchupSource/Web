@@ -211,8 +211,11 @@ const ChatPage = () => {
   }, [messages]);
 
   const handleSend = async () => {
-    if (!input.trim() || loading || !chatId || !character) return;
-
+    if (!chatId || !character) {
+      alert("채팅 ID 또는 캐릭터 정보가 부족합니다.");
+      return;
+    }
+    
     const userMessage = { role: "user", content: input };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
