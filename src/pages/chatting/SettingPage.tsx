@@ -157,7 +157,7 @@ const SettingPage: React.FC = () => {
 
 export default SettingPage;
 
-const Container = styled.div`
+export const Container = styled.div`
   height: 100vh;
   background: linear-gradient(to bottom, #fce4ec, #e0f7fa);
   display: flex;
@@ -167,13 +167,13 @@ const Container = styled.div`
   position: relative;
 `;
 
-const HomeIcon = styled.div`
+export const HomeIcon = styled.div`
   position: absolute;
   top: 1rem;
   left: 1rem;
 `;
 
-const Title = styled.h1`
+export const Title = styled.h1`
   font-size: 24px;
   font-weight: bold;
   color: #364b76;
@@ -184,7 +184,7 @@ const Title = styled.h1`
   margin-bottom: -1.5rem;
 `;
 
-const NextButton = styled.button`
+export const NextButton = styled.button`
   all: unset;
   cursor: pointer;
   width: 100px;
@@ -200,13 +200,13 @@ const NextButton = styled.button`
   }
 `;
 
-const CharacterList = styled.div`
+export const CharacterList = styled.div`
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
 `;
 
-const CharacterCard = styled.div<{ selected: boolean }>`
+export const CharacterCard = styled.div<{ selected: boolean }>`
   width: 80%;
   cursor: pointer;
   padding: 0.5rem;
@@ -215,7 +215,7 @@ const CharacterCard = styled.div<{ selected: boolean }>`
   text-align: center;
 `;
 
-const CharacterDetail = styled.div`
+export const CharacterDetail = styled.div`
   padding: 1rem;
   font-size: 1.5rem;
   background-color: #fff8f8;
@@ -228,7 +228,7 @@ const CharacterDetail = styled.div`
   margin-bottom: 2rem;
 `;
 
-const CharacterName = styled.h3`
+export const CharacterName = styled.h3`
   font-weight: bold;
   font-size: 2rem;
   color: #364b76;
