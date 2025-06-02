@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { postComment, postDiary } from "../../services/apis/chatting/chat";
@@ -8,75 +8,185 @@ const Container = styled.div`
   max-width: 600px;
   margin: 2rem auto;
   padding: 1rem;
+  align-items: center;
+`;
+
+const HomeIcon = styled.div`
+  position: absolute;
+  left: 1rem;
+  top: 27%;
+  img{
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 const Title = styled.h1`
   font-size: 1.8rem;
-  font-weight: bold;
+  font-weight: normal;
   margin-bottom: 1rem;
+  margin-top: 0;
+  color: #364B76;
+  text-align: center;
+`;
+
+const TitleWrapper = styled.div`
+  position: relative;
+  text-align: center;
+  justify-content: space-between;
+  padding: 16px 40px; // 여백 필요 시 조정
+`;
+
+const EndChatButton = styled.button`
+  position: absolute;
+  right: 16px;
+  top: 27%;
+  background-color: unset;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+
+  img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
 `;
 
 const ChatBox = styled.div`
-  border: 1px solid #ccc;
   border-radius: 8px;
-  height: 400px;
+  height: 700px;
   padding: 1rem;
   overflow-y: auto;
-  background-color: #f9f9f9;
-  margin-bottom: 1rem;
+  background-color: unset;
+  margin-bottom: 0.0rem;
+
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 90%, rgba(0,0,0,0.1));
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 90%, rgba(0,0,0,0.1));
+
+  /* 스크롤바 숨기기 (크로스브라우징 대응) */
+
+  /* Chrome, Edge, Safari */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* IE, Edge 구버전 */
+  -ms-overflow-style: none;
 `;
 
 const Message = styled.div<{ role: string }>`
-  text-align: ${({ role }) => (role === "user" ? "right" : "left")};
-  margin-bottom: 0.5rem;
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.2rem;
+
+  ${({ role }) =>
+      role === 'user'
+        ? `
+        text-align: right;
+        flex-direction: row-reverse;
+      `
+        : `
+        margin-left: -0.5rem;
+        text-align: left;
+        flex-direction: row;
+      `}
+  }
+
 `;
 
 const Bubble = styled.span<{ role: string }>`
+  position: relative;
   display: inline-block;
-  background-color: ${({ role }) => (role === "user" ? "#d0e8ff" : "#d6f5d6")};
-  padding: 0.5rem 0.75rem;
+  background-color: #FFF8F8;
+  color: #364B76;
+  padding: 0.8rem 1.0rem;
   border-radius: 16px;
   max-width: 70%;
   word-break: break-word;
+  align-self: ${({ role }) => (role === "user" ? "flex-end" : "flex-start")};
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+
+    ${({ role }) =>
+      role === 'user'
+        ? `
+        right: -10px;
+        border-width: 6px 0 6px 12px;
+        border-style: solid;
+        border-color: transparent transparent transparent #FFF8F8;
+      `
+        : `
+        left: -10px;
+        border-width: 6px 12px 6px 0;
+        border-style: solid;
+        border-color: transparent #FFF8F8 transparent transparent;
+      `}
+  }
 `;
 
 const InputArea = styled.div`
   display: flex;
-  gap: 0.5rem;
+  position: fixed;      
+  bottom: 0;             
+  left: 0;
+  right: 0;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFF8F8;
+  padding: 0.75rem 0.5rem 0.75rem 1.25rem;
+  height: 50px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 `;
 
 const TextInput = styled.input`
   flex: 1;
-  padding: 0.5rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  font-size: 1.3rem;
+  color: #5e6b7c;
+  border: none;
+  background: transparent;
+  outline: none;
 `;
 
 const SendButton = styled.button`
-  padding: 0.5rem 1rem;
-  background-color: #4a90e2;
-  color: white;
+  background: none;
   border: none;
-  border-radius: 6px;
   cursor: pointer;
 
-  &:disabled {
-    background-color: #a0c4f6;
+  img {
+    width: 48px;
+    height: 48px;
   }
 `;
 
-const EndChatButton = styled.button`
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+const RightColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
 
-  &:hover {
-    background-color: #c0392b;
-  }
+const ProfileImage = styled.img`
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+
+const Name = styled.span`
+  font-size: 0.9rem;
+  font-weight: normal;
+  color: #364b76;
+  margin-top: 0.5rem;
+  margin-bottom: 0.7rem;
 `;
 
 const ChatPage = () => {
@@ -88,6 +198,11 @@ const ChatPage = () => {
   const [loading, setLoading] = useState(false);
   const { selectedDate } = useSettingStore();
   const navigate = useNavigate();
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+   useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const handleSend = async () => {
     if (!input.trim() || loading || !chatId || !character) return;
@@ -159,17 +274,50 @@ const ChatPage = () => {
     }
   };
 
+  const getImageFileName = (character: string) => {
+    switch (character) {
+      case "앙글이":
+        return "앙글이.png";
+      case "웅이":
+        return "웅이.png";
+      case "티바노":
+        return "티바노.png";
+      default:
+        return "앙글이.png"; // 예외처리용 기본 이미지
+    }
+  };
+
   return (
     <Container>
-      <Title>Chat with {character}</Title>
+      <TitleWrapper>
+        <HomeIcon onClick={() => navigate("/")}>
+            <img src="/images/home.png" alt="home" width={50} />
+        </HomeIcon>
+        <Title>{character}와의 대화</Title>
+        <EndChatButton onClick={endChatting}>
+          <img src="/images/arrow.png" alt="다음" />
+        </EndChatButton>
+      </TitleWrapper>
+
 
       <ChatBox>
         {messages.map((msg, index) => (
           <Message key={index} role={msg.role}>
-            <Bubble role={msg.role}>{msg.content}</Bubble>
+            {msg.role !== "user" ? (
+              <>
+                <ProfileImage src={`/images/characters/${getImageFileName(character)}`} alt={character} />
+                <RightColumn>
+                  <Name>{character}</Name>
+                  <Bubble role={msg.role}>{msg.content}</Bubble>
+                </RightColumn>
+              </>
+            ) : (
+              <Bubble role={msg.role}>{msg.content}</Bubble>
+            )}
           </Message>
         ))}
         {loading && <div>응답 중...</div>}
+        <div ref={bottomRef} />
       </ChatBox>
 
       <InputArea>
@@ -180,11 +328,10 @@ const ChatPage = () => {
           placeholder="메시지를 입력하세요"
         />
         <SendButton onClick={handleSend} disabled={loading}>
-          보내기
+          <img src="/images/send.png" alt="다음" />
         </SendButton>
       </InputArea>
-
-      <EndChatButton onClick={endChatting}>대화 종료하기</EndChatButton>
+    
     </Container>
   );
 };
