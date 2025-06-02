@@ -249,11 +249,17 @@ const ChatPage = () => {
     }
   };
 
+  const [isSaving, setIsSaving] = useState(false);
+
   const endChatting = async () => {
+    if (isSaving) return; // 중복 실행 방지
+
     if (!chatId || !character || !selectedDate) {
       alert("채팅 ID, 캐릭터 또는 날짜 정보가 부족합니다.");
       return;
     }
+
+    setIsSaving(true); // 저장 시작
 
     try {
       const formattedDate =
@@ -270,6 +276,8 @@ const ChatPage = () => {
     } catch (err) {
       console.error("대화 저장 실패:", err);
       alert("대화 저장 중 문제가 발생했습니다.");
+    } finally {
+      setIsSaving(false); // 실패 시에도 버튼 재활성화
     }
   };
 
@@ -293,7 +301,7 @@ const ChatPage = () => {
           <img src="/images/home.png" alt="home" width={50} />
         </HomeIcon>
         <Title>{character}와의 대화</Title>
-        <EndChatButton onClick={endChatting}>
+        <EndChatButton onClick={endChatting} disabled={isSaving}>
           <img src="/images/arrow.png" alt="다음" />
         </EndChatButton>
       </TitleWrapper>
