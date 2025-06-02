@@ -30,7 +30,7 @@ const WritingPage = () => {
 
   const handleSubmit = async () => {
     if (!title || !content || !tags) {
-      alert("제목과 내용과 해시태그를 모두 입력해주세요.");
+      alert("모든 항목을 입력해주세요.");
       return;
     }
     const confirmed = window.confirm("작성을 종료하시겠습니까?");
