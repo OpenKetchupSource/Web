@@ -1,6 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import CustomDatePicker from "../../components/CustomDatePicker";
-import { Container, HomeIcon, NextButton, Title } from "../chatting/SettingPage";
+import {
+  Container,
+  HomeIcon,
+  NextButton,
+  Title,
+} from "../chatting/SettingPage";
 import { useSettingStore } from "../../services/zustand/setting";
 import { useState } from "react";
 

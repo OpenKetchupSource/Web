@@ -215,7 +215,7 @@ const ChatPage = () => {
       alert("채팅 ID 또는 캐릭터 정보가 부족합니다.");
       return;
     }
-    
+
     const userMessage = { role: "user", content: input };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");

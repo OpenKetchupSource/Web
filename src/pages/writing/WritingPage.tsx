@@ -21,11 +21,14 @@ const WritingPage = () => {
 
   const displayDate =
     selectedDate instanceof Date
-      ? selectedDate.toLocaleDateString("ko-KR", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        }).replace(/\. /g, ".").replace(/\.$/, ".")
+      ? selectedDate
+          .toLocaleDateString("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })
+          .replace(/\. /g, ".")
+          .replace(/\.$/, ".")
       : selectedDate;
 
   const handleSubmit = async () => {
@@ -82,7 +85,6 @@ const WritingPage = () => {
 };
 
 export default WritingPage;
-
 
 const Container = styled.div`
   display: flex;
