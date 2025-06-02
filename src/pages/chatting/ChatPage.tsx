@@ -53,12 +53,11 @@ const EndChatButton = styled.button`
 
 const ChatBox = styled.div`
   border-radius: 8px;
-  height: 700px;
+  height: 600px;
   padding: 1rem;
   overflow-y: auto;
   background-color: unset;
   margin-bottom: 0rem;
-  padding-bottom: 4rem;
 
   -webkit-mask-image: linear-gradient(
     to bottom,
