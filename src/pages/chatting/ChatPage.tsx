@@ -90,16 +90,15 @@ const Message = styled.div<{ role: string }>`
   display: flex;
   gap: 0.75rem;
   margin-bottom: 1.2rem;
+  text-align: left;
 
   ${({ role }) =>
     role === "user"
       ? `
-        text-align: right;
         flex-direction: row-reverse;
       `
       : `
         margin-left: -0.5rem;
-        text-align: left;
         flex-direction: row;
       `}
   }
