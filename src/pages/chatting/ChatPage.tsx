@@ -6,8 +6,8 @@ import { useSettingStore } from "../../services/zustand/setting";
 
 const Container = styled.div`
   max-width: 600px;
-  margin: 2rem auto;
-  padding: 1rem;
+  // margin: 2rem auto;
+  // padding: 1rem;
   align-items: center;
 `;
 
