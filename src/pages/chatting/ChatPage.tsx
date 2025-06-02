@@ -334,7 +334,7 @@ const ChatPage = () => {
         <TextInput
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
+          // onKeyDown={handleKeyDown}
           placeholder="메시지를 입력하세요"
         />
         <SendButton onClick={handleSend} disabled={loading}>
