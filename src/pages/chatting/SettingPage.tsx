@@ -34,7 +34,6 @@ const SettingPage: React.FC = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState<"date" | "character">("date");
 
-  // PickerValue allows year, month, day to be string | number
   type PickerValue = {
     year: string | number;
     month: string | number;
@@ -175,7 +174,7 @@ const HomeIcon = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2.5rem;
+  font-size: 24px;
   font-weight: bold;
   color: #364b76;
   margin-bottom: 2rem;
@@ -208,6 +207,7 @@ const CharacterList = styled.div`
 `;
 
 const CharacterCard = styled.div<{ selected: boolean }>`
+  width: 80%;
   cursor: pointer;
   padding: 0.5rem;
   border: 2px solid ${({ selected }) => (selected ? "#9FACBA" : "unset")};
