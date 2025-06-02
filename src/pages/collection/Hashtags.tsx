@@ -12,7 +12,10 @@ const Hashtags = () => {
       <div>해시태그 목록</div>
       <TagBox>
         {dummyHashtags.map((tag, idx) => (
-          <Tag key={idx} onClick={() => navigate(`/hashtag/${(idx + 1).toString()}`)}>
+          <Tag
+            key={idx}
+            onClick={() => navigate(`/hashtag/${(idx + 1).toString()}`)}
+          >
             #{tag}
           </Tag>
         ))}

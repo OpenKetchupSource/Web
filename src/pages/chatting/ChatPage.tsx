@@ -15,7 +15,7 @@ const HomeIcon = styled.div`
   position: absolute;
   left: 1rem;
   top: 27%;
-  img{
+  img {
     width: 30px;
     height: 30px;
   }
@@ -26,7 +26,7 @@ const Title = styled.h1`
   font-weight: normal;
   margin-bottom: 1rem;
   margin-top: 0;
-  color: #364B76;
+  color: #364b76;
   text-align: center;
 `;
 
@@ -59,10 +59,18 @@ const ChatBox = styled.div`
   padding: 1rem;
   overflow-y: auto;
   background-color: unset;
-  margin-bottom: 0.0rem;
+  margin-bottom: 0rem;
 
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 90%, rgba(0,0,0,0.1));
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 90%, rgba(0,0,0,0.1));
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 90%,
+    rgba(0, 0, 0, 0.1)
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 90%,
+    rgba(0, 0, 0, 0.1)
+  );
 
   /* 스크롤바 숨기기 (크로스브라우징 대응) */
 
@@ -84,12 +92,12 @@ const Message = styled.div<{ role: string }>`
   margin-bottom: 1.2rem;
 
   ${({ role }) =>
-      role === 'user'
-        ? `
+    role === "user"
+      ? `
         text-align: right;
         flex-direction: row-reverse;
       `
-        : `
+      : `
         margin-left: -0.5rem;
         text-align: left;
         flex-direction: row;
@@ -101,21 +109,21 @@ const Message = styled.div<{ role: string }>`
 const Bubble = styled.span<{ role: string }>`
   position: relative;
   display: inline-block;
-  background-color: #FFF8F8;
-  color: #364B76;
-  padding: 0.8rem 1.0rem;
+  background-color: #fff8f8;
+  color: #364b76;
+  padding: 0.8rem 1rem;
   border-radius: 16px;
   max-width: 70%;
   word-break: break-word;
   align-self: ${({ role }) => (role === "user" ? "flex-end" : "flex-start")};
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 20px;
 
     ${({ role }) =>
-      role === 'user'
+      role === "user"
         ? `
         right: -10px;
         border-width: 6px 0 6px 12px;
@@ -133,13 +141,13 @@ const Bubble = styled.span<{ role: string }>`
 
 const InputArea = styled.div`
   display: flex;
-  position: fixed;      
-  bottom: 0;             
+  position: fixed;
+  bottom: 0;
   left: 0;
   right: 0;
   justify-content: space-between;
   align-items: center;
-  background-color: #FFF8F8;
+  background-color: #fff8f8;
   padding: 0.75rem 0.5rem 0.75rem 1.25rem;
   height: 50px;
   border-top-left-radius: 20px;
@@ -200,7 +208,7 @@ const ChatPage = () => {
   const navigate = useNavigate();
   const bottomRef = useRef<HTMLDivElement>(null);
 
-   useEffect(() => {
+  useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
@@ -291,7 +299,7 @@ const ChatPage = () => {
     <Container>
       <TitleWrapper>
         <HomeIcon onClick={() => navigate("/")}>
-            <img src="/images/home.png" alt="home" width={50} />
+          <img src="/images/home.png" alt="home" width={50} />
         </HomeIcon>
         <Title>{character}와의 대화</Title>
         <EndChatButton onClick={endChatting}>
@@ -299,13 +307,15 @@ const ChatPage = () => {
         </EndChatButton>
       </TitleWrapper>
 
-
       <ChatBox>
         {messages.map((msg, index) => (
           <Message key={index} role={msg.role}>
             {msg.role !== "user" ? (
               <>
-                <ProfileImage src={`/images/characters/${getImageFileName(character)}`} alt={character} />
+                <ProfileImage
+                  src={`/images/characters/${getImageFileName(character)}`}
+                  alt={character}
+                />
                 <RightColumn>
                   <Name>{character}</Name>
                   <Bubble role={msg.role}>{msg.content}</Bubble>
@@ -331,7 +341,6 @@ const ChatPage = () => {
           <img src="/images/send.png" alt="다음" />
         </SendButton>
       </InputArea>
-    
     </Container>
   );
 };

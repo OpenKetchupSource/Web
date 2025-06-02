@@ -21,3 +21,14 @@ export async function getDiary(diaryId: string) {
     throw error;
   }
 }
+
+export async function delDiary(diaryId: string) {
+  try {
+    const response = await axiosInstanceWithToken.delete(
+      `/api/diary/delete/${diaryId}`,
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

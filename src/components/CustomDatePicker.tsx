@@ -41,38 +41,48 @@ const CustomDatePicker: React.FC<Props> = ({ value, onChange }) => {
   }, [value.year, value.month]);
 
   const selections = {
-    year: Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i),
+    year: Array.from(
+      { length: endYear - startYear + 1 },
+      (_, i) => startYear + i,
+    ),
     month: Array.from({ length: 12 }, (_, i) => i + 1),
     day: dayOptions,
   };
 
   return (
     <div style={{ width: "500px", height: "250px" }}>
-      <Picker value={value} onChange={onChange} wheelMode="normal" itemHeight={80}>
-        {(Object.keys(selections) as Array<keyof typeof selections>).map((key) => (
-          <Picker.Column key={key} name={key}>
-            {selections[key].map((option) => (
-              <Picker.Item key={option} value={option}>
-                {({ selected }) => (
-                  <div
-                    style={{
-                      color: selected ? "#364B76" : "gray",
-                      fontWeight: selected ? 650 : "normal",
-                      fontSize: "36px",
-                      borderRadius: "5px",
-                      padding: "12px 20px",
-                    }}
-                  >
-                    {option}
-                    {key === "year" && " 년"}
-                    {key === "month" && " 월"}
-                    {key === "day" && " 일"}
-                  </div>
-                )}
-              </Picker.Item>
-            ))}
-          </Picker.Column>
-        ))}
+      <Picker
+        value={value}
+        onChange={onChange}
+        wheelMode="normal"
+        itemHeight={80}
+      >
+        {(Object.keys(selections) as Array<keyof typeof selections>).map(
+          (key) => (
+            <Picker.Column key={key} name={key}>
+              {selections[key].map((option) => (
+                <Picker.Item key={option} value={option}>
+                  {({ selected }) => (
+                    <div
+                      style={{
+                        color: selected ? "#364B76" : "gray",
+                        fontWeight: selected ? 650 : "normal",
+                        fontSize: "36px",
+                        borderRadius: "5px",
+                        padding: "12px 20px",
+                      }}
+                    >
+                      {option}
+                      {key === "year" && " 년"}
+                      {key === "month" && " 월"}
+                      {key === "day" && " 일"}
+                    </div>
+                  )}
+                </Picker.Item>
+              ))}
+            </Picker.Column>
+          ),
+        )}
       </Picker>
     </div>
   );
