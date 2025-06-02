@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import CustomDatePicker from "../../components/CustomDatePicker";
-import { HomeIcon, NextButton, Title } from "../chatting/SettingPage";
+import { Container, HomeIcon, NextButton, Title } from "../chatting/SettingPage";
 import { useSettingStore } from "../../services/zustand/setting";
 import { useState } from "react";
 
@@ -34,7 +34,7 @@ const SettingWPage = () => {
   };
 
   return (
-    <>
+    <Container>
       <HomeIcon onClick={() => navigate("/")}>
         <img src="/images/home.png" alt="home" width={50} />
       </HomeIcon>
@@ -43,7 +43,7 @@ const SettingWPage = () => {
       <NextButton onClick={handleDateNext}>
         <img src="/images/next.png" alt="다음" />
       </NextButton>
-    </>
+    </Container>
   );
 };
 
