@@ -81,8 +81,7 @@ const DiaryDetail = () => {
         <HomeIcon onClick={() => navigate("/")} />
         <DateText>{formatDate(diary.date)}</DateText>
         <TrashIcon onClick={handleDelete} />
-        <EditIcon onClick={() => alert("수정 기능은 준비 중입니다.")} />
-        {/* <EditIcon onClick={() => navigate(`/edit/${diary.id}`)} /> */}
+        <EditIcon onClick={() => navigate(`/edit/${diary.id}`)} />
       </Header>
 
       <Body>
