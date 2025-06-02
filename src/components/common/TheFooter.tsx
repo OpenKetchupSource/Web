@@ -15,7 +15,7 @@ export const TheFooter = () => {
         <Button onClick={() => navigate("/setChatting")}>
           <BsChat size={24} />
         </Button>
-        <Button onClick={() => navigate("/writing")}>
+        <Button onClick={() => navigate("/setWriting")}>
           <BsPencil size={24} />
         </Button>
         <Button onClick={() => navigate("/comments")}>
