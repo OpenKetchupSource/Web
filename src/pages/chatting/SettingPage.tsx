@@ -122,8 +122,8 @@ const SettingPage: React.FC = () => {
                   src={char.image}
                   alt={char.name}
                   style={{
-                    width: "130px",
-                    height: "130px",
+                    // width: "130px",
+                    // height: "130px",
                     objectFit: "contain",
                     marginBottom: "-0.5rem",
                   }}
@@ -158,13 +158,14 @@ const SettingPage: React.FC = () => {
 export default SettingPage;
 
 export const Container = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(to bottom, #fce4ec, #e0f7fa);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
+  width: 100%;
 `;
 
 export const HomeIcon = styled.div`
@@ -202,14 +203,15 @@ export const NextButton = styled.button`
 
 export const CharacterList = styled.div`
   display: flex;
-  gap: 1rem;
+  // gap: 1rem;
   margin-bottom: 1rem;
+  width: 100%;
 `;
 
 export const CharacterCard = styled.div<{ selected: boolean }>`
   width: 80%;
   cursor: pointer;
-  padding: 0.5rem;
+  // padding: 0.5rem;
   border: 2px solid ${({ selected }) => (selected ? "#9FACBA" : "unset")};
   border-radius: 0.375rem;
   text-align: center;
@@ -221,7 +223,7 @@ export const CharacterDetail = styled.div`
   background-color: #fff8f8;
   border-radius: 1.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  width: 500px;
+  width: 80%;
   height: 200px;
   color: #364b76;
   text-align: center;

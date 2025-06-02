@@ -14,6 +14,7 @@ import Testpage from "./pages/Testpage";
 import EditPage from "./pages/writing/EditPage";
 import HashtagDetail from "./pages/collection/HashtagDetail";
 import SettingWPage from "./pages/writing/SettingWPage";
+import SettingCPage from "./pages/writing/SettingCPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/setChatting" element={<SettingPage />} />
           <Route path="/chat/:chatId/:character" element={<ChatPage />} />
           <Route path="/setWriting" element={<SettingWPage />} />
+          <Route path="/setWriting2" element={<SettingCPage />} />
           <Route path="/writing" element={<WritingPage />} />
           <Route path="/edit/:diaryId" element={<EditPage />} />
 
