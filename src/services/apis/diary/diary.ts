@@ -32,3 +32,14 @@ export async function delDiary(diaryId: string) {
     throw error;
   }
 }
+
+export async function putDiary(diaryId: string) {
+  try {
+    const response = await axiosInstanceWithToken.delete(
+      `/api/diary/update/${diaryId}`,
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

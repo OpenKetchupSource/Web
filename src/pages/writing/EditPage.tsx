@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { BsArrowRight } from "react-icons/bs";
 import { IoHomeOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
-import { getDiary } from "../../services/apis/diary/diary";
+import { getDiary, putDiary } from "../../services/apis/diary/diary";
 
 const EditPage = () => {
   const { diaryId } = useParams();
@@ -32,8 +32,20 @@ const EditPage = () => {
     }
   }, [diaryId]);
 
-  const handleUpdate = () => {
-    alert("일기 수정 기능은 준비 중입니다.");
+  const handleUpdate = async () => {
+        if (!diaryId) return;
+    
+        const confirmDelete = window.confirm("정말로 이 일기를 삭제하시겠습니까?");
+        if (!confirmDelete) return;
+    
+        try {
+          await putDiary(diaryId);
+          alert("일기가 수정되었습니다.");
+          navigate(`/diary/${diaryId}`);
+        } catch (err) {
+          console.error("삭제 실패:", err);
+          alert("일기 수정 중 오류가 발생했습니다.");
+        }
   };
 
   if (loading) return <div>불러오는 중...</div>;
