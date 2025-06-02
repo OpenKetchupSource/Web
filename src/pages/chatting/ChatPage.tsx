@@ -5,9 +5,7 @@ import { postComment, postDiary } from "../../services/apis/chatting/chat";
 import { useSettingStore } from "../../services/zustand/setting";
 
 const Container = styled.div`
-  max-width: 600px;
-  // margin: 2rem auto;
-  // padding: 1rem;
+  // max-width: 600px;
   align-items: center;
 `;
 
@@ -60,6 +58,7 @@ const ChatBox = styled.div`
   overflow-y: auto;
   background-color: unset;
   margin-bottom: 0rem;
+  padding-bottom: 4rem;
 
   -webkit-mask-image: linear-gradient(
     to bottom,
