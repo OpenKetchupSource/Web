@@ -3,7 +3,7 @@ import { IoHomeOutline, IoTrashBinOutline } from "react-icons/io5";
 import { BsPencil, BsStar, BsStarFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getDiary } from "../services/apis/diary/diary";
+import { delDiary, getDiary } from "../services/apis/diary/diary";
 import { generateAIComment } from "../services/gpt/openai";
 
 interface DiaryResponse {
@@ -59,14 +59,29 @@ const DiaryDetail = () => {
   if (error) return <div>{error}</div>;
   if (!diary) return <div>일기 데이터가 없습니다.</div>;
 
+  const handleDelete = async () => {
+    if (!diaryId) return;
+
+    const confirmDelete = window.confirm("정말로 이 일기를 삭제하시겠습니까?");
+    if (!confirmDelete) return;
+
+    try {
+      await delDiary(diaryId);
+      alert("일기가 삭제되었습니다.");
+      navigate("/");
+    } catch (err) {
+      console.error("삭제 실패:", err);
+      alert("일기 삭제 중 오류가 발생했습니다.");
+    }
+  };
+
   return (
     <Container>
       <Header>
         <HomeIcon onClick={() => navigate("/")} />
         <DateText>{formatDate(diary.date)}</DateText>
-        <TrashIcon onClick={() => alert("삭제 기능은 준비 중입니다.")} />
-        <EditIcon onClick={() => alert("수정 기능은 준비 중입니다.")} />
-        {/* <EditIcon onClick={() => navigate(`/edit/${diary.id}`)} /> */}
+        <TrashIcon onClick={handleDelete} />
+        <EditIcon onClick={() => navigate(`/edit/${diary.id}`)} />
       </Header>
 
       <Body>

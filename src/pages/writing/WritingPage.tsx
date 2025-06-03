@@ -4,26 +4,49 @@ import { BsArrowRight } from "react-icons/bs";
 import { IoHomeOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { postWritingDiary } from "../../services/apis/diary/writing";
+import { useSettingStore } from "../../services/zustand/setting";
 
 const WritingPage = () => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [content, setContent] = useState("");
+  const { selectedDate } = useSettingStore();
   const navigate = useNavigate();
 
+  // 날짜 포맷 처리
+  const formattedDate =
+    selectedDate instanceof Date
+      ? selectedDate.toISOString().split("T")[0] // YYYY-MM-DD
+      : selectedDate;
+
+  const displayDate =
+    selectedDate instanceof Date
+      ? selectedDate
+          .toLocaleDateString("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })
+          .replace(/\. /g, ".")
+          .replace(/\.$/, ".")
+      : selectedDate;
+
   const handleSubmit = async () => {
+    if (!title || !content || !tags) {
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
     const confirmed = window.confirm("작성을 종료하시겠습니까?");
     if (!confirmed) return;
     try {
       const response = await postWritingDiary({
-        date: "2025-05-30",
+        date: formattedDate,
         title,
         content,
         hashtag: tags,
         character: "앙글이",
       });
 
-      // 예: 생성된 일기의 ID가 response.data.id에 있다고 가정
       navigate(`/diary/${response.data.id}`);
     } catch (error) {
       console.error("일기 저장 실패:", error);
@@ -35,7 +58,7 @@ const WritingPage = () => {
     <Container>
       <Header>
         <HomeIcon onClick={() => navigate("/")} />
-        <DateText>2025.05.01.</DateText>
+        <DateText>{displayDate}</DateText>
         <ArrowIcon onClick={handleSubmit} />
       </Header>
       <Body>

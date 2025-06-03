@@ -1,23 +1,45 @@
 import { IoHomeOutline } from "react-icons/io5";
 import { Body, Tag, TagBox } from "../DiaryDetail";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getHashtags } from "../../services/apis/hashtag/hashtag";
 
-const dummyHashtags = Array.from({ length: 50 }, (_, i) => `더미태그${i + 1}`);
+interface Hashtag {
+  HashTagId: number;
+  HashTagName: string;
+}
 
 const Hashtags = () => {
   const navigate = useNavigate();
+  const [hashtags, setHashtags] = useState<Hashtag[]>([]);
+
+  useEffect(() => {
+    getHashtags()
+      .then((response) => {
+        // console.log("해시태그 목록:", response.data);
+        setHashtags(response.data);
+      })
+      .catch((error) => {
+        console.error("해시태그 목록 불러오기 실패:", error);
+      });
+  }, []);
+
   return (
     <Body>
       <IoHomeOutline size={24} color="#2d3552" onClick={() => navigate("/")} />
       <div>해시태그 목록</div>
       <TagBox>
-        {dummyHashtags.map((tag, idx) => (
-          <Tag key={idx} onClick={() => navigate(`/hashtag/${(idx + 1).toString()}`)}>
-            #{tag}
+        {hashtags.map((tag) => (
+          <Tag
+            key={tag.HashTagId}
+            onClick={() => navigate(`/hashtag/${tag.HashTagId}`)}
+          >
+            #{tag.HashTagName}
           </Tag>
         ))}
       </TagBox>
     </Body>
   );
 };
+
 export default Hashtags;
