@@ -50,7 +50,7 @@ const CustomDatePicker: React.FC<Props> = ({ value, onChange }) => {
   };
 
   return (
-    <div style={{ width: "500px", height: "250px" }}>
+    <div style={{ width: "80%", height: "250px" }}>
       <Picker
         value={value}
         onChange={onChange}
@@ -67,9 +67,8 @@ const CustomDatePicker: React.FC<Props> = ({ value, onChange }) => {
                       style={{
                         color: selected ? "#364B76" : "gray",
                         fontWeight: selected ? 650 : "normal",
-                        fontSize: "36px",
+                        fontSize: "20px",
                         borderRadius: "5px",
-                        padding: "12px 20px",
                       }}
                     >
                       {option}

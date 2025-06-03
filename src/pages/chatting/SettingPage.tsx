@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSettingStore } from "../../services/zustand/setting";
 import { useNavigate } from "react-router-dom";
@@ -33,8 +33,20 @@ const SettingPage: React.FC = () => {
   const [, setChatId] = useState();
   const navigate = useNavigate();
   const [step, setStep] = useState<"date" | "character">("date");
+  const searchParams = new URLSearchParams(window.location.search);
+  const nextPage = searchParams.get("nextPage");
+  const [page, setPage] = useState<"chatting" | "writing">("writing");
 
-  // PickerValue allows year, month, day to be string | number
+  useEffect(() => {
+    if (nextPage === "chatting") {
+      setPage("chatting");
+      console.log("nextPage is chatting");
+    } else {
+      setPage("writing");
+      console.log("nextPage is writing");
+    }
+  }, [nextPage]);
+
   type PickerValue = {
     year: string | number;
     month: string | number;
@@ -61,35 +73,41 @@ const SettingPage: React.FC = () => {
   };
 
   const startChatting = async () => {
-    if (!selectedCharacter) {
-      alert("캐릭터를 선택해주세요.");
-      return;
-    }
+  if (!selectedCharacter) {
+    alert("캐릭터를 선택해주세요.");
+    return;
+  }
 
-    const selectedChar = characters.find(
-      (char) => char.id === selectedCharacter,
-    );
-    if (!selectedChar) {
-      alert("유효하지 않은 캐릭터입니다.");
-      return;
-    }
+  const selectedChar = characters.find(
+    (char) => char.id === selectedCharacter,
+  );
+  if (!selectedChar) {
+    alert("유효하지 않은 캐릭터입니다.");
+    return;
+  }
 
-    try {
-      const response = await postCharacter(selectedChar.name);
+  try {
+    const response = await postCharacter(selectedChar.name);
+    const chatIdFromApi = response.chatId;
 
-      const chatIdFromApi = response.chatId;
-      if (chatIdFromApi) {
-        setChatId(chatIdFromApi);
-        console.log("넘어가는 날짜:", selectedDate);
-        console.log("넘어가는 캐릭터:", selectedCharacter);
+    if (chatIdFromApi) {
+      setChatId(chatIdFromApi);
+      console.log("넘어가는 날짜:", selectedDate);
+      console.log("넘어가는 캐릭터:", selectedCharacter);
+
+      // 페이지에 따라 분기
+      if (page === "chatting") {
         navigate(`/chat/${chatIdFromApi}/${selectedChar.name}`);
       } else {
-        console.error("chatId가 응답에 없습니다.");
+        navigate("/writing");
       }
-    } catch (error) {
-      console.error("Error setting character:", error);
+    } else {
+      console.error("chatId가 응답에 없습니다.");
     }
-  };
+  } catch (error) {
+    console.error("Error setting character:", error);
+  }
+};
 
   return (
     <Container>
@@ -158,24 +176,25 @@ const SettingPage: React.FC = () => {
 
 export default SettingPage;
 
-const Container = styled.div`
-  height: 100vh;
+export const Container = styled.div`
+  min-height: 100vh;
   background: linear-gradient(to bottom, #fce4ec, #e0f7fa);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
+  width: 100%;
 `;
 
-const HomeIcon = styled.div`
+export const HomeIcon = styled.div`
   position: absolute;
   top: 1rem;
   left: 1rem;
 `;
 
-const Title = styled.h1`
-  font-size: 2.5rem;
+export const Title = styled.h1`
+  font-size: 24px;
   font-weight: bold;
   color: #364b76;
   margin-bottom: 2rem;
@@ -185,7 +204,7 @@ const Title = styled.h1`
   margin-bottom: -1.5rem;
 `;
 
-const NextButton = styled.button`
+export const NextButton = styled.button`
   all: unset;
   cursor: pointer;
   width: 100px;
@@ -201,34 +220,36 @@ const NextButton = styled.button`
   }
 `;
 
-const CharacterList = styled.div`
+export const CharacterList = styled.div`
   display: flex;
-  gap: 1rem;
+  // gap: 1rem;
   margin-bottom: 1rem;
+  width: 100%;
 `;
 
-const CharacterCard = styled.div<{ selected: boolean }>`
+export const CharacterCard = styled.div<{ selected: boolean }>`
+  width: 80%;
   cursor: pointer;
-  padding: 0.5rem;
+  // padding: 0.5rem;
   border: 2px solid ${({ selected }) => (selected ? "#9FACBA" : "unset")};
   border-radius: 0.375rem;
   text-align: center;
 `;
 
-const CharacterDetail = styled.div`
+export const CharacterDetail = styled.div`
   padding: 1rem;
   font-size: 1.5rem;
   background-color: #fff8f8;
   border-radius: 1.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  width: 500px;
+  width: 80%;
   height: 200px;
   color: #364b76;
   text-align: center;
   margin-bottom: 2rem;
 `;
 
-const CharacterName = styled.h3`
+export const CharacterName = styled.h3`
   font-weight: bold;
   font-size: 2rem;
   color: #364b76;

@@ -1,13 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { postComment, postDiary } from "../../services/apis/chatting/chat";
 import { useSettingStore } from "../../services/zustand/setting";
 
 const Container = styled.div`
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 1rem;
+  // max-width: 600px;
   align-items: center;
 `;
 
@@ -55,7 +53,7 @@ const EndChatButton = styled.button`
 
 const ChatBox = styled.div`
   border-radius: 8px;
-  height: 700px;
+  height: 600px;
   padding: 1rem;
   overflow-y: auto;
   background-color: unset;
@@ -213,7 +211,10 @@ const ChatPage = () => {
   }, [messages]);
 
   const handleSend = async () => {
-    if (!input.trim() || loading || !chatId || !character) return;
+    if (!chatId || !character) {
+      alert("채팅 ID 또는 캐릭터 정보가 부족합니다.");
+      return;
+    }
 
     const userMessage = { role: "user", content: input };
     setMessages((prev) => [...prev, userMessage]);
@@ -251,18 +252,17 @@ const ChatPage = () => {
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSend();
-    }
-  };
+  const [isSaving, setIsSaving] = useState(false);
 
   const endChatting = async () => {
+    if (isSaving) return; // 중복 실행 방지
+
     if (!chatId || !character || !selectedDate) {
       alert("채팅 ID, 캐릭터 또는 날짜 정보가 부족합니다.");
       return;
     }
+
+    setIsSaving(true); // 저장 시작
 
     try {
       const formattedDate =
@@ -279,6 +279,8 @@ const ChatPage = () => {
     } catch (err) {
       console.error("대화 저장 실패:", err);
       alert("대화 저장 중 문제가 발생했습니다.");
+    } finally {
+      setIsSaving(false); // 실패 시에도 버튼 재활성화
     }
   };
 
@@ -302,7 +304,7 @@ const ChatPage = () => {
           <img src="/images/home.png" alt="home" width={50} />
         </HomeIcon>
         <Title>{character}와의 대화</Title>
-        <EndChatButton onClick={endChatting}>
+        <EndChatButton onClick={endChatting} disabled={isSaving}>
           <img src="/images/arrow.png" alt="다음" />
         </EndChatButton>
       </TitleWrapper>
@@ -334,7 +336,6 @@ const ChatPage = () => {
         <TextInput
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
           placeholder="메시지를 입력하세요"
         />
         <SendButton onClick={handleSend} disabled={loading}>
