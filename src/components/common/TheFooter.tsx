@@ -12,10 +12,10 @@ export const TheFooter = () => {
         <Button onClick={() => navigate("/hashtags")}>
           <GoHash size={24} />
         </Button>
-        <Button onClick={() => navigate("/setChatting")}>
+        <Button onClick={() => navigate("/setChatting?nextPage=chatting")}>
           <BsChat size={24} />
         </Button>
-        <Button onClick={() => navigate("/writing")}>
+        <Button onClick={() => navigate("/setChatting?nextPage=writing")}>
           <BsPencil size={24} />
         </Button>
         <Button onClick={() => navigate("/comments")}>
