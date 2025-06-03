@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSettingStore } from "../../services/zustand/setting";
 import { useNavigate } from "react-router-dom";
@@ -33,6 +33,19 @@ const SettingPage: React.FC = () => {
   const [, setChatId] = useState();
   const navigate = useNavigate();
   const [step, setStep] = useState<"date" | "character">("date");
+  const searchParams = new URLSearchParams(window.location.search);
+  const nextPage = searchParams.get("nextPage");
+  const [page, setPage] = useState<"chatting" | "writing">("writing");
+
+  useEffect(() => {
+    if (nextPage === "chatting") {
+      setPage("chatting");
+      console.log("nextPage is chatting");
+    } else {
+      setPage("writing");
+      console.log("nextPage is writing");
+    }
+  }, [nextPage]);
 
   type PickerValue = {
     year: string | number;
@@ -60,35 +73,41 @@ const SettingPage: React.FC = () => {
   };
 
   const startChatting = async () => {
-    if (!selectedCharacter) {
-      alert("캐릭터를 선택해주세요.");
-      return;
-    }
+  if (!selectedCharacter) {
+    alert("캐릭터를 선택해주세요.");
+    return;
+  }
 
-    const selectedChar = characters.find(
-      (char) => char.id === selectedCharacter,
-    );
-    if (!selectedChar) {
-      alert("유효하지 않은 캐릭터입니다.");
-      return;
-    }
+  const selectedChar = characters.find(
+    (char) => char.id === selectedCharacter,
+  );
+  if (!selectedChar) {
+    alert("유효하지 않은 캐릭터입니다.");
+    return;
+  }
 
-    try {
-      const response = await postCharacter(selectedChar.name);
+  try {
+    const response = await postCharacter(selectedChar.name);
+    const chatIdFromApi = response.chatId;
 
-      const chatIdFromApi = response.chatId;
-      if (chatIdFromApi) {
-        setChatId(chatIdFromApi);
-        console.log("넘어가는 날짜:", selectedDate);
-        console.log("넘어가는 캐릭터:", selectedCharacter);
+    if (chatIdFromApi) {
+      setChatId(chatIdFromApi);
+      console.log("넘어가는 날짜:", selectedDate);
+      console.log("넘어가는 캐릭터:", selectedCharacter);
+
+      // 페이지에 따라 분기
+      if (page === "chatting") {
         navigate(`/chat/${chatIdFromApi}/${selectedChar.name}`);
       } else {
-        console.error("chatId가 응답에 없습니다.");
+        navigate("/writing");
       }
-    } catch (error) {
-      console.error("Error setting character:", error);
+    } else {
+      console.error("chatId가 응답에 없습니다.");
     }
-  };
+  } catch (error) {
+    console.error("Error setting character:", error);
+  }
+};
 
   return (
     <Container>
