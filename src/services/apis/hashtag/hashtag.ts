@@ -4,9 +4,7 @@ const axiosInstanceWithToken = CreateAxiosInstanceWithToken();
 
 export async function getHashtags() {
   try {
-    const response = await axiosInstanceWithToken.get(
-      `/api/hashtag/names`
-    );
+    const response = await axiosInstanceWithToken.get(`/api/hashtag/names`);
     return response;
   } catch (error) {
     throw error;
