@@ -73,41 +73,41 @@ const SettingPage: React.FC = () => {
   };
 
   const startChatting = async () => {
-  if (!selectedCharacter) {
-    alert("캐릭터를 선택해주세요.");
-    return;
-  }
-
-  const selectedChar = characters.find(
-    (char) => char.id === selectedCharacter,
-  );
-  if (!selectedChar) {
-    alert("유효하지 않은 캐릭터입니다.");
-    return;
-  }
-
-  try {
-    const response = await postCharacter(selectedChar.name);
-    const chatIdFromApi = response.chatId;
-
-    if (chatIdFromApi) {
-      setChatId(chatIdFromApi);
-      console.log("넘어가는 날짜:", selectedDate);
-      console.log("넘어가는 캐릭터:", selectedCharacter);
-
-      // 페이지에 따라 분기
-      if (page === "chatting") {
-        navigate(`/chat/${chatIdFromApi}/${selectedChar.name}`);
-      } else {
-        navigate("/writing");
-      }
-    } else {
-      console.error("chatId가 응답에 없습니다.");
+    if (!selectedCharacter) {
+      alert("캐릭터를 선택해주세요.");
+      return;
     }
-  } catch (error) {
-    console.error("Error setting character:", error);
-  }
-};
+
+    const selectedChar = characters.find(
+      (char) => char.id === selectedCharacter,
+    );
+    if (!selectedChar) {
+      alert("유효하지 않은 캐릭터입니다.");
+      return;
+    }
+
+    try {
+      const response = await postCharacter(selectedChar.name);
+      const chatIdFromApi = response.chatId;
+
+      if (chatIdFromApi) {
+        setChatId(chatIdFromApi);
+        console.log("넘어가는 날짜:", selectedDate);
+        console.log("넘어가는 캐릭터:", selectedCharacter);
+
+        // 페이지에 따라 분기
+        if (page === "chatting") {
+          navigate(`/chat/${chatIdFromApi}/${selectedChar.name}`);
+        } else {
+          navigate("/writing");
+        }
+      } else {
+        console.error("chatId가 응답에 없습니다.");
+      }
+    } catch (error) {
+      console.error("Error setting character:", error);
+    }
+  };
 
   return (
     <Container>
