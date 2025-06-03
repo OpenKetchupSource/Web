@@ -4,7 +4,7 @@ import { BsPencil, BsStar, BsStarFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { delDiary, getDiary } from "../services/apis/diary/diary";
-import { generateAIComment } from "../services/gpt/openai";
+// import { generateAIComment } from "../services/gpt/openai";
 
 interface DiaryResponse {
   id: number;
@@ -23,7 +23,7 @@ const DiaryDetail = () => {
   const [diary, setDiary] = useState<DiaryResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [aiComment, setAiComment] = useState<string | null>(null);
+  // const [aiComment, setAiComment] = useState<string | null>(null);
 
   useEffect(() => {
     if (diaryId) {
@@ -41,11 +41,11 @@ const DiaryDetail = () => {
   }, [diaryId]);
 
   useEffect(() => {
-    if (diary) {
-      generateAIComment(diary.content, diary.title)
-        .then((comment) => setAiComment(comment))
-        .catch(() => setAiComment("AI 코멘트를 생성하는 데 실패했습니다."));
-    }
+    // if (diary) {
+    //   generateAIComment(diary.content, diary.title)
+    //     .then((comment) => setAiComment(comment))
+    //     .catch(() => setAiComment("AI 코멘트를 생성하는 데 실패했습니다."));
+    // }
   }, [diary]);
 
   const [starred, setStarred] = useState(false);
@@ -111,7 +111,8 @@ const DiaryDetail = () => {
             )}
           </CharacterRow>
           <CommentText>
-            {aiComment || "AI 코멘트를 생성 중입니다..."}
+            <>ai 코멘트는 준비 중입니다.</>
+            {/* {aiComment || "AI 코멘트를 생성 중입니다..."} */}
           </CommentText>
         </CommentCard>
       </Body>
