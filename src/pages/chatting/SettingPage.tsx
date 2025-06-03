@@ -141,8 +141,8 @@ const SettingPage: React.FC = () => {
                   src={char.image}
                   alt={char.name}
                   style={{
-                    // width: "130px",
-                    // height: "130px",
+                    width: "130px",
+                    height: "130px",
                     objectFit: "contain",
                     marginBottom: "-0.5rem",
                   }}
