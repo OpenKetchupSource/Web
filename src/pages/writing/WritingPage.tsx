@@ -76,7 +76,7 @@ const WritingPage = () => {
         await postComment(diaryId, aiComment, characterId);
       }
 
-      // navigate(`/diary/${diaryId}`);
+      navigate(`/diary/${diaryId}`);
     } catch (error) {
       console.error("일기 저장 실패:", error);
       alert("일기 저장 중 오류가 발생했습니다.");
@@ -105,7 +105,7 @@ const WritingPage = () => {
   };
 
   if (isLoading) {
-    return <LoadingPage character={selectedCharacter ?? "앙글이"} mode="writing" />;
+    return <LoadingPage character={selectedCharacter ?? "앙글이"} mode="reading" />;
   }
 
   return (

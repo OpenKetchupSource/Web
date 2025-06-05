@@ -5,14 +5,23 @@ interface LoadingPageProps {
   mode: "writing" | "reading";
 }
 
-const messageMap: Record<"writing" | "reading", string> = {
-  writing: "일기를 쓰는 중입니다...",
-  reading: "일기를 읽는 중입니다...",
+interface LoadingPageProps {
+  character: string;
+  mode: "writing" | "reading";
+}
+
+const characterMap: Record<string, string> = {
+  앙글이: "ang",
+  웅이: "oong",
+  티바노: "tee",
 };
 
 const LoadingPage = ({ character, mode }: LoadingPageProps) => {
-  const gifSrc = `/images/characters/${mode}/${character}.png`;
-  const message = messageMap[mode];
+  const characterKey = characterMap[character] || "oong";
+  const gifSrc = `/images/characters/${mode}/${characterKey}.gif`;
+
+  const message =
+    mode === "writing" ? "일기를 쓰는 중입니다..." : "일기를 읽는 중입니다...";
 
   return (
     <LoaderContainer>
@@ -34,8 +43,8 @@ const LoaderContainer = styled.div`
 `;
 
 const LoadingImage = styled.img`
-  width: 120px;
-  height: 120px;
+  width: 200px;
+  height: 200px;
   margin-bottom: 16px;
 `;
 
