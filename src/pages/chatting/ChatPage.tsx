@@ -301,13 +301,10 @@ const ChatPage = () => {
   };
 
   if (isLoading) {
-  return (
-    <LoadingPage
-      character={selectedCharacter ?? "앙글이"}
-      mode="writing"
-    />
-  );
-}
+    return (
+      <LoadingPage character={selectedCharacter ?? "앙글이"} mode="writing" />
+    );
+  }
 
   return (
     <Container>
