@@ -14,7 +14,7 @@ const HashtagDetail = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { name } = useParams<{ name: string }>();
   const navigate = useNavigate();
-  const location = useLocation(); // 👈 현재 경로 확인용
+  const location = useLocation(); // 현재 경로 확인용
   const [hashtags, setHashtags] = useState<Hashtag[]>([]);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const HashtagDetail = () => {
     if (newName && location.pathname !== newPath) {
       navigate(newPath, { replace: true });
     }
-  }, [currentIndex, hashtags, location.pathname, navigate]); // 👈 location.pathname 의존성 추가
+  }, [currentIndex, hashtags, location.pathname, navigate]); // location.pathname 의존성 추가
 
   useEffect(() => {
     if (!name || hashtags.length === 0) return;
