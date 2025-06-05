@@ -9,7 +9,7 @@ interface SettingState {
 
 export const useSettingStore = create<SettingState>((set) => ({
   selectedDate: new Date(),
-  selectedCharacter: null,
+  selectedCharacter: "앙글이",
   setDate: (date) => set({ selectedDate: date }),
   setCharacter: (character) => set({ selectedCharacter: character }),
 }));

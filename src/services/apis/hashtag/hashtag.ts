@@ -10,3 +10,14 @@ export async function getHashtags() {
     throw error;
   }
 }
+
+export async function getHashtag(hashtag: string) {
+  try {
+    const response = await axiosInstanceWithToken.post(
+      `/api/hashtag/name/${hashtag}`,
+    );
+    return response.data;
+  } catch (error) {
+    if (error) throw error;
+  }
+}

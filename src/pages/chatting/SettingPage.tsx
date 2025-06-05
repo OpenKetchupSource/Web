@@ -40,10 +40,8 @@ const SettingPage: React.FC = () => {
   useEffect(() => {
     if (nextPage === "chatting") {
       setPage("chatting");
-      console.log("nextPage is chatting");
     } else {
       setPage("writing");
-      console.log("nextPage is writing");
     }
   }, [nextPage]);
 
@@ -79,7 +77,7 @@ const SettingPage: React.FC = () => {
     }
 
     const selectedChar = characters.find(
-      (char) => char.id === selectedCharacter,
+      (char) => char.name === selectedCharacter,
     );
     if (!selectedChar) {
       alert("유효하지 않은 캐릭터입니다.");
@@ -92,10 +90,6 @@ const SettingPage: React.FC = () => {
 
       if (chatIdFromApi) {
         setChatId(chatIdFromApi);
-        console.log("넘어가는 날짜:", selectedDate);
-        console.log("넘어가는 캐릭터:", selectedCharacter);
-
-        // 페이지에 따라 분기
         if (page === "chatting") {
           navigate(`/chat/${chatIdFromApi}/${selectedChar.name}`);
         } else {
@@ -134,8 +128,8 @@ const SettingPage: React.FC = () => {
             {characters.map((char) => (
               <CharacterCard
                 key={char.id}
-                selected={selectedCharacter === char.id}
-                onClick={() => setCharacter(char.id)}
+                selected={selectedCharacter === char.name}
+                onClick={() => setCharacter(char.name)}
               >
                 <img
                   src={char.image}
@@ -154,11 +148,11 @@ const SettingPage: React.FC = () => {
           {selectedCharacter && (
             <CharacterDetail>
               <CharacterName>
-                {characters.find((c) => c.id === selectedCharacter)?.name}
+                {characters.find((c) => c.name === selectedCharacter)?.name}
               </CharacterName>
               <p>
                 {
-                  characters.find((c) => c.id === selectedCharacter)
+                  characters.find((c) => c.name === selectedCharacter)
                     ?.description
                 }
               </p>
@@ -175,6 +169,8 @@ const SettingPage: React.FC = () => {
 };
 
 export default SettingPage;
+
+// Styled Components
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -222,7 +218,6 @@ export const NextButton = styled.button`
 
 export const CharacterList = styled.div`
   display: flex;
-  // gap: 1rem;
   margin-bottom: 1rem;
   width: 100%;
 `;
@@ -230,7 +225,6 @@ export const CharacterList = styled.div`
 export const CharacterCard = styled.div<{ selected: boolean }>`
   width: 80%;
   cursor: pointer;
-  // padding: 0.5rem;
   border: 2px solid ${({ selected }) => (selected ? "#9FACBA" : "unset")};
   border-radius: 0.375rem;
   text-align: center;

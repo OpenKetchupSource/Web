@@ -23,13 +23,14 @@ const DiaryDetail = () => {
   const [diary, setDiary] = useState<DiaryResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  // const [aiComment, setAiComment] = useState<string | null>(null);
+  const [aiComment, setAiComment] = useState<string | null>(null);
 
   useEffect(() => {
     if (diaryId) {
       getDiary(diaryId)
         .then((data) => {
           setDiary(data);
+          setAiComment(data.comment);
           setLoading(false);
         })
         .catch((err) => {
@@ -46,6 +47,18 @@ const DiaryDetail = () => {
     //     .then((comment) => setAiComment(comment))
     //     .catch(() => setAiComment("AI 코멘트를 생성하는 데 실패했습니다."));
     // }
+    // getComment(diaryId || "")
+    //   .then((data) => {
+    //     if (data && data.comment) {
+    //       setAiComment(data.comment);
+    //     } else {
+    //       setAiComment("AI 코멘트를 생성하는 중입니다...");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.error("Error fetching AI comment:", err);
+    //     setAiComment("AI 코멘트를 불러오는 데 실패했습니다.");
+    // });
   }, [diary]);
 
   const [starred, setStarred] = useState(false);
@@ -96,25 +109,26 @@ const DiaryDetail = () => {
 
         <Content>{diary.content}</Content>
 
-        <CommentTitle>AI 친구의 코멘트</CommentTitle>
-        <CommentCard>
-          <CharacterRow>
-            <CharacterImg
-              src={`/images/characters/${diary.character}.png`}
-              alt={diary.character}
-            />
-            <CharacterName>{diary.character}</CharacterName>
-            {starred ? (
-              <StarIconFill onClick={() => setStarred(false)} />
-            ) : (
-              <StarIcon onClick={() => setStarred(true)} />
-            )}
-          </CharacterRow>
-          <CommentText>
-            <>ai 코멘트는 준비 중입니다.</>
-            {/* {aiComment || "AI 코멘트를 생성 중입니다..."} */}
-          </CommentText>
-        </CommentCard>
+        {aiComment !== null && (
+          <>
+            <CommentTitle>AI 친구의 코멘트</CommentTitle>
+            <CommentCard>
+              <CharacterRow>
+                <CharacterImg
+                  src={`/images/characters/${diary.character}.png`}
+                  alt={diary.character}
+                />
+                <CharacterName>{diary.character}</CharacterName>
+                {starred ? (
+                  <StarIconFill onClick={() => setStarred(false)} />
+                ) : (
+                  <StarIcon onClick={() => setStarred(true)} />
+                )}
+              </CharacterRow>
+              <CommentText>{aiComment}</CommentText>
+            </CommentCard>
+          </>
+        )}
       </Body>
     </Container>
   );
