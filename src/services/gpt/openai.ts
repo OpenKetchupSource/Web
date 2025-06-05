@@ -30,6 +30,7 @@ export const sendMessageToGPT = async (message: string) => {
  * GPT에게 일기 내용을 기반으로 따뜻한 코멘트를 요청합니다.
  * @param content 일기 내용
  * @param title 일기 제목
+ * @param hashtags 일기 해시태그
  * @returns GPT가 생성한 AI 코멘트 문자열
  */
 export const generateOongAIComment = async (

@@ -11,12 +11,14 @@ import {
   generateTeeAIComment,
 } from "../../services/gpt/openai";
 import { postComment } from "../../services/apis/diary/diary";
+import LoadingPage from "../LoadingPage";
 
 const WritingPage = () => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [content, setContent] = useState("");
   const { selectedDate, selectedCharacter } = useSettingStore();
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   // 날짜 포맷 처리
@@ -37,6 +39,7 @@ const WritingPage = () => {
           .replace(/\.$/, ".")
       : selectedDate;
 
+
   const handleSubmit = async () => {
     if (!title || !content || !tags) {
       alert("모든 항목을 입력해주세요.");
@@ -46,8 +49,8 @@ const WritingPage = () => {
     const confirmed = window.confirm("작성을 종료하시겠습니까?");
     if (!confirmed) return;
 
-    // 기본 캐릭터 설정
     const selectedChar = selectedCharacter ?? "앙글이";
+    setIsLoading(true);
 
     try {
       const response = await postWritingDiary({
@@ -69,23 +72,7 @@ const WritingPage = () => {
         characterMap[selectedChar as keyof typeof characterMap];
       const aiComment = await generateAIComment(characterId);
 
-      if (aiComment) {
-        const characterId =
-          characterMap[selectedChar as keyof typeof characterMap];
-
-        if (!characterId) {
-          console.error("characterId가 정의되지 않았습니다.");
-          console.error("selectedCharacter 값:", selectedChar);
-          alert("캐릭터 정보에 문제가 있습니다.");
-          return;
-        }
-
-        console.log("postComment 호출", {
-          diaryId,
-          comment: aiComment,
-          characterId,
-        });
-
+      if (aiComment && characterId) {
         await postComment(diaryId, aiComment, characterId);
       }
 
@@ -93,6 +80,8 @@ const WritingPage = () => {
     } catch (error) {
       console.error("일기 저장 실패:", error);
       alert("일기 저장 중 오류가 발생했습니다.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -114,6 +103,10 @@ const WritingPage = () => {
       return "";
     }
   };
+
+  if (isLoading) {
+    return <LoadingPage character={selectedCharacter ?? "앙글이"} mode="reading" />;
+  }
 
   return (
     <Container>

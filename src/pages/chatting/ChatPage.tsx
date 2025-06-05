@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { postComment, postDiary } from "../../services/apis/chatting/chat";
 import { useSettingStore } from "../../services/zustand/setting";
+import LoadingPage from "../LoadingPage";
 
 const Container = styled.div`
   // max-width: 600px;
@@ -201,7 +202,8 @@ const ChatPage = () => {
   );
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const { selectedDate } = useSettingStore();
+  const [isLoading, setIsLoading] = useState(false);
+  const { selectedDate, selectedCharacter } = useSettingStore();
   const navigate = useNavigate();
   const bottomRef = useRef<HTMLDivElement>(null);
 
@@ -262,6 +264,7 @@ const ChatPage = () => {
     }
 
     setIsSaving(true); // 저장 시작
+    setIsLoading(true);
 
     try {
       const formattedDate =
@@ -280,6 +283,7 @@ const ChatPage = () => {
       alert("대화 저장 중 문제가 발생했습니다.");
     } finally {
       setIsSaving(false); // 실패 시에도 버튼 재활성화
+      setIsLoading(false);
     }
   };
 
@@ -295,6 +299,15 @@ const ChatPage = () => {
         return "앙글이.png"; // 예외처리용 기본 이미지
     }
   };
+
+  if (isLoading) {
+  return (
+    <LoadingPage
+      character={selectedCharacter ?? "앙글이"}
+      mode="writing"
+    />
+  );
+}
 
   return (
     <Container>
