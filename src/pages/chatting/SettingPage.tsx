@@ -123,7 +123,11 @@ const SettingPage: React.FC = () => {
           <HomeIcon onClick={() => navigate("/")}>
             <img src="/images/home.png" alt="home" width={50} />
           </HomeIcon>
-          <Title>누구와 대화하고 싶나요?</Title>
+          <Title>
+            {page === "writing"
+              ? "누구와 일기를 공유하고 싶나요?"
+              : "누구와 대화하고 싶나요?"}
+          </Title>
           <CharacterList>
             {characters.map((char) => (
               <CharacterCard

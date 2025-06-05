@@ -39,7 +39,6 @@ const WritingPage = () => {
           .replace(/\.$/, ".")
       : selectedDate;
 
-
   const handleSubmit = async () => {
     if (!title || !content || !tags) {
       alert("모든 항목을 입력해주세요.");
@@ -105,7 +104,9 @@ const WritingPage = () => {
   };
 
   if (isLoading) {
-    return <LoadingPage character={selectedCharacter ?? "앙글이"} mode="reading" />;
+    return (
+      <LoadingPage character={selectedCharacter ?? "앙글이"} mode="reading" />
+    );
   }
 
   return (
