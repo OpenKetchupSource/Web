@@ -55,14 +55,14 @@ export async function putDiary(
 
 export async function postComment(
   diaryId: string,
-  comment: string,
+  context: string,
   characterId: number | string,
 ) {
   try {
     const response = await axiosInstanceWithToken.post(
       `/api/comment/diary?diaryId=${diaryId}`,
       {
-        comment,
+        context,
         characterId,
       },
     );

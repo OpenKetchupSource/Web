@@ -29,4 +29,4 @@ jobs:
         if: steps.checklist.outputs.checklist-complete == 'true'
         uses: peter-evans/close-issue@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PERSONAL_TOKEN }}
