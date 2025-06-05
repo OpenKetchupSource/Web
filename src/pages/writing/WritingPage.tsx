@@ -80,7 +80,7 @@ const WritingPage = () => {
           return;
         }
 
-        console.log("✅ postComment 호출", {
+        console.log("postComment 호출", {
           diaryId,
           comment: aiComment,
           characterId,
