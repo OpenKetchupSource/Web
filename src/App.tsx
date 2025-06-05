@@ -34,7 +34,7 @@ function App() {
 
           <Route path="/comments" element={<Comments />} />
           <Route path="/hashtags" element={<Hashtags />} />
-          <Route path="/hashtag/:id" element={<HashtagDetail />} />
+          <Route path="/hashtag/:name" element={<HashtagDetail />} />
           <Route path="/test" element={<Testpage />} />
         </Routes>
       </Wrapper>
