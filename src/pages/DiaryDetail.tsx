@@ -3,7 +3,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { BsPencil, BsStar, BsStarFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { delDiary, getDiary, postComment } from "../services/apis/diary/diary";
+import { delDiary, getDiary } from "../services/apis/diary/diary";
 import { GoTrash } from "react-icons/go";
 import { postCommentCol } from "../services/apis/collection/collection";
 
