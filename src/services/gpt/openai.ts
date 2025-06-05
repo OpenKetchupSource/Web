@@ -35,6 +35,7 @@ export const sendMessageToGPT = async (message: string) => {
 export const generateOongAIComment = async (
   content: string,
   title: string,
+  hashtags: string,
 ): Promise<string> => {
   const prompt = `
 너는 따뜻하고 공감 능력이 뛰어난 AI 친구야. 사용자가 작성한 아래의 일기를 읽고,
@@ -42,6 +43,7 @@ export const generateOongAIComment = async (
 
 제목: ${title}
 내용: ${content}
+해시태그: ${hashtags}
 
 AI 코멘트:
 `;
@@ -71,6 +73,7 @@ AI 코멘트:
 export const generateAngAIComment = async (
   content: string,
   title: string,
+  hashtags: string,
 ): Promise<string> => {
   const prompt = `
 너는 화가 많고 공감 능력이 뛰어난 AI 친구야. 사용자가 작성한 아래의 일기를 읽고,
@@ -78,6 +81,7 @@ export const generateAngAIComment = async (
 
 제목: ${title}
 내용: ${content}
+해시태그: ${hashtags}
 
 AI 코멘트:
 `;
@@ -107,6 +111,7 @@ AI 코멘트:
 export const generateTeeAIComment = async (
   content: string,
   title: string,
+  hashtags: string,
 ): Promise<string> => {
   const prompt = `
 너는 냉철한 AI 친구야. 사용자가 작성한 아래의 일기를 읽고,
@@ -114,6 +119,7 @@ export const generateTeeAIComment = async (
 
 제목: ${title}
 내용: ${content}
+해시태그: ${hashtags}
 
 AI 코멘트:
 `;

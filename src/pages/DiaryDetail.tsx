@@ -41,26 +41,6 @@ const DiaryDetail = () => {
     }
   }, [diaryId]);
 
-  useEffect(() => {
-    // if (diary) {
-    //   generateAIComment(diary.content, diary.title)
-    //     .then((comment) => setAiComment(comment))
-    //     .catch(() => setAiComment("AI 코멘트를 생성하는 데 실패했습니다."));
-    // }
-    // getComment(diaryId || "")
-    //   .then((data) => {
-    //     if (data && data.comment) {
-    //       setAiComment(data.comment);
-    //     } else {
-    //       setAiComment("AI 코멘트를 생성하는 중입니다...");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.error("Error fetching AI comment:", err);
-    //     setAiComment("AI 코멘트를 불러오는 데 실패했습니다.");
-    // });
-  }, [diary]);
-
   const [starred, setStarred] = useState(false);
 
   const formatDate = (rawDate: string) => {
