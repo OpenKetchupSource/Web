@@ -6,7 +6,6 @@ import {
   CharacterRow,
   CommentCard,
   CommentText,
-  StarIcon,
   StarIconFill,
 } from "../DiaryDetail";
 import Header from "../../components/diary/Header";
@@ -15,7 +14,7 @@ import { getComments, postCommentCol } from "../../services/apis/collection/coll
 const characterList = ["앙글이", "웅이", "티바노"];
 
 interface CommentItem {
-  commentId: string;
+  id: string;
   context: string;
   character: string;
 }
@@ -37,17 +36,22 @@ const Comments = () => {
       });
   }, [currentIndex]);
 
-  const handleStarClick = async (index: number, commentId: string) => {
-    try {
-      await postCommentCol(commentId);
-      const newStars = [...starred];
-      newStars[index] = true;
-      setStarred(newStars);
-    } catch (error) {
-      console.error("즐겨찾기 실패:", error);
-      alert("즐겨찾기 저장에 실패했습니다.");
-    }
-  };
+const handleStarClick = async (index: number, id: string) => {
+  try {
+    await postCommentCol(id);
+    
+    // 코멘트 목록에서 해당 항목 제거
+    const newComments = comments.filter((_, i) => i !== index);
+    setComments(newComments);
+
+    // 별 상태도 함께 갱신
+    const newStars = starred.filter((_, i) => i !== index);
+    setStarred(newStars);
+  } catch (error) {
+    console.error("즐겨찾기 실패:", error);
+    alert("즐겨찾기 저장에 실패했습니다.");
+  }
+};
 
   return (
     <Body>
@@ -59,25 +63,16 @@ const Comments = () => {
 
       <div>즐겨찾기 한 코멘트 목록</div>
       {comments.map((commentItem, index) => (
-        <CommentCard key={commentItem.commentId}>
+        <CommentCard key={commentItem.id}>
           <CharacterRow>
             <CharacterImg
               src={`/images/characters/${commentItem.character}.png`}
               alt={commentItem.character}
             />
             <CharacterName>{commentItem.character}</CharacterName>
-            {starred[index] ? (
-              <StarIcon
-                onClick={() => handleStarClick(index, commentItem.commentId)}
-              />):(
               <StarIconFill
-                onClick={() => {
-                  const newStars = [...starred];
-                  newStars[index] = false;
-                  setStarred(newStars);
-                }}
+                onClick={handleStarClick.bind(null, index, commentItem.id)}
               />
-            )}
           </CharacterRow>
           <CommentText>{commentItem.context}</CommentText>
         </CommentCard>
