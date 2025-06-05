@@ -23,7 +23,7 @@ const HashtagDetail = () => {
       });
   }, []);
 
-  // URL 파라미터(name)가 바뀌었을 때 currentIndex 업데이트
+  // URL 파라미터(name)가 바뀌었을 때 currentIndex 설정
   useEffect(() => {
     if (name && hashtags.length > 0) {
       const index = hashtags.indexOf(name);
@@ -33,12 +33,12 @@ const HashtagDetail = () => {
     }
   }, [name, hashtags]);
 
-  // currentIndex가 바뀌면 URL도 변경
+  // currentIndex 바뀔 때 URL도 업데이트 (replace로 히스토리 안 남김)
   useEffect(() => {
     if (hashtags.length > 0) {
       const newName = hashtags[currentIndex];
       if (newName && name !== newName) {
-        navigate(`/hashtag/${newName}`);
+        navigate(`/hashtag/${newName}`, { replace: true }); // <- 핵심!
       }
     }
   }, [currentIndex, hashtags]);
