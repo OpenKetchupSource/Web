@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { IoHomeOutline } from "react-icons/io5";
-import { BsPencil, BsStar, BsStarFill } from "react-icons/bs";
+import { BsStar, BsStarFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { delDiary, getDiary } from "../services/apis/diary/diary";
-import { GoTrash } from "react-icons/go";
+import { GoPencil, GoTrash } from "react-icons/go";
 
 interface DiaryResponse {
   id: number;
@@ -156,7 +156,7 @@ const TrashIcon = styled(GoTrash)`
   size: 40px;
 `;
 
-const EditIcon = styled(BsPencil)`
+const EditIcon = styled(GoPencil)`
   position: absolute;
   top: 50%;
   right: 24px;
