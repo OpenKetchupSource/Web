@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { IoHomeOutline, IoTrashBinOutline } from "react-icons/io5";
+import { IoHomeOutline } from "react-icons/io5";
 import { BsPencil, BsStar, BsStarFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { delDiary, getDiary } from "../services/apis/diary/diary";
-// import { generateAIComment } from "../services/gpt/openai";
+import { GoTrash } from "react-icons/go";
 
 interface DiaryResponse {
   id: number;
@@ -146,7 +146,7 @@ const HomeIcon = styled(IoHomeOutline)`
   color: #1e2a52;
 `;
 
-const TrashIcon = styled(IoTrashBinOutline)`
+const TrashIcon = styled(GoTrash)`
   position: absolute;
   top: 50%;
   right: 56px;
