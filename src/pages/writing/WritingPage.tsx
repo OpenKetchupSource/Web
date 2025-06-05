@@ -37,48 +37,62 @@ const WritingPage = () => {
           .replace(/\.$/, ".")
       : selectedDate;
 
-  const handleSubmit = async () => {
-    if (!title || !content || !tags) {
-      alert("모든 항목을 입력해주세요.");
-      return;
-    }
+const handleSubmit = async () => {
+  if (!title || !content || !tags) {
+    alert("모든 항목을 입력해주세요.");
+    return;
+  }
 
-    const confirmed = window.confirm("작성을 종료하시겠습니까?");
-    if (!confirmed) return;
+  const confirmed = window.confirm("작성을 종료하시겠습니까?");
+  if (!confirmed) return;
 
-    try {
-      const response = await postWritingDiary({
-        date: formattedDate,
-        title,
-        content,
-        hashtag: tags,
-        character: selectedCharacter ?? "앙글이",
-      });
+  // 기본 캐릭터 설정
+  const selectedChar = selectedCharacter ?? "앙글이";
 
-      const diaryId = response.data.id;
+  try {
+    const response = await postWritingDiary({
+      date: formattedDate,
+      title,
+      content,
+      hashtag: tags,
+      character: selectedChar,
+    });
 
-      const aiComment = await generateAIComment(selectedCharacter ?? "앙글이");
+    const diaryId = response.data.id;
 
-      if (aiComment) {
-        const characterMap = {
-          앙글이: "1",
-          웅이: "2",
-          티바노: "3",
-        } as const;
+    const aiComment = await generateAIComment(selectedChar);
 
-        // 여기에서 selectedCharacter는 string이므로 타입 단언 필요
-        const characterId =
-          characterMap[selectedCharacter as keyof typeof characterMap];
+    if (aiComment) {
+      const characterMap = {
+        앙글이: "1",
+        웅이: "2",
+        티바노: "3",
+      } as const;
 
-        await postComment(diaryId, aiComment, characterId);
+      const characterId = characterMap[selectedChar as keyof typeof characterMap];
+
+      if (!characterId) {
+        console.error("❌ characterId가 정의되지 않았습니다.");
+        console.error("selectedCharacter 값:", selectedChar);
+        alert("캐릭터 정보에 문제가 있습니다.");
+        return;
       }
 
-      navigate(`/diary/${diaryId}`);
-    } catch (error) {
-      console.error("일기 저장 실패:", error);
-      alert("일기 저장 중 오류가 발생했습니다.");
+      console.log("✅ postComment 호출", {
+        diaryId,
+        comment: aiComment,
+        characterId,
+      });
+
+      await postComment(diaryId, aiComment, characterId);
     }
-  };
+
+    navigate(`/diary/${diaryId}`);
+  } catch (error) {
+    console.error("일기 저장 실패:", error);
+    alert("일기 저장 중 오류가 발생했습니다.");
+  }
+};
 
   const generateAIComment = async (character: string): Promise<string> => {
     try {
