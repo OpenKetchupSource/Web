@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { delDiary, getDiary } from "../services/apis/diary/diary";
 import { GoTrash } from "react-icons/go";
-// import { generateAIComment } from "../services/gpt/openai";
 
 interface DiaryResponse {
   id: number;
