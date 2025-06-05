@@ -18,7 +18,7 @@ const dummyComments = [
   "새로운 도전을 했다는 말에 나도 힘이 나! 계속 응원할게 :)",
 ];
 
-const characterList = ["웅이", "앙글이", "티바노"];
+const characterList = ["앙글이","웅이","티바노"];
 
 const Comments = () => {
   const [starred, setStarred] = useState<boolean[]>(
@@ -27,7 +27,7 @@ const Comments = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    getComments(characterList[currentIndex])
+    getComments((currentIndex+1).toString())
       .then((response) => {
         const comments = response.data.comments;
         setStarred(new Array(comments.length).fill(false));
@@ -35,7 +35,7 @@ const Comments = () => {
       .catch((error) => {
         console.error("코멘트 가져오기 실패:", error);
       });
-  }, []);
+  }, [currentIndex]);
 
   return (
     <Body>
