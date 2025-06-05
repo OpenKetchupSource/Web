@@ -50,7 +50,7 @@ AI 코멘트:
     const response = await axios.post(
       API_URL,
       {
-        model: "gpt-4-turbo",
+        model: "gpt-3.5-turbo",
         messages: [{ role: "user", content: prompt }],
       },
       {
@@ -86,7 +86,7 @@ AI 코멘트:
     const response = await axios.post(
       API_URL,
       {
-        model: "gpt-4-turbo",
+        model: "gpt-3.5-turbo",
         messages: [{ role: "user", content: prompt }],
       },
       {
