@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../../components/diary/Header";
 import { Body } from "../DiaryDetail";
-import DiaryList from "../../components/home/DiaryList";
-import { getHashtag, getHashtags } from "../../services/apis/hashtag/hashtag";
+import { getHashtags } from "../../services/apis/hashtag/hashtag";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 interface Hashtag {
@@ -29,7 +28,7 @@ const HashtagDetail = () => {
 
   useEffect(() => {
     if (name && hashtags.length > 0) {
-      const index = hashtags.findIndex(tag => tag.HashTagName === name);
+      const index = hashtags.findIndex((tag) => tag.HashTagName === name);
       if (index !== -1) {
         setCurrentIndex(index);
       }
@@ -65,7 +64,7 @@ const HashtagDetail = () => {
   return (
     <Body>
       <Header
-        characterList={hashtags.map(tag => tag.HashTagName)}
+        characterList={hashtags.map((tag) => tag.HashTagName)}
         currentIndex={currentIndex}
         setCurrentIndex={setCurrentIndex}
       />
