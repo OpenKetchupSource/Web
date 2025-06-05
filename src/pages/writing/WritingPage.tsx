@@ -5,12 +5,20 @@ import { IoHomeOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { postWritingDiary } from "../../services/apis/diary/writing";
 import { useSettingStore } from "../../services/zustand/setting";
+import {
+  generateAngAIComment,
+  generateOongAIComment,
+  generateTeeAIComment,
+} from "../../services/gpt/openai";
+import { postComment } from "../../services/apis/diary/diary";
+import LoadingPage from "../LoadingPage";
 
 const WritingPage = () => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [content, setContent] = useState("");
-  const { selectedDate } = useSettingStore();
+  const { selectedDate, selectedCharacter } = useSettingStore();
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   // 날짜 포맷 처리
@@ -36,23 +44,70 @@ const WritingPage = () => {
       alert("모든 항목을 입력해주세요.");
       return;
     }
+
     const confirmed = window.confirm("작성을 종료하시겠습니까?");
     if (!confirmed) return;
+
+    const selectedChar = selectedCharacter ?? "앙글이";
+    setIsLoading(true);
+
     try {
       const response = await postWritingDiary({
         date: formattedDate,
         title,
         content,
         hashtag: tags,
-        character: "앙글이",
+        character: selectedChar,
       });
 
-      navigate(`/diary/${response.data.id}`);
+      const diaryId = response.data.id;
+
+      const characterMap = {
+        앙글이: 1,
+        웅이: 2,
+        티바노: 3,
+      } as const;
+      const characterId =
+        characterMap[selectedChar as keyof typeof characterMap];
+      const aiComment = await generateAIComment(characterId);
+
+      if (aiComment && characterId) {
+        await postComment(diaryId, aiComment, characterId);
+      }
+
+      navigate(`/diary/${diaryId}`);
     } catch (error) {
       console.error("일기 저장 실패:", error);
       alert("일기 저장 중 오류가 발생했습니다.");
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  const generateAIComment = async (character: number): Promise<string> => {
+    try {
+      switch (character) {
+        case 1:
+          return await generateAngAIComment(content, title, tags);
+        case 2:
+          return await generateOongAIComment(content, title, tags);
+        case 3:
+          return await generateTeeAIComment(content, title, tags);
+        default:
+          console.warn("알 수 없는 캐릭터입니다. 기본 캐릭터를 사용합니다.");
+          return await generateOongAIComment(content, title, tags);
+      }
+    } catch (err) {
+      console.error("AI 코멘트 생성 실패:", err);
+      return "";
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <LoadingPage character={selectedCharacter ?? "앙글이"} mode="reading" />
+    );
+  }
 
   return (
     <Container>

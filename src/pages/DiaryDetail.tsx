@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { IoHomeOutline, IoTrashBinOutline } from "react-icons/io5";
+import { IoHomeOutline } from "react-icons/io5";
 import { BsPencil, BsStar, BsStarFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { delDiary, getDiary } from "../services/apis/diary/diary";
-import { generateAIComment } from "../services/gpt/openai";
+import { GoTrash } from "react-icons/go";
 
 interface DiaryResponse {
   id: number;
@@ -30,6 +30,7 @@ const DiaryDetail = () => {
       getDiary(diaryId)
         .then((data) => {
           setDiary(data);
+          setAiComment(data.comment);
           setLoading(false);
         })
         .catch((err) => {
@@ -39,14 +40,6 @@ const DiaryDetail = () => {
         });
     }
   }, [diaryId]);
-
-  useEffect(() => {
-    if (diary) {
-      generateAIComment(diary.content, diary.title)
-        .then((comment) => setAiComment(comment))
-        .catch(() => setAiComment("AI 코멘트를 생성하는 데 실패했습니다."));
-    }
-  }, [diary]);
 
   const [starred, setStarred] = useState(false);
 
@@ -96,24 +89,26 @@ const DiaryDetail = () => {
 
         <Content>{diary.content}</Content>
 
-        <CommentTitle>AI 친구의 코멘트</CommentTitle>
-        <CommentCard>
-          <CharacterRow>
-            <CharacterImg
-              src={`/images/characters/${diary.character}.png`}
-              alt={diary.character}
-            />
-            <CharacterName>{diary.character}</CharacterName>
-            {starred ? (
-              <StarIconFill onClick={() => setStarred(false)} />
-            ) : (
-              <StarIcon onClick={() => setStarred(true)} />
-            )}
-          </CharacterRow>
-          <CommentText>
-            {aiComment || "AI 코멘트를 생성 중입니다..."}
-          </CommentText>
-        </CommentCard>
+        {aiComment !== null && (
+          <>
+            <CommentTitle>AI 친구의 코멘트</CommentTitle>
+            <CommentCard>
+              <CharacterRow>
+                <CharacterImg
+                  src={`/images/characters/${diary.character}.png`}
+                  alt={diary.character}
+                />
+                <CharacterName>{diary.character}</CharacterName>
+                {starred ? (
+                  <StarIconFill onClick={() => setStarred(false)} />
+                ) : (
+                  <StarIcon onClick={() => setStarred(true)} />
+                )}
+              </CharacterRow>
+              <CommentText>{aiComment}</CommentText>
+            </CommentCard>
+          </>
+        )}
       </Body>
     </Container>
   );
@@ -151,7 +146,7 @@ const HomeIcon = styled(IoHomeOutline)`
   color: #1e2a52;
 `;
 
-const TrashIcon = styled(IoTrashBinOutline)`
+const TrashIcon = styled(GoTrash)`
   position: absolute;
   top: 50%;
   right: 56px;
