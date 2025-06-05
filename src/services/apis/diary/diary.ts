@@ -52,3 +52,14 @@ export async function putDiary(
     throw error;
   }
 }
+
+export async function getComment(diaryId: string) {
+  try {
+    const response = await axiosInstanceWithToken.get(
+      `/api/comment/diary?diaryId=${diaryId}`,
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

@@ -29,7 +29,7 @@ const HashtagDetail = () => {
 
   useEffect(() => {
     if (name && hashtags.length > 0) {
-      const index = hashtags.findIndex(tag => tag.HashTagName === name);
+      const index = hashtags.findIndex((tag) => tag.HashTagName === name);
       if (index !== -1) {
         setCurrentIndex(index);
       }
@@ -65,7 +65,7 @@ const HashtagDetail = () => {
   return (
     <Body>
       <Header
-        characterList={hashtags.map(tag => tag.HashTagName)}
+        characterList={hashtags.map((tag) => tag.HashTagName)}
         currentIndex={currentIndex}
         setCurrentIndex={setCurrentIndex}
       />
