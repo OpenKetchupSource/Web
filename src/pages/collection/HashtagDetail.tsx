@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "../../components/diary/Header";
 import { Body } from "../DiaryDetail";
-import DiaryList from "../../components/home/DiaryList";
-import { getHashtag, getHashtags } from "../../services/apis/hashtag/hashtag";
+import { getHashtags } from "../../services/apis/hashtag/hashtag";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 interface Hashtag {
