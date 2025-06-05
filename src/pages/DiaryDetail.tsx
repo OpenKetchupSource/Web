@@ -3,8 +3,9 @@ import { IoHomeOutline } from "react-icons/io5";
 import { BsPencil, BsStar, BsStarFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { delDiary, getDiary } from "../services/apis/diary/diary";
+import { delDiary, getDiary, postComment } from "../services/apis/diary/diary";
 import { GoTrash } from "react-icons/go";
+import { postCommentCol } from "../services/apis/collection/collection";
 
 interface DiaryResponse {
   id: number;
@@ -12,6 +13,7 @@ interface DiaryResponse {
   title: string;
   content: string;
   comment: string;
+  commentId: string;
   character: string;
   hashTags: string[];
 }
@@ -100,9 +102,34 @@ const DiaryDetail = () => {
                 />
                 <CharacterName>{diary.character}</CharacterName>
                 {starred ? (
-                  <StarIconFill onClick={() => setStarred(false)} />
+                  <StarIconFill
+                    onClick={async () => {
+                      setStarred(false);
+                      setStarred(true);
+                      try {
+                        if (diary?.commentId) {
+                          await postCommentCol(diary.commentId);
+                        }
+                      } catch (err) {
+                        console.error("코멘트 저장 실패:", err);
+                        alert("코멘트를 저장하는 데 실패했습니다.");
+                      }
+                    }}
+                  />
                 ) : (
-                  <StarIcon onClick={() => setStarred(true)} />
+                  <StarIcon
+                    onClick={async () => {
+                      setStarred(true);
+                      try {
+                        if (diary?.commentId) {
+                          await postCommentCol(diary.commentId);
+                        }
+                      } catch (err) {
+                        console.error("코멘트 저장 실패:", err);
+                        alert("코멘트를 저장하는 데 실패했습니다.");
+                      }
+                    }}
+                  />
                 )}
               </CharacterRow>
               <CommentText>{aiComment}</CommentText>
