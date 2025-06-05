@@ -8,7 +8,7 @@ export const sendMessageToGPT = async (message: string) => {
     const response = await axios.post(
       API_URL,
       {
-        model: "gpt-3.5-turbo",
+        model: "gpt-4-turbo",
         messages: [{ role: "user", content: message }],
       },
       {
@@ -50,7 +50,7 @@ AI 코멘트:
     const response = await axios.post(
       API_URL,
       {
-        model: "gpt-3.5-turbo",
+        model: "gpt-4-turbo",
         messages: [{ role: "user", content: prompt }],
       },
       {
@@ -73,8 +73,8 @@ export const generateAngAIComment = async (
   title: string,
 ): Promise<string> => {
   const prompt = `
-너는 따뜻하고 공감 능력이 뛰어난 AI 친구야. 사용자가 작성한 아래의 일기를 읽고,
-부드럽고 진심 어린 말투 반말로 짧은 코멘트를 작성해줘.
+너는 화가 많고 공감 능력이 뛰어난 AI 친구야. 사용자가 작성한 아래의 일기를 읽고,
+속상한 사용자를 위해 같이 화를 내줘.
 
 제목: ${title}
 내용: ${content}
@@ -86,7 +86,7 @@ AI 코멘트:
     const response = await axios.post(
       API_URL,
       {
-        model: "gpt-3.5-turbo",
+        model: "gpt-4-turbo",
         messages: [{ role: "user", content: prompt }],
       },
       {
@@ -109,8 +109,8 @@ export const generateTeeAIComment = async (
   title: string,
 ): Promise<string> => {
   const prompt = `
-너는 따뜻하고 공감 능력이 뛰어난 AI 친구야. 사용자가 작성한 아래의 일기를 읽고,
-부드럽고 진심 어린 말투 반말로 짧은 코멘트를 작성해줘.
+너는 냉철한 AI 친구야. 사용자가 작성한 아래의 일기를 읽고,
+해결 방법을 제시해줘.
 
 제목: ${title}
 내용: ${content}

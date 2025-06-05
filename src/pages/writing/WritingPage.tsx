@@ -5,12 +5,13 @@ import { IoHomeOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { postWritingDiary } from "../../services/apis/diary/writing";
 import { useSettingStore } from "../../services/zustand/setting";
+import { generateAngAIComment, generateOongAIComment, generateTeeAIComment } from "../../services/gpt/openai";
 
 const WritingPage = () => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [content, setContent] = useState("");
-  const { selectedDate } = useSettingStore();
+  const { selectedDate, selectedCharacter } = useSettingStore();
   const navigate = useNavigate();
 
   // 날짜 포맷 처리
@@ -38,13 +39,14 @@ const WritingPage = () => {
     }
     const confirmed = window.confirm("작성을 종료하시겠습니까?");
     if (!confirmed) return;
+    await generateAIComment(selectedCharacter ?? "앙글이");
     try {
       const response = await postWritingDiary({
         date: formattedDate,
         title,
         content,
         hashtag: tags,
-        character: "앙글이",
+        character: selectedCharacter ?? "앙글이",
       });
 
       navigate(`/diary/${response.data.id}`);
@@ -53,6 +55,29 @@ const WritingPage = () => {
       alert("일기 저장 중 오류가 발생했습니다.");
     }
   };
+
+const generateAIComment = async (character: string) => {
+  try {
+    switch (character) {
+      case "웅이":
+        await generateOongAIComment(content, title);
+        break;
+      case "앙글이":
+        await generateAngAIComment(content, title);
+        break;
+      case "티바노":
+        await generateTeeAIComment(content, title);
+        break;
+      default:
+        console.warn("알 수 없는 캐릭터입니다. 기본 캐릭터를 사용합니다.");
+        await generateOongAIComment(content, title);
+        break;
+    }
+  } catch (err) {
+    console.error("AI 코멘트 생성 실패:", err);
+  }
+};
+
 
   return (
     <Container>
