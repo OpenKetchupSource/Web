@@ -23,7 +23,7 @@ const DiaryDetail = () => {
   const [diary, setDiary] = useState<DiaryResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  // const [aiComment, setAiComment] = useState<string | null>(null);
+  const [aiComment, setAiComment] = useState<string | null>(null);
 
   useEffect(() => {
     if (diaryId) {
