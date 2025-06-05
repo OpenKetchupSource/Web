@@ -53,18 +53,19 @@ export async function putDiary(
   }
 }
 
-export async function postComment(diaryId: string, comment: string, characterId: string) {
+export async function postComment(
+  diaryId: string,
+  comment: string,
+  characterId: string,
+) {
   try {
-    const response = await axiosInstanceWithToken.get(
-      `/api/comment/diary`,
-      {
-        params: {
-          diaryId: diaryId,
-          comment: comment,
-          characterId: characterId,
-        },
-      }
-    );
+    const response = await axiosInstanceWithToken.get(`/api/comment/diary`, {
+      params: {
+        diaryId: diaryId,
+        comment: comment,
+        characterId: characterId,
+      },
+    });
     return response.data;
   } catch (error) {
     throw error;

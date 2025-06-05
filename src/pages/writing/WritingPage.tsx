@@ -5,7 +5,12 @@ import { IoHomeOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { postWritingDiary } from "../../services/apis/diary/writing";
 import { useSettingStore } from "../../services/zustand/setting";
-import { generateAngAIComment, generateOongAIComment, generateTeeAIComment } from "../../services/gpt/openai";
+import {
+  generateAngAIComment,
+  generateOongAIComment,
+  generateTeeAIComment,
+} from "../../services/gpt/openai";
+import { postComment } from "../../services/apis/diary/diary";
 
 const WritingPage = () => {
   const [title, setTitle] = useState("");
@@ -37,9 +42,10 @@ const WritingPage = () => {
       alert("모든 항목을 입력해주세요.");
       return;
     }
+
     const confirmed = window.confirm("작성을 종료하시겠습니까?");
     if (!confirmed) return;
-    await generateAIComment(selectedCharacter ?? "앙글이");
+
     try {
       const response = await postWritingDiary({
         date: formattedDate,
@@ -49,32 +55,49 @@ const WritingPage = () => {
         character: selectedCharacter ?? "앙글이",
       });
 
-      navigate(`/diary/${response.data.id}`);
+      const diaryId = response.data.id;
+
+      const aiComment = await generateAIComment(selectedCharacter ?? "앙글이");
+
+      if (aiComment) {
+        const characterMap = {
+          앙글이: "1",
+          웅이: "2",
+          티바노: "3",
+        } as const;
+
+        // 여기에서 selectedCharacter는 string이므로 타입 단언 필요
+        const characterId =
+          characterMap[selectedCharacter as keyof typeof characterMap];
+
+        await postComment(diaryId, aiComment, characterId);
+      }
+
+      navigate(`/diary/${diaryId}`);
     } catch (error) {
       console.error("일기 저장 실패:", error);
       alert("일기 저장 중 오류가 발생했습니다.");
     }
   };
 
-const generateAIComment = async (character: string): Promise<string> => {
-  try {
-    switch (character) {
-      case "웅이":
-        return await generateOongAIComment(content, title);
-      case "앙글이":
-        return await generateAngAIComment(content, title);
-      case "티바노":
-        return await generateTeeAIComment(content, title);
-      default:
-        console.warn("알 수 없는 캐릭터입니다. 기본 캐릭터를 사용합니다.");
-        return await generateOongAIComment(content, title);
+  const generateAIComment = async (character: string): Promise<string> => {
+    try {
+      switch (character) {
+        case "웅이":
+          return await generateOongAIComment(content, title);
+        case "앙글이":
+          return await generateAngAIComment(content, title);
+        case "티바노":
+          return await generateTeeAIComment(content, title);
+        default:
+          console.warn("알 수 없는 캐릭터입니다. 기본 캐릭터를 사용합니다.");
+          return await generateOongAIComment(content, title);
+      }
+    } catch (err) {
+      console.error("AI 코멘트 생성 실패:", err);
+      return "";
     }
-  } catch (err) {
-    console.error("AI 코멘트 생성 실패:", err);
-    return "";
-  }
-};
-
+  };
 
   return (
     <Container>

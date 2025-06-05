@@ -28,7 +28,8 @@ const characters = [
 ];
 
 const SettingPage: React.FC = () => {
-  const { selectedDate, setDate, selectedCharacter, setCharacter } = useSettingStore();
+  const { selectedDate, setDate, selectedCharacter, setCharacter } =
+    useSettingStore();
   const [, setChatId] = useState();
   const navigate = useNavigate();
   const [step, setStep] = useState<"date" | "character">("date");
@@ -75,7 +76,9 @@ const SettingPage: React.FC = () => {
       return;
     }
 
-    const selectedChar = characters.find((char) => char.name === selectedCharacter);
+    const selectedChar = characters.find(
+      (char) => char.name === selectedCharacter,
+    );
     if (!selectedChar) {
       alert("유효하지 않은 캐릭터입니다.");
       return;
@@ -148,7 +151,10 @@ const SettingPage: React.FC = () => {
                 {characters.find((c) => c.name === selectedCharacter)?.name}
               </CharacterName>
               <p>
-                {characters.find((c) => c.name === selectedCharacter)?.description}
+                {
+                  characters.find((c) => c.name === selectedCharacter)
+                    ?.description
+                }
               </p>
             </CharacterDetail>
           )}
