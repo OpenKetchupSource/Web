@@ -2,51 +2,70 @@ import { useEffect, useState } from "react";
 import Header from "../../components/diary/Header";
 import { Body } from "../DiaryDetail";
 import DiaryList from "../../components/home/DiaryList";
-import { getHashtags } from "../../services/apis/hashtag/hashtag";
-import { useParams, useNavigate } from "react-router-dom";
+import { getHashtag, getHashtags } from "../../services/apis/hashtag/hashtag";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+
+interface Hashtag {
+  HashTagId: string;
+  HashTagName: string;
+}
 
 const HashtagDetail = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { name } = useParams<{ name: string }>();
   const navigate = useNavigate();
-  const [hashtags, setHashtags] = useState<string[]>([]);
+  const location = useLocation(); // 👈 현재 경로 확인용
+  const [hashtags, setHashtags] = useState<Hashtag[]>([]);
 
-  // 해시태그 목록 가져오기
   useEffect(() => {
     getHashtags()
       .then((response) => {
-        const hashtagNames = response.data.map((tag: { HashTagName: string }) => tag.HashTagName);
-        setHashtags(hashtagNames);
+        setHashtags(response.data);
       })
       .catch((error) => {
         console.error("해시태그 목록 불러오기 실패:", error);
       });
   }, []);
 
-  // URL 파라미터(name)가 바뀌었을 때 currentIndex 업데이트
   useEffect(() => {
     if (name && hashtags.length > 0) {
-      const index = hashtags.indexOf(name);
+      const index = hashtags.findIndex(tag => tag.HashTagName === name);
       if (index !== -1) {
         setCurrentIndex(index);
       }
     }
   }, [name, hashtags]);
 
-  // currentIndex가 바뀌면 URL도 변경
   useEffect(() => {
-    if (hashtags.length > 0) {
-      const newName = hashtags[currentIndex];
-      if (newName && name !== newName) {
-       navigate(`/hashtag/${newName}`, { replace: true });
-      }
+    if (hashtags.length === 0) return;
+
+    const newName = hashtags[currentIndex]?.HashTagName;
+    const newPath = `/hashtag/${newName}`;
+
+    if (newName && location.pathname !== newPath) {
+      navigate(newPath, { replace: true });
     }
-  }, [currentIndex]);
+  }, [currentIndex, hashtags, location.pathname, navigate]); // 👈 location.pathname 의존성 추가
+
+  useEffect(() => {
+    if (!name || hashtags.length === 0) return;
+
+    const tag = hashtags.find(tag => tag.HashTagName === name);
+    if (tag) {
+      getHashtag(tag.HashTagId)
+        .then((response) => {
+          console.log("해시태그 데이터:", response.data);
+        })
+        .catch((error) => {
+          console.error("해시태그 데이터 불러오기 실패:", error);
+        });
+    }
+  }, [name, hashtags]);
 
   return (
     <Body>
       <Header
-        characterList={hashtags}
+        characterList={hashtags.map(tag => tag.HashTagName)}
         currentIndex={currentIndex}
         setCurrentIndex={setCurrentIndex}
       />
