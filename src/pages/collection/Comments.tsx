@@ -12,20 +12,14 @@ import {
 import Header from "../../components/diary/Header";
 import { getComments } from "../../services/apis/collection/collection";
 
-const dummyComments = [
-  "오랜만에 영화관에서 좋은 시간 보냈다니 내가 다 기쁘다! 너의 여유로운 하루가 참 따뜻하게 느껴져 :)",
-  "오늘 하루도 수고 많았어! 너의 일상이 더 행복해지길 바랄게.",
-  "새로운 도전을 했다는 말에 나도 힘이 나! 계속 응원할게 :)",
-];
-
 const characterList = ["앙글이","웅이","티바노"];
 
 const Comments = () => {
-  const [starred, setStarred] = useState<boolean[]>(
-    new Array(dummyComments.length).fill(false),
-  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [comments, setComments] = useState<string[]>([]);
+    const [starred, setStarred] = useState<boolean[]>(
+    new Array(comments.length).fill(false),
+  );
 
   useEffect(() => {
     getComments((currentIndex+1).toString())
