@@ -32,7 +32,7 @@ const Hashtags = () => {
         {hashtags.map((tag) => (
           <Tag
             key={tag.HashTagId}
-            onClick={() => navigate(`/hashtag/${tag.HashTagId}`)}
+            onClick={() => navigate(`/hashtag/${tag.HashTagName}`)}
           >
             #{tag.HashTagName}
           </Tag>
