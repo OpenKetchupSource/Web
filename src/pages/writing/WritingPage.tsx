@@ -56,25 +56,22 @@ const WritingPage = () => {
     }
   };
 
-const generateAIComment = async (character: string) => {
+const generateAIComment = async (character: string): Promise<string> => {
   try {
     switch (character) {
       case "웅이":
-        await generateOongAIComment(content, title);
-        break;
+        return await generateOongAIComment(content, title);
       case "앙글이":
-        await generateAngAIComment(content, title);
-        break;
+        return await generateAngAIComment(content, title);
       case "티바노":
-        await generateTeeAIComment(content, title);
-        break;
+        return await generateTeeAIComment(content, title);
       default:
         console.warn("알 수 없는 캐릭터입니다. 기본 캐릭터를 사용합니다.");
-        await generateOongAIComment(content, title);
-        break;
+        return await generateOongAIComment(content, title);
     }
   } catch (err) {
     console.error("AI 코멘트 생성 실패:", err);
+    return "";
   }
 };
 
