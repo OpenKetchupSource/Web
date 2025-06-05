@@ -56,7 +56,7 @@ export async function putDiary(
 export async function postComment(
   diaryId: string,
   comment: string,
-  characterId: string
+  characterId: number | string,
 ) {
   try {
     const response = await axiosInstanceWithToken.post(
@@ -64,7 +64,7 @@ export async function postComment(
       {
         comment,
         characterId,
-      }
+      },
     );
     return response.data;
   } catch (error) {
