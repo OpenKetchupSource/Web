@@ -25,11 +25,13 @@ const Comments = () => {
     new Array(dummyComments.length).fill(false),
   );
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [comments, setComments] = useState<string[]>([]);
 
   useEffect(() => {
     getComments((currentIndex+1).toString())
       .then((response) => {
-        const comments = response.data.comments;
+        const comments = response.data.result;
+        setComments(comments);
         setStarred(new Array(comments.length).fill(false));
       })
       .catch((error) => {
@@ -46,7 +48,7 @@ const Comments = () => {
       />
 
       <div>즐겨찾기 한 코멘트 목록</div>
-      {dummyComments.map((comment, index) => (
+      {comments.map((comment, index) => (
         <CommentCard key={index}>
           <CharacterRow>
             <CharacterImg src={`/images/characters/웅이.png`} alt="웅이" />
