@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Body,
   CharacterImg,
@@ -6,24 +6,55 @@ import {
   CharacterRow,
   CommentCard,
   CommentText,
-  StarIcon,
   StarIconFill,
 } from "../DiaryDetail";
 import Header from "../../components/diary/Header";
+import {
+  getComments,
+  postCommentCol,
+} from "../../services/apis/collection/collection";
 
-const dummyComments = [
-  "오랜만에 영화관에서 좋은 시간 보냈다니 내가 다 기쁘다! 너의 여유로운 하루가 참 따뜻하게 느껴져 :)",
-  "오늘 하루도 수고 많았어! 너의 일상이 더 행복해지길 바랄게.",
-  "새로운 도전을 했다는 말에 나도 힘이 나! 계속 응원할게 :)",
-];
+const characterList = ["앙글이", "웅이", "티바노"];
 
-const characterList = ["웅이", "앙글이", "티바노"];
+interface CommentItem {
+  id: string;
+  context: string;
+  character: string;
+}
 
 const Comments = () => {
-  const [starred, setStarred] = useState<boolean[]>(
-    new Array(dummyComments.length).fill(false),
-  );
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [comments, setComments] = useState<CommentItem[]>([]);
+  const [starred, setStarred] = useState<boolean[]>([]);
+
+  useEffect(() => {
+    getComments((currentIndex + 1).toString())
+      .then((response) => {
+        const commentList: CommentItem[] = response.data.result;
+        setComments(commentList);
+        setStarred(new Array(commentList.length).fill(false));
+      })
+      .catch((error) => {
+        console.error("코멘트 가져오기 실패:", error);
+      });
+  }, [currentIndex]);
+
+  const handleStarClick = async (index: number, id: string) => {
+    try {
+      await postCommentCol(id);
+
+      // 코멘트 목록에서 해당 항목 제거
+      const newComments = comments.filter((_, i) => i !== index);
+      setComments(newComments);
+
+      // 별 상태도 함께 갱신
+      const newStars = starred.filter((_, i) => i !== index);
+      setStarred(newStars);
+    } catch (error) {
+      console.error("즐겨찾기 실패:", error);
+      alert("즐겨찾기 저장에 실패했습니다.");
+    }
+  };
 
   return (
     <Body>
@@ -34,30 +65,19 @@ const Comments = () => {
       />
 
       <div>즐겨찾기 한 코멘트 목록</div>
-      {dummyComments.map((comment, index) => (
-        <CommentCard key={index}>
+      {comments.map((commentItem, index) => (
+        <CommentCard key={commentItem.id}>
           <CharacterRow>
-            <CharacterImg src={`/images/characters/웅이.png`} alt="웅이" />
-            <CharacterName>웅이</CharacterName>
-            {starred[index] ? (
-              <StarIconFill
-                onClick={() => {
-                  const newStars = [...starred];
-                  newStars[index] = false;
-                  setStarred(newStars);
-                }}
-              />
-            ) : (
-              <StarIcon
-                onClick={() => {
-                  const newStars = [...starred];
-                  newStars[index] = true;
-                  setStarred(newStars);
-                }}
-              />
-            )}
+            <CharacterImg
+              src={`/images/characters/${commentItem.character}.png`}
+              alt={commentItem.character}
+            />
+            <CharacterName>{commentItem.character}</CharacterName>
+            <StarIconFill
+              onClick={handleStarClick.bind(null, index, commentItem.id)}
+            />
           </CharacterRow>
-          <CommentText>{comment}</CommentText>
+          <CommentText>{commentItem.context}</CommentText>
         </CommentCard>
       ))}
     </Body>
