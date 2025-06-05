@@ -100,9 +100,9 @@ const WritingPage = () => {
     try {
       switch (character) {
         case 1:
-          return await generateOongAIComment(content, title);
-        case 2:
           return await generateAngAIComment(content, title);
+        case 2:
+          return await generateOongAIComment(content, title);
         case 3:
           return await generateTeeAIComment(content, title);
         default:
