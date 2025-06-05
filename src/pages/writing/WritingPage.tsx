@@ -100,14 +100,14 @@ const WritingPage = () => {
     try {
       switch (character) {
         case 1:
-          return await generateAngAIComment(content, title);
+          return await generateAngAIComment(content, title, tags);
         case 2:
-          return await generateOongAIComment(content, title);
+          return await generateOongAIComment(content, title, tags);
         case 3:
-          return await generateTeeAIComment(content, title);
+          return await generateTeeAIComment(content, title, tags);
         default:
           console.warn("알 수 없는 캐릭터입니다. 기본 캐릭터를 사용합니다.");
-          return await generateOongAIComment(content, title);
+          return await generateOongAIComment(content, title, tags);
       }
     } catch (err) {
       console.error("AI 코멘트 생성 실패:", err);
