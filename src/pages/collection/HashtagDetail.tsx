@@ -47,20 +47,20 @@ const HashtagDetail = () => {
     }
   }, [currentIndex, hashtags, location.pathname, navigate]); // location.pathname 의존성 추가
 
-  useEffect(() => {
-    if (!name || hashtags.length === 0) return;
+  // useEffect(() => {
+  //   if (!name || hashtags.length === 0) return;
 
-    const tag = hashtags.find(tag => tag.HashTagName === name);
-    if (tag) {
-      getHashtag(tag.HashTagId)
-        .then((response) => {
-          console.log("해시태그 데이터:", response.data);
-        })
-        .catch((error) => {
-          console.error("해시태그 데이터 불러오기 실패:", error);
-        });
-    }
-  }, [name, hashtags]);
+  //   const tag = hashtags.find(tag => tag.HashTagName === name);
+  //   if (tag) {
+  //     getHashtag(tag.HashTagId)
+  //       .then((response) => {
+  //         console.log("해시태그 데이터:", response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.error("해시태그 데이터 불러오기 실패:", error);
+  //       });
+  //   }
+  // }, [name, hashtags]);
 
   return (
     <Body>
@@ -69,7 +69,8 @@ const HashtagDetail = () => {
         currentIndex={currentIndex}
         setCurrentIndex={setCurrentIndex}
       />
-      <DiaryList />
+      {/* <DiaryList /> */}
+      <div>해시태그별 불러오기 기능은 준비 중입니다</div>
     </Body>
   );
 };
