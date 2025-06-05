@@ -9,7 +9,10 @@ import {
   StarIconFill,
 } from "../DiaryDetail";
 import Header from "../../components/diary/Header";
-import { getComments, postCommentCol } from "../../services/apis/collection/collection";
+import {
+  getComments,
+  postCommentCol,
+} from "../../services/apis/collection/collection";
 
 const characterList = ["앙글이", "웅이", "티바노"];
 
@@ -36,22 +39,22 @@ const Comments = () => {
       });
   }, [currentIndex]);
 
-const handleStarClick = async (index: number, id: string) => {
-  try {
-    await postCommentCol(id);
-    
-    // 코멘트 목록에서 해당 항목 제거
-    const newComments = comments.filter((_, i) => i !== index);
-    setComments(newComments);
+  const handleStarClick = async (index: number, id: string) => {
+    try {
+      await postCommentCol(id);
 
-    // 별 상태도 함께 갱신
-    const newStars = starred.filter((_, i) => i !== index);
-    setStarred(newStars);
-  } catch (error) {
-    console.error("즐겨찾기 실패:", error);
-    alert("즐겨찾기 저장에 실패했습니다.");
-  }
-};
+      // 코멘트 목록에서 해당 항목 제거
+      const newComments = comments.filter((_, i) => i !== index);
+      setComments(newComments);
+
+      // 별 상태도 함께 갱신
+      const newStars = starred.filter((_, i) => i !== index);
+      setStarred(newStars);
+    } catch (error) {
+      console.error("즐겨찾기 실패:", error);
+      alert("즐겨찾기 저장에 실패했습니다.");
+    }
+  };
 
   return (
     <Body>
@@ -70,9 +73,9 @@ const handleStarClick = async (index: number, id: string) => {
               alt={commentItem.character}
             />
             <CharacterName>{commentItem.character}</CharacterName>
-              <StarIconFill
-                onClick={handleStarClick.bind(null, index, commentItem.id)}
-              />
+            <StarIconFill
+              onClick={handleStarClick.bind(null, index, commentItem.id)}
+            />
           </CharacterRow>
           <CommentText>{commentItem.context}</CommentText>
         </CommentCard>
