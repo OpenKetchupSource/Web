@@ -106,11 +106,10 @@ const DiaryDetail = () => {
                 {starred ? (
                   <StarIconFill
                     onClick={async () => {
-                      setStarred(false);
-                      setStarred(true);
                       try {
                         if (diary?.commentId) {
                           await postCommentCol(diary.commentId);
+                          setStarred(true); // 이미 저장됨 상태
                         }
                       } catch (err) {
                         console.error("코멘트 저장 실패:", err);
@@ -121,10 +120,10 @@ const DiaryDetail = () => {
                 ) : (
                   <StarIcon
                     onClick={async () => {
-                      setStarred(true);
                       try {
                         if (diary?.commentId) {
                           await postCommentCol(diary.commentId);
+                          setStarred(true); // 저장됨으로 변경
                         }
                       } catch (err) {
                         console.error("코멘트 저장 실패:", err);
