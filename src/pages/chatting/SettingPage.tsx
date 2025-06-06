@@ -139,7 +139,11 @@ const SettingPage: React.FC = () => {
                     width: "130px",
                     height: "130px",
                     objectFit: "contain",
-                    marginBottom: "-0.5rem",
+                    backgroundColor: "transparent",
+                    filter:
+                      selectedCharacter === char.name
+                        ? "drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.5))"
+                        : "none",
                   }}
                 />
               </CharacterCard>
@@ -228,8 +232,6 @@ export const CharacterList = styled.div`
 export const CharacterCard = styled.div<{ selected: boolean }>`
   width: 80%;
   cursor: pointer;
-  border: 2px solid ${({ selected }) => (selected ? "#9FACBA" : "unset")};
-  border-radius: 0.375rem;
   text-align: center;
 `;
 
