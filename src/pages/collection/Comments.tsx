@@ -13,6 +13,7 @@ import {
   getComments,
   postCommentCol,
 } from "../../services/apis/collection/collection";
+import styled from "styled-components";
 
 const characterList = ["앙글이", "웅이", "티바노"];
 
@@ -20,12 +21,18 @@ interface CommentItem {
   id: string;
   context: string;
   character: string;
+  date: string;
 }
 
 const Comments = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [comments, setComments] = useState<CommentItem[]>([]);
   const [starred, setStarred] = useState<boolean[]>([]);
+
+  const formatDate = (rawDate: string) => {
+    const date = new Date(rawDate);
+    return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}.`;
+  };
 
   useEffect(() => {
     getComments((currentIndex + 1).toString())
@@ -73,10 +80,12 @@ const Comments = () => {
               alt={commentItem.character}
             />
             <CharacterName>{commentItem.character}</CharacterName>
+            <CommentDate>{formatDate(commentItem.date)}</CommentDate>
             <StarIconFill
               onClick={handleStarClick.bind(null, index, commentItem.id)}
             />
           </CharacterRow>
+
           <CommentText>{commentItem.context}</CommentText>
         </CommentCard>
       ))}
@@ -85,3 +94,9 @@ const Comments = () => {
 };
 
 export default Comments;
+
+const CommentDate = styled.div`
+  font-size: 14px;
+  color: #6d7ea0;
+  margin-left: 8px;
+`;

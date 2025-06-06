@@ -155,6 +155,7 @@ const InputArea = styled.div`
 `;
 
 const TextInput = styled.input`
+  font-family: "Gowun Dodum", sans-serif;
   flex: 1;
   font-size: 1.3rem;
   color: #5e6b7c;
