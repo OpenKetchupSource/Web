@@ -14,6 +14,7 @@ interface DiaryResponse {
   content: string;
   comment: string;
   commentId: string;
+  isStored: number;
   character: string;
   hashTags: string[];
 }
@@ -33,6 +34,7 @@ const DiaryDetail = () => {
         .then((data) => {
           setDiary(data);
           setAiComment(data.comment);
+          setStarred(data.isStored === 1);
           setLoading(false);
         })
         .catch((err) => {
