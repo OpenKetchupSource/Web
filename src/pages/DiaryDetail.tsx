@@ -115,6 +115,7 @@ const DiaryDetail = () => {
                         console.error("코멘트 저장 실패:", err);
                         alert("코멘트를 저장하는 데 실패했습니다.");
                       }
+                      setStarred(false);
                     }}
                   />
                 ) : (
