@@ -20,6 +20,7 @@ interface CommentItem {
   id: string;
   context: string;
   character: string;
+  date: string;
 }
 
 const Comments = () => {
