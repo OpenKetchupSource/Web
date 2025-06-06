@@ -4,6 +4,7 @@ import { useSettingStore } from "../../services/zustand/setting";
 import { useNavigate } from "react-router-dom";
 import { postCharacter } from "../../services/apis/chatting/chat";
 import CustomDatePicker from "../../components/CustomDatePicker";
+import { IoHomeOutline } from "react-icons/io5";
 
 const characters = [
   {
@@ -107,9 +108,7 @@ const SettingPage: React.FC = () => {
     <Container>
       {step === "date" && (
         <>
-          <HomeIcon onClick={() => navigate("/")}>
-            <img src="/images/home.png" alt="home" width={50} />
-          </HomeIcon>
+          <HomeIcon onClick={() => navigate("/")} />
           <Title>언제의 기록을 담고 싶나요?</Title>
           <CustomDatePicker value={localDate} onChange={handleDateChange} />
           <NextButton onClick={handleDateNext}>
@@ -120,9 +119,7 @@ const SettingPage: React.FC = () => {
 
       {step === "character" && (
         <>
-          <HomeIcon onClick={() => navigate("/")}>
-            <img src="/images/home.png" alt="home" width={50} />
-          </HomeIcon>
+          <HomeIcon onClick={() => navigate("/")} />
           <Title>
             {page === "writing"
               ? "누구와 일기를 공유하고 싶나요?"
@@ -187,10 +184,12 @@ export const Container = styled.div`
   width: 100%;
 `;
 
-export const HomeIcon = styled.div`
+export const HomeIcon = styled(IoHomeOutline)`
   position: absolute;
   top: 1rem;
   left: 1rem;
+  width: 25px;
+  height: 25px;
 `;
 
 export const Title = styled.h1`
