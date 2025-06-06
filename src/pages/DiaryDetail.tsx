@@ -14,6 +14,7 @@ interface DiaryResponse {
   content: string;
   comment: string;
   commentId: string;
+  isStored: number;
   character: string;
   hashTags: string[];
 }
@@ -33,6 +34,7 @@ const DiaryDetail = () => {
         .then((data) => {
           setDiary(data);
           setAiComment(data.comment);
+          setStarred(data.isStored === 1);
           setLoading(false);
         })
         .catch((err) => {
@@ -104,25 +106,25 @@ const DiaryDetail = () => {
                 {starred ? (
                   <StarIconFill
                     onClick={async () => {
-                      setStarred(false);
-                      setStarred(true);
                       try {
                         if (diary?.commentId) {
                           await postCommentCol(diary.commentId);
+                          setStarred(true); // 이미 저장됨 상태
                         }
                       } catch (err) {
                         console.error("코멘트 저장 실패:", err);
                         alert("코멘트를 저장하는 데 실패했습니다.");
                       }
+                      setStarred(false);
                     }}
                   />
                 ) : (
                   <StarIcon
                     onClick={async () => {
-                      setStarred(true);
                       try {
                         if (diary?.commentId) {
                           await postCommentCol(diary.commentId);
+                          setStarred(true); // 저장됨으로 변경
                         }
                       } catch (err) {
                         console.error("코멘트 저장 실패:", err);
