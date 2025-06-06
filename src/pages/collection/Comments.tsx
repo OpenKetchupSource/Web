@@ -97,6 +97,6 @@ export default Comments;
 
 const CommentDate = styled.div`
   font-size: 14px;
-  color: #6b7280;
+  color: #6d7ea0;
   margin-left: 8px;
 `;
