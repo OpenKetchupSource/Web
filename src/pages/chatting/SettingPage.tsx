@@ -142,7 +142,7 @@ const SettingPage: React.FC = () => {
                     backgroundColor: "transparent",
                     filter:
                       selectedCharacter === char.name
-                        ? "drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.5))"
+                        ? "drop-shadow(0px 4px 8px rgba(0, 2, 0, 0.5))"
                         : "none",
                   }}
                 />
