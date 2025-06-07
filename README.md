@@ -131,7 +131,7 @@ SWC는 JavaScript와 TypeScript를 매우 빠르게 트랜스파일(변환) 해�
 ## 📦 설치 및 실행
 
 ### 0. Github clone
-`git clone https://github.com/OpenKetchupSource/Web.git`
+`git clone https://github.com/OpenKetchupSource/Web.git` <br>
 `cd Web`
 
 ### 1. 의존성 설치
