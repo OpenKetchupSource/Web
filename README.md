@@ -30,7 +30,7 @@ AI 채팅을 통해 사용자의 하루와 감정을 섬세히 읽어내고, 사
 - 🛠️ **백엔드 테스트 URL**: [SoulMate API test 🧪](https://soulmate.o-r.kr/api/test)
 - 💻 **GitHub**:
   - 프론트엔드: [FE repo 👀](https://github.com/OpenKetchupSource/Web)
-  - 백엔드: [BE reop 👩🏻‍💻](https://github.com/OpenKetchupSource/Server)
+  - 백엔드: [BE repo 👩🏻‍💻](https://github.com/OpenKetchupSource/Server)
 - 📘 **Notion 문서**: [프로젝트 문서 바로가기](https://rainbow-uncle-f19.notion.site/1c4e29af6ad5806c903be9dfaa2a4152?pvs=74)
 
 ---
