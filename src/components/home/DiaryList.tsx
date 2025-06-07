@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getAllDiary } from "../../services/apis/diary/diary";
 import { useNavigate } from "react-router-dom";
+import { formatDate } from "../common/FormatDate";
 
 interface Diary {
   id: number;
@@ -38,7 +39,7 @@ const DiaryList = () => {
       <CardList>
         {diaries.map((diary) => (
           <Card key={diary.id} onClick={() => navigate(`/diary/${diary.id}`)}>
-            <DateText>{diary.date}</DateText>
+            <DateText>{formatDate(diary.date)}</DateText>
             <DiaryTitle>{diary.title}</DiaryTitle>
             <TagWrapper>
               {diary.hashTags.map((tag, i) => (
