@@ -140,3 +140,50 @@ SWC는 JavaScript와 TypeScript를 매우 빠르게 트랜스파일(변환) 해�
 
 ### 2. 개발 서버 실행
 `npm run dev`
+
+## 📜 사용 라이브러리 및 설정 요약
+### 🔧 주요 의존성 (dependencies)
+`react, react-dom`: UI 구성
+
+`react-router-dom@v7`: 페이지 라우팅
+
+`zustand`: 전역 상태 관리
+
+`styled-components`: 컴포넌트 기반 CSS
+
+`axios`: API 통신
+
+`react-icons, react-mobile-picker`: UI 요소 보강
+
+### 🧪 개발용 의존성 (devDependencies)
+`vite`: 프론트엔드 번들링 툴
+
+`@vitejs/plugin-react-swc`: SWC 기반 React 플러그인
+
+`eslint, eslint-plugin-react-hooks, eslint-plugin-react-refresh`: 린팅 설정
+
+`typescript, typescript-eslint`: TS 지원 및 린팅
+
+`@types/*`: 타입 정의
+
+### 📂 주요 스크립트
+```
+"scripts": {
+  "dev": "vite",
+  "build": "tsc -b && vite build",
+  "lint": "eslint .",
+  "preview": "vite preview"
+}
+```
+| 명령어 |	설명 |
+| -- | -- |
+| npm run dev |	Vite 개발 서버 실행 | 
+| npm run build |	TypeScript 빌드 + 프로덕션 빌드 |
+| npm run lint |	ESLint로 코드 검사 |
+| npm run preview |	빌드 결과물 로컬에서 확인 |
+
+
+## 🪪 라이선스
+MIT License
+
+# Made with 💗 by OpenKetchupSource
