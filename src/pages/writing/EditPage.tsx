@@ -4,6 +4,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { IoHomeOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import { getDiary, putDiary } from "../../services/apis/diary/diary";
+import { formatDate } from "../../components/common/FormatDate";
 
 const EditPage = () => {
   const { diaryId } = useParams();
@@ -65,7 +66,7 @@ const EditPage = () => {
     <Container>
       <Header>
         <HomeIcon onClick={() => navigate("/")} />
-        <DateText>2025.05.01.</DateText>
+        <DateText>{formatDate(date)}</DateText>
         <ArrowIcon onClick={handleUpdate} />
       </Header>
       <Body>
