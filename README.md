@@ -26,11 +26,11 @@ AI 채팅을 통해 사용자의 하루와 감정을 섬세히 읽어내고, 사
 
 ## 🔗 Soulmate 관련 링크
 
-- 🔗 **프론트엔드 배포 URL**: [https://withsoulmate.netlify.app/](https://withsoulmate.netlify.app/)
-- 🛠️ **백엔드 테스트 URL**: [https://soulmate.o-r.kr/api/test](https://soulmate.o-r.kr/api/test)
+- 🔗 **프론트엔드 배포 URL**: [SoulMate 🧠💗](https://withsoulmate.netlify.app/)
+- 🛠️ **백엔드 테스트 URL**: [SoulMate API test 🧪](https://soulmate.o-r.kr/api/test)
 - 💻 **GitHub**:
-  - 프론트엔드: [https://github.com/OpenKetchupSource/Web](https://github.com/OpenKetchupSource/Web)
-  - 백엔드: [https://github.com/OpenKetchupSource/Server](https://github.com/OpenKetchupSource/Server)
+  - 프론트엔드: [FE repo 👀](https://github.com/OpenKetchupSource/Web)
+  - 백엔드: [BE reop 👩🏻‍💻](https://github.com/OpenKetchupSource/Server)
 - 📘 **Notion 문서**: [프로젝트 문서 바로가기](https://rainbow-uncle-f19.notion.site/1c4e29af6ad5806c903be9dfaa2a4152?pvs=74)
 
 ---
@@ -177,10 +177,10 @@ SWC는 JavaScript와 TypeScript를 매우 빠르게 트랜스파일(변환) 해�
 ```
 | 명령어 |	설명 |
 | -- | -- |
-| npm run dev |	Vite 개발 서버 실행 | 
-| npm run build |	TypeScript 빌드 + 프로덕션 빌드 |
-| npm run lint |	ESLint로 코드 검사 |
-| npm run preview |	빌드 결과물 로컬에서 확인 |
+| `npm run dev` |	Vite 개발 서버 실행 | 
+| `npm run build` |	TypeScript 빌드 + 프로덕션 빌드 |
+| `npm run lint` |	ESLint로 코드 검사 |
+| `npm run preview` |	빌드 결과물 로컬에서 확인 |
 
 
 ## 🪪 라이선스
