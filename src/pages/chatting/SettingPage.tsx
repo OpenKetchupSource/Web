@@ -11,7 +11,7 @@ const characters = [
     id: "1",
     name: "앙글이",
     description:
-      "앙글이는 늘 화가 나있지만, 화가 나는 상황에서 속이 뻥 뚫리게 같이 화를 내줄 수 있습니다!",
+      "앙글이는 화 나는 상황에서 같이 화를 내줍니다!",
     image: "/images/characters/앙글이.png",
   },
   {
