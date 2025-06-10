@@ -27,7 +27,7 @@ export const CreateAxiosInstanceWithToken = () => {
       (response) => response,
       (error) => {
         if (error.response?.status === 401 || error.response?.status === 403) {
-          // window.location.href = "/login";
+          window.location.href = "/login";
         }
         return Promise.reject(error);
       },
