@@ -13,7 +13,7 @@ export async function getHashtags() {
 
 export async function getHashtag(hashtag: string) {
   try {
-    const response = await axiosInstanceWithToken.post(
+    const response = await axiosInstanceWithToken.get(
       `/api/hashtag/name/${hashtag}`,
     );
     return response.data;

@@ -14,6 +14,7 @@ import {
   postCommentCol,
 } from "../../services/apis/collection/collection";
 import styled from "styled-components";
+import { formatDate } from "../../components/common/FormatDate";
 
 const characterList = ["앙글이", "웅이", "티바노"];
 
@@ -28,11 +29,6 @@ const Comments = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [comments, setComments] = useState<CommentItem[]>([]);
   const [starred, setStarred] = useState<boolean[]>([]);
-
-  const formatDate = (rawDate: string) => {
-    const date = new Date(rawDate);
-    return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}.`;
-  };
 
   useEffect(() => {
     getComments((currentIndex + 1).toString())
