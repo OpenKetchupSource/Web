@@ -76,8 +76,8 @@ const HashtagDetail = () => {
     if (tag) {
       getHashtag(tag.HashTagName)
         .then((response) => {
-          console.log("해시태그 데이터:", response);
-          setDiaries(response);  // response.data는 Diary[]
+          // console.log("해시태그 데이터:", response);
+          setDiaries(response); // response.data는 Diary[]
         })
         .catch((error) => {
           console.error("해시태그 데이터 불러오기 실패:", error);
