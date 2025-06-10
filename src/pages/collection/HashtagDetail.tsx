@@ -1,21 +1,41 @@
 import { useEffect, useState } from "react";
 import Header from "../../components/diary/Header";
 import { Body } from "../DiaryDetail";
-import { getHashtags } from "../../services/apis/hashtag/hashtag";
+import { getHashtag, getHashtags } from "../../services/apis/hashtag/hashtag";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
+import {
+  Card,
+  CardList,
+  Content,
+  DateText,
+  DiaryTitle,
+  Tag,
+  TagWrapper,
+} from "../../components/home/DiaryList";
+import { formatDate } from "../../components/common/FormatDate";
 
 interface Hashtag {
   HashTagId: string;
   HashTagName: string;
 }
 
+interface Diary {
+  id: number;
+  title: string;
+  content: string;
+  date: string;
+  hashTags: string[];
+}
+
 const HashtagDetail = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { name } = useParams<{ name: string }>();
   const navigate = useNavigate();
-  const location = useLocation(); // 현재 경로 확인용
+  const location = useLocation();
   const [hashtags, setHashtags] = useState<Hashtag[]>([]);
+  const [diaries, setDiaries] = useState<Diary[]>([]);
 
+  // 해시태그 목록 불러오기
   useEffect(() => {
     getHashtags()
       .then((response) => {
@@ -26,6 +46,7 @@ const HashtagDetail = () => {
       });
   }, []);
 
+  // URL 파라미터 기준으로 인덱스 설정
   useEffect(() => {
     if (name && hashtags.length > 0) {
       const index = hashtags.findIndex((tag) => tag.HashTagName === name);
@@ -35,6 +56,7 @@ const HashtagDetail = () => {
     }
   }, [name, hashtags]);
 
+  // 인덱스 변경 시 URL 동기화
   useEffect(() => {
     if (hashtags.length === 0) return;
 
@@ -44,22 +66,25 @@ const HashtagDetail = () => {
     if (newName && location.pathname !== newPath) {
       navigate(newPath, { replace: true });
     }
-  }, [currentIndex, hashtags, location.pathname, navigate]); // location.pathname 의존성 추가
+  }, [currentIndex]);
 
-  // useEffect(() => {
-  //   if (!name || hashtags.length === 0) return;
+  // 해시태그에 해당하는 다이어리 목록 불러오기
+  useEffect(() => {
+    if (!name || hashtags.length === 0) return;
 
-  //   const tag = hashtags.find(tag => tag.HashTagName === name);
-  //   if (tag) {
-  //     getHashtag(tag.HashTagId)
-  //       .then((response) => {
-  //         console.log("해시태그 데이터:", response.data);
-  //       })
-  //       .catch((error) => {
-  //         console.error("해시태그 데이터 불러오기 실패:", error);
-  //       });
-  //   }
-  // }, [name, hashtags]);
+    const tag = hashtags.find((tag) => tag.HashTagName === name);
+    if (tag) {
+      getHashtag(tag.HashTagName)
+        .then((response) => {
+          console.log("해시태그 데이터:", response);
+          setDiaries(response);  // response.data는 Diary[]
+        })
+        .catch((error) => {
+          console.error("해시태그 데이터 불러오기 실패:", error);
+          setDiaries([]);
+        });
+    }
+  }, [name, hashtags]);
 
   return (
     <Body>
@@ -68,8 +93,20 @@ const HashtagDetail = () => {
         currentIndex={currentIndex}
         setCurrentIndex={setCurrentIndex}
       />
-      {/* <DiaryList /> */}
-      <div>해시태그별 불러오기 기능은 준비 중입니다</div>
+      <CardList>
+        {diaries.map((diary) => (
+          <Card key={diary.id} onClick={() => navigate(`/diary/${diary.id}`)}>
+            <DateText>{formatDate(diary.date)}</DateText>
+            <DiaryTitle>{diary.title}</DiaryTitle>
+            <TagWrapper>
+              {diary.hashTags.map((tag, i) => (
+                <Tag key={i}>#{tag}</Tag>
+              ))}
+            </TagWrapper>
+            <Content>{diary.content}</Content>
+          </Card>
+        ))}
+      </CardList>
     </Body>
   );
 };
