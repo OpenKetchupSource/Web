@@ -1,8 +1,9 @@
 import { IoHomeOutline } from "react-icons/io5";
-import { Body, Tag, TagBox } from "../DiaryDetail";
+import { Body, Tag } from "../DiaryDetail";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getHashtags } from "../../services/apis/hashtag/hashtag";
+import styled from "styled-components";
 
 interface Hashtag {
   HashTagId: number;
@@ -43,3 +44,14 @@ const Hashtags = () => {
 };
 
 export default Hashtags;
+
+export const TagBox = styled.div`
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  cursor: pointer;
+  & : hover {
+    background-color: #e0f2fe;
+    scale: 1.05;
+  }
+`;

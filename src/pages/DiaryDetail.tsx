@@ -212,11 +212,6 @@ export const TagBox = styled.div`
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  cursor: pointer;
-  & : hover {
-    background-color: #e0f2fe;
-    scale: 1.05;
-  }
 `;
 
 export const Tag = styled.span`
