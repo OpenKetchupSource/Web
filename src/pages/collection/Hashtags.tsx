@@ -63,5 +63,7 @@ export const Tag = styled.span`
     background: #bfdbfe;
     color: #1e3a8a;
   }
-  transition: background 0.3s, color 0.3s;
+  transition:
+    background 0.3s,
+    color 0.3s;
 `;
