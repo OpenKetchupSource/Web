@@ -132,20 +132,9 @@ SWC는 JavaScript와 TypeScript를 매우 빠르게 트랜스파일(변환) 해�
 
 ---
 
-## 📦 설치 및 실행
+## 📦 실행
 
-### 0. Github clone
-
-`git clone https://github.com/OpenKetchupSource/Web.git` <br>
-`cd Web`
-
-### 1. 의존성 설치
-
-`npm install`
-
-### 2. 개발 서버 실행
-
-`npm run dev`
+배포 URL : [https://soulmate.o-r.kr/api/test]
 
 ## 📜 사용 라이브러리 및 설정 요약
 

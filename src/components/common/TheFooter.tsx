@@ -45,7 +45,6 @@ const Buttons = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  // padding: 2%;
   height: 60px;
 `;
 
@@ -53,7 +52,13 @@ const Button = styled.button`
   background-color: #fafafa;
   color: #6a7282;
   border: none;
-  // padding: 2%;
   cursor: pointer;
   gap: 5%;
+  &:hover {
+    color: #1e2a52;
+    scale: 1.1;
+  }
+  &:active {
+    color: #1e2a52;
+  }
 `;
