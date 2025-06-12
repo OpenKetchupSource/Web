@@ -50,7 +50,7 @@ export const TagBox = styled.div`
   gap: 8px;
   flex-wrap: wrap;
   cursor: pointer;
-  & : hover {
+  &: hover {
     background-color: #e0f2fe;
     scale: 1.05;
   }

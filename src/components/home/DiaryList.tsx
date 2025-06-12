@@ -79,7 +79,9 @@ export const Card = styled.div`
   padding: 16px;
   overflow: hidden;
   cursor: pointer;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
   &:hover {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     transform: scale(1.03);
